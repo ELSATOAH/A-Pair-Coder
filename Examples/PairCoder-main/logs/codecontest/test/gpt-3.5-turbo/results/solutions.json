@@ -1,0 +1,1060 @@
+{
+    "test": {
+        "0": {
+            "iteration_0": {
+                "solution": "def compare_strings(a, b):\n    for i in range(len(a)):\n        if i % 2 == 0:\n            if a[i] < b[i]:\n                return -1\n            elif a[i] > b[i]:\n                return 1\n        else:\n            if a[i] > b[i]:\n                return -1\n            elif a[i] < b[i]:\n                return 1\n    return 0\n\ndef sort_books(n, m, books):\n    indices = list(range(1, n+1))\n    indices.sort(key=lambda x: books[x-1])\n    print(\" \".join(map(str, indices)))\n\nif __name__ == \"__main__\":\n    n, m = map(int, input().split())\n    books = [input().strip() for _ in range(n)]\n    sort_books(n, m, books)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "1": {
+            "iteration_0": {
+                "solution": "import math\nimport time\n\ndef dist(x, y):\n    return math.sqrt(x**2 + y**2)\n\ndef check(hab, r, k):\n    count = 0\n    for x, y in hab:\n        if dist(x, y) <= r:\n            count += 1\n    return count >= k\n\ndef find_min_radius(n, k, habitats):\n    left = 0\n    right = 2 * 10**5\n    start_time = time.time()\n    while right - left > 1e-6:\n        mid = (left + right) / 2\n        if check(habitats, mid, k):\n            right = mid\n        else:\n            left = mid\n        if time.time() - start_time > 1.0:  # Set the time limit to 1 second\n            break\n    return right\n\nif __name__ == \"__main__\":\n    n, k = map(int, input().split())\n    habitats = [list(map(int, input().split())) for _ in range(n)]\n    print(\"{:.10f}\".format(find_min_radius(n, k, habitats)))",
+                "test_passed_public": 0,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 7,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "2": {
+            "iteration_0": {
+                "solution": "MOD = 10**9 + 7\n\ndef count_segments(n, m, k, a):\n    prefix_sum = [0]\n    for num in a:\n        prefix_sum.append((prefix_sum[-1] + num) % k)\n\n    total_sum = prefix_sum[-1]\n    ans = 0\n    count = [0] * k\n    for i in range(len(prefix_sum)):\n        ans += count[prefix_sum[i]]\n        count[prefix_sum[i]] += 1\n\n    ans += (m - 1) * (m * total_sum // k) * n\n    ans //= 2\n\n    return ans % MOD\n\nif __name__ == \"__main__\":\n    n, m, k = map(int, input().split())\n    a = list(map(int, input().split()))\n    print(count_segments(n, m, k, a))",
+                "test_passed_public": 0,
+                "test_failed_public": 3,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 3,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "3": {
+            "iteration_0": {
+                "solution": "def count_possible_integers(s):\n    count = 0\n    for i in range(100):\n        num = str(i).zfill(len(s)).replace('X', str(i)[-1])\n        if len(num) == len(s) and int(num) % 25 == 0:\n            count += 1\n    return count\n\nif __name__ == \"__main__\":\n    s = input().strip()\n    print(count_possible_integers(s))",
+                "test_passed_public": 0,
+                "test_failed_public": 5,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 69,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "4": {
+            "iteration_0": {
+                "solution": "MOD = 10**9 + 7\n\ndef dfs(node, parent, k):\n    global ans\n    dp = [0] * (k + 2)\n    dp[0] = a[node]\n    for child, color in tree[node]:\n        if child == parent:\n            continue\n        dfs(child, node, k)\n        dp_next = [0] * (k + 2)\n        for i in range(k + 1):\n            dp_next[i] = dp[i] + dp[i + 1]\n            dp_next[i] %= MOD\n        for i in range(k + 1):\n            for j in range(k - i + 1):\n                if color == 0:\n                    ans += dp[i] * dp_next[j]\n                else:\n                    ans += dp[i] * dp_next[j + 1]\n                ans %= MOD\n        dp = dp_next\n\nn, k = map(int, input().split())\na = list(map(int, input().split()))\ntree = [[] for _ in range(n)]\nfor _ in range(n - 1):\n    u, v, t = map(int, input().split())\n    u -= 1\n    v -= 1\n    tree[u].append((v, t))\n    tree[v].append((u, t))\n\nans = 0\ndfs(0, -1, k)\nprint(ans)",
+                "test_passed_public": 0,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 2,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "5": {
+            "iteration_0": {
+                "solution": "MOD = 10**9 + 7\n\ndef f1(n, k, a):\n    c = a.count(-1)\n    return pow(k, c, MOD) * (n * (n - 1) // 2) % MOD\n\ndef f2(n, k, a):\n    c = a.count(-1)\n    return (pow(k, c, MOD) * (n * (n - 1) // 2) % MOD + MOD - pow(k - 1, c, MOD)) % MOD\n\nif __name__ == \"__main__\":\n    n, k = map(int, input().split())\n    a = list(map(int, input().split()))\n    \n    if -1 not in a:\n        print(f1(n, k, a))\n    else:\n        print(f2(n, k, a))",
+                "test_passed_public": 0,
+                "test_failed_public": 5,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 24,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "6": {
+            "iteration_0": {
+                "solution": "MOD = 10**9 + 7\n\ndef gcd(x, y):\n    while y:\n        x, y = y, x % y\n    return x\n\ndef prettiness_value(n, a):\n    result = 0\n    for i in range(n):\n        for j in range(n):\n            result += gcd(a[i], a[j]) * gcd(i+1, j+1)\n            result %= MOD\n    return result\n\nif __name__ == \"__main__\":\n    n = int(input())\n    a = list(map(int, input().split()))\n    print(prettiness_value(n, a))",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 2,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "7": {
+            "iteration_0": {
+                "solution": "def min_changes(n, m, a, b):\n    res = []\n    for k in range(n - m + 2):\n        count = 0\n        for i in range(k, k + m):\n            if i < n and a[i] != b[i - k]:\n                count += 1\n        res.append(count)\n    return res\n\nif __name__ == \"__main__\":\n    n, m = map(int, input().split())\n    a = input().strip()\n    b = input().strip()\n    \n    result = min_changes(n, m, a, b)\n    print(*result)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 27,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "8": {
+            "iteration_0": {
+                "solution": "import resource\nimport sys\n\ndef build_segment_tree(arr, tree, start, end, node):\n    if start == end:\n        tree[node] = arr[start]\n    else:\n        mid = (start + end) // 2\n        build_segment_tree(arr, tree, start, mid, 2 * node + 1)\n        build_segment_tree(arr, tree, mid + 1, end, 2 * node + 2)\n        tree[node] = max(abs(tree[2 * node + 1]), abs(tree[2 * node + 2]))\n\ndef update_segment_tree(arr, tree, start, end, node, idx, val):\n    if start == end:\n        arr[idx] = val\n        tree[node] = val\n    else:\n        mid = (start + end) // 2\n        if start <= idx <= mid:\n            update_segment_tree(arr, tree, start, mid, 2 * node + 1, idx, val)\n        else:\n            update_segment_tree(arr, tree, mid + 1, end, 2 * node + 2, idx, val)\n        tree[node] = max(abs(tree[2 * node + 1]), abs(tree[2 * node + 2]))\n\ndef query_segment_tree(tree, start, end, node, left, right):\n    if right < start or end < left:\n        return 0\n    if left <= start and end <= right:\n        return tree[node]\n    mid = (start + end) // 2\n    return max(query_segment_tree(tree, start, mid, 2 * node + 1, left, right),\n               query_segment_tree(tree, mid + 1, end, 2 * node + 2, left, right))\n\nif __name__ == \"__main__\":\n    n, q = map(int, input().split())\n    illusion_rates = list(map(int, input().split()))\n\n    tree_size = 4 * n\n    segment_tree = [0] * tree_size\n\n    build_segment_tree(illusion_rates, segment_tree, 0, n - 1, 0)\n\n    connections = {}\n    for _ in range(n - 1):\n        s, t = map(int, input().split())\n        if s not in connections:\n            connections[s] = []\n        if t not in connections:\n            connections[t] = []\n        connections[s].append(t)\n        connections[t].append(s)\n\n    for _ in range(q):\n        query_type, u, v = map(int, input().split())\n        if query_type == 1:\n            update_segment_tree(illusion_rates, segment_tree, 0, n - 1, 0, u - 1, v)\n        elif query_type == 2:\n            energy = query_segment_tree(segment_tree, 0, n - 1, 0, u - 1, v - 1)\n            print(energy)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 2,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "9": {
+            "iteration_0": {
+                "solution": "def find_end_positions(n, m, k, grid, columns):\n    end_positions = []\n    for c in columns:\n        x = 0\n        y = c - 1\n        while x < n:\n            direction = grid[x][y]\n            if direction == 1:\n                y += 1\n            elif direction == 2:\n                x += 1\n            elif direction == 3:\n                y -= 1\n            grid[x][y] = 2\n        end_positions.append(y + 1)\n    return end_positions\n\nif __name__ == \"__main__\":\n    n, m, k = map(int, input().split())\n    grid = [list(map(int, input().split())) for _ in range(n)]\n    columns = list(map(int, input().split()))\n    result = find_end_positions(n, m, k, grid, columns)\n    print(*result)",
+                "test_passed_public": 0,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "10": {
+            "iteration_0": {
+                "solution": "def count_possible_color_combinations(n, m, k, r, c, a_x, a_y, b_x, b_y):\n    mod = 10**9 + 7\n    total_colors = pow(k, r*c, mod)\n    same_pattern_colors = pow(k, r*c - (r*c)//2, mod)\n    result = (total_colors - same_pattern_colors) % mod\n    print(result)\n\nif __name__ == \"__main__\":\n    n, m, k, r, c = map(int, input().split())\n    a_x, a_y, b_x, b_y = map(int, input().split())\n    count_possible_color_combinations(n, m, k, r, c, a_x, a_y, b_x, b_y)",
+                "test_passed_public": 0,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 28,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "11": {
+            "iteration_0": {
+                "solution": "def max_f(n, a):\n    ans = 0\n    for i in range(n):\n        if a[i] == i + 1:\n            ans += 1\n    return min(ans + 2, n)\n\nif __name__ == \"__main__\":\n    n = int(input())\n    a = list(map(int, input().split()))\n    print(max_f(n, a))",
+                "test_passed_public": 0,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 2,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "12": {
+            "iteration_0": {
+                "solution": "def calculate_distance(n, m, grid):\n    total_distance = 0\n    for x in range(n + 1):\n        for y in range(m + 1):\n            min_distance = float('inf')\n            for i in range(n + 1):\n                for j in range(m + 1):\n                    if grid[i][j] == 1:\n                        distance = (x - i) ** 2 + (y - j) ** 2\n                        min_distance = min(min_distance, distance)\n            total_distance += min_distance\n    return total_distance\n\nif __name__ == \"__main__\":\n    n, m = map(int, input().split())\n    grid = [list(map(int, input().strip())) for _ in range(n + 1)]\n    result = calculate_distance(n, m, grid)\n    print(result)",
+                "test_passed_public": 0,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 2,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "13": {
+            "iteration_0": {
+                "solution": "def can_erase_string(s):\n    count_A = s.count('A')\n    count_B = s.count('B')\n    count_C = s.count('C')\n    \n    return (count_A == count_C and count_B % 2 == 0) or (count_B == count_A and count_C % 2 == 0)\n\ndef process_test_cases(t):\n    for _ in range(t):\n        s = input().strip()\n        if can_erase_string(s):\n            print(\"YES\")\n        else:\n            print(\"NO\")\n\nif __name__ == \"__main__\":\n    t = int(input())\n    process_test_cases(t)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "14": {
+            "iteration_0": {
+                "solution": "import time\n\ndef sort_array(n, a):\n    actions = []\n    for i in range(n-1):\n        min_val = min(a[i:])\n        min_idx = a.index(min_val, i)  # Specify start index for search\n        if min_idx == i:\n            continue\n        actions.append((i+1, min_idx+1, min_idx-i))\n        a = a[:i] + a[min_idx:] + a[i:min_idx]\n    return actions\n\ndef main():\n    t = int(input())\n    for _ in range(t):\n        n = int(input())\n        a = list(map(int, input().split()))\n        actions = sort_array(n, a)\n        print(len(actions))\n        for action in actions:\n            print(*action)\n\nif __name__ == \"__main__\":\n    print(\"Using time module for timing.\")\n    main()",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 1,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "15": {
+            "iteration_0": {
+                "solution": "def check_field(n, m, k, field):\n    for i in range(n):\n        for j in range(m):\n            if field[i][j] == '*':\n                if i < n - k and j < m - k and field[i+k][j] == '*' and field[i][j+k] == '*' and field[i+k][j+k] == '*':\n                    continue\n                else:\n                    return \"NO\"\n    return \"YES\"\n\ndef process_test_cases():\n    t = int(input())\n    for _ in range(t):\n        n, m, k = map(int, input().split())\n        field = [list(input().strip()) for _ in range(n)]\n        result = check_field(n, m, k, field)\n        print(result)\n\nif __name__ == \"__main__\":\n    process_test_cases()",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 9,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "16": {
+            "iteration_0": {
+                "solution": "import platform\nimport time\n\ndef max_talks(t, test_cases):\n    results = []\n    for i in range(t):\n        n = test_cases[i][0]\n        sociabilities = test_cases[i][1]\n\n        max_talks = min(sociabilities)\n        if max_talks == 0:\n            results.append([0, []])\n        else:\n            max_people = [i+1 for i, s in enumerate(sociabilities) if s == max_talks]\n            results.append([max_talks, [(max_people[0], p) for p in max_people[1:]])\n\n    for res in results:\n        print(res[0])\n        for talk in res[1]:\n            print(talk[0], talk[1])\n\nif __name__ == \"__main__\":\n    t = int(input())\n    test_cases = []\n    for _ in range(t):\n        n = int(input())\n        sociabilities = list(map(int, input().split()))\n        test_cases.append((n, sociabilities))\n\n    max_talks(t, test_cases)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 1,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "17": {
+            "iteration_0": {
+                "solution": "from collections import deque\n\ndef min_inversions(t, test_cases):\n    results = []\n    for i in range(t):\n        n = test_cases[i][0]\n        a = test_cases[i][1]\n        d = deque()\n        inversions = 0\n        for j in range(n):\n            if j % 2 == 0:\n                d.append(a[j])\n            else:\n                d.appendleft(a[j])\n                inversions += len([1 for x in d if x < a[j]])\n        results.append(inversions)\n    return results\n\nif __name__ == \"__main__\":\n    t = int(input())\n    test_cases = []\n    for _ in range(t):\n        n = int(input())\n        a = list(map(int, input().split()))\n        test_cases.append((n, a))\n    \n    results = min_inversions(t, test_cases)\n    for result in results:\n        print(result)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 2,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "18": {
+            "iteration_0": {
+                "solution": "def count_steps(n, d, a):\n    seen = set()\n    steps = 0\n    while tuple(a) not in seen:\n        seen.add(tuple(a))\n        new_a = [a[(i + n - d) % n] & a[i] for i in range(n)]\n        if all(val == 0 for val in new_a):\n            return steps + 1\n        a = new_a\n        steps += 1\n    return -1\n\nif __name__ == \"__main__\":\n    t = int(input())\n    for _ in range(t):\n        n, d = map(int, input().split())\n        a = list(map(int, input().split()))\n        result = count_steps(n, d, a)\n        print(result)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "19": {
+            "iteration_0": {
+                "solution": "def minimal_coverage(t, test_cases):\n    results = []\n    for i in range(t):\n        n = test_cases[i][0]\n        segments = test_cases[i][1]\n\n        total_length = segments[0]\n        max_end = segments[0]\n\n        for j in range(1, n):\n            total_length = max(total_length, max_end + segments[j])\n            max_end = max(max_end - segments[j], segments[j])\n\n        results.append(total_length)\n\n    return results\n\nif __name__ == \"__main__\":\n    t = int(input())\n    test_cases = []\n    for _ in range(t):\n        n = int(input())\n        segments = list(map(int, input().split()))\n        test_cases.append((n, segments))\n\n    results = minimal_coverage(t, test_cases)\n    for res in results:\n        print(res)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "20": {
+            "iteration_0": {
+                "solution": "def is_portal(rectangle):\n    a, b = len(rectangle), len(rectangle[0])\n    for x in range(2, a):\n        if rectangle[x][0] != 1 or rectangle[x][b-1] != 1:\n            return False\n    for y in range(2, b):\n        if rectangle[0][y] != 1 or rectangle[a-1][y] != 1:\n            return False\n    for x in range(1, a-1):\n        for y in range(1, b-1):\n            if rectangle[x][y] != 0:\n                return False\n    return True\n\ndef min_operations_to_portal(n, m, blocks):\n    min_ops = float('inf')\n    for i in range(0, n-4):\n        for j in range(0, m-3):\n            sub_rectangle = [row[j:j+4] for row in blocks[i:i+5]]\n            ops = 0\n            for x in range(5):\n                for y in range(4):\n                    if (x == 0 or x == 4) and (y == 0 or y == 3):\n                        continue\n                    if (x == 0 or x == 4) or (y == 0 or y == 3):\n                        if sub_rectangle[x][y] == 0:\n                            ops += 1\n                    else:\n                        if sub_rectangle[x][y] == 1:\n                            ops += 1\n            min_ops = min(min_ops, ops)\n    return min_ops\n\nif __name__ == \"__main__\":\n    t = int(input())\n    for _ in range(t):\n        n, m = map(int, input().split())\n        blocks = [list(map(int, input().strip())) for _ in range(n)]\n        print(min_operations_to_portal(n, m, blocks))",
+                "test_passed_public": 0,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "21": {
+            "iteration_0": {
+                "solution": "def count_permutations(n, m, k, p):\n    dp = [[[0 for _ in range(k + 1)] for _ in range(m + 1)] for _ in range(n + 1)]\n    dp[0][0][0] = 1\n\n    for i in range(1, n + 1):\n        for j in range(m + 1):\n            for l in range(k + 1):\n                dp[i][j][l] = (dp[i][j][l] + dp[i - 1][j][l] * (i - j)) % p\n                if j > 0:\n                    dp[i][j][l] = (dp[i][j][l] + dp[i - 1][j - 1][l - 1]) % p\n\n    result = sum(dp[n][m][k] for m in range(m + 1)) % p\n    return result\n\nif __name__ == \"__main__\":\n    n, m, k, p = map(int, input().split())\n    result = count_permutations(n, m, k, p)\n    print(result)",
+                "test_passed_public": 0,
+                "test_failed_public": 4,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 42,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "22": {
+            "iteration_0": {
+                "solution": "def calculate_trains_in_maintenance(n, m, train_info, operations):\n    trains = {}\n    maintenance_count = 0\n    result = []\n\n    for i in range(m):\n        op, k = operations[i]\n        if op == 1:\n            x, y = train_info[k - 1]\n            trains[k] = x\n            maintenance_count += 1\n        else:\n            x = trains.pop(k)\n            maintenance_count -= 1\n\n        result.append(maintenance_count)\n\n    return result\n\nif __name__ == \"__main__\":\n    n, m = map(int, input().split())\n    train_info = [list(map(int, input().split())) for _ in range(n)]\n    operations = [list(map(int, input().split())) for _ in range(m)]\n\n    result = calculate_trains_in_maintenance(n, m, train_info, operations)\n    for res in result:\n        print(res)",
+                "test_passed_public": 0,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 2,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "23": {
+            "iteration_0": {
+                "solution": "def f(i, j, a):\n    return min(a[i:j+1])\n\ndef maximize_subsequence_value(n, m, a):\n    a.sort()\n    dp = [[0] * (m + 1) for _ in range(n + 1)]\n    for i in range(1, n + 1):\n        for j in range(1, m + 1):\n            if i >= j:\n                dp[i][j] = max(dp[i-1][j], dp[i-2][j-1] + j * a[i-1] - sum(f(k, i-1, a) for k in range(i-j, i)))\n    return dp[n][m]\n\nif __name__ == \"__main__\":\n    n, m = map(int, input().split())\n    a = list(map(int, input().split()))\n    print(maximize_subsequence_value(n, m, a))",
+                "test_passed_public": 0,
+                "test_failed_public": 4,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 5,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "24": {
+            "iteration_0": {
+                "solution": "def minimal_cost(n, m, q, w, railways, incidents):\n    def dijkstra(adj_list, start):\n        dist = [float('inf')] * (n + 1)\n        dist[start] = 0\n        visited = [False] * (n + 1)\n        queue = [(0, start)]\n\n        while queue:\n            d, u = queue.pop(0)\n            if visited[u]:\n                continue\n            visited[u] = True\n\n            for v, weight in adj_list[u]:\n                if dist[v] > dist[u] + weight:\n                    dist[v] = dist[u] + weight\n                    queue.append((dist[v], v))\n\n        return dist\n\n    adj_list = [[] for _ in range(n + 1)]\n    for u, v, d in railways:\n        adj_list[u].append((v, d))\n        adj_list[v].append((u, d))\n\n    dist_from_1 = dijkstra(adj_list, 1)\n\n    total_cost = sum(w)\n    for k, x in incidents:\n        cost_diff = x - w[k - 1]\n        w[k - 1] = x\n\n        for i in range(1, n + 1):\n            if i != 1:\n                adj_list[i].append((1, dist_from_1[i]))\n                adj_list[1].append((i, dist_from_1[i]))\n\n        dist_from_1 = dijkstra(adj_list, 1)\n        total_cost = min(total_cost, sum(w) + cost_diff)\n\n    return total_cost\n\nif __name__ == \"__main__\":\n    n, m, q = map(int, input().split())\n    w = list(map(int, input().split()))\n    railways = [list(map(int, input().split())) for _ in range(m)]\n    incidents = [list(map(int, input().split())) for _ in range(q)]\n\n    result = minimal_cost(n, m, q, w, railways, incidents)\n    print(result)",
+                "test_passed_public": 0,
+                "test_failed_public": 0,
+                "test_timeout_public": 3,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "25": {
+            "iteration_0": {
+                "solution": "MOD = 998244353\n\ndef count_plans(n, m):\n    dp = [0] * (m + 1)\n    dp[0] = 1\n    for i in range(1, n):\n        new_dp = [0] * (m + 1)\n        for j in range(m):\n            new_dp[j + 1] = (new_dp[j + 1] + dp[j]) % MOD\n            new_dp[j] = (new_dp[j] + dp[j]) % MOD\n            if j + m < m:\n                new_dp[j + m] = (new_dp[j + m] - dp[j] + MOD) % MOD\n        dp = new_dp\n    return sum(dp) % MOD\n\nif __name__ == \"__main__\":\n    n, m = map(int, input().split())\n    print(count_plans(n, m))",
+                "test_passed_public": 0,
+                "test_failed_public": 3,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 42,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "26": {
+            "iteration_0": {
+                "solution": "def count_permutations(t, test_cases):\n    MOD = 1000000007\n    fact = [1] * 200005\n    inv = [1] * 200005\n    for i in range(2, 200005):\n        fact[i] = (fact[i - 1] * i) % MOD\n    inv[200004] = pow(fact[200004], MOD - 2, MOD)\n    for i in range(200003, 0, -1):\n        inv[i] = (inv[i + 1] * (i + 1)) % MOD\n\n    def nCr(n, r):\n        return (fact[n] * inv[r] * inv[n - r]) % MOD\n\n    result = []\n    for n in test_cases:\n        ans = nCr(2 * n, n) * inv[n + 1] % MOD\n        result.append(ans)\n\n    return result\n\nif __name__ == \"__main__\":\n    t = int(input())\n    test_cases = [int(input()) for _ in range(t)]\n    result = count_permutations(t, test_cases)\n    for res in result:\n        print(res)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 8,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "27": {
+            "iteration_0": {
+                "solution": "import threading\n\ndef is_possible(n, m, k):\n    if m < n - 1 or m > n * (n - 1) // 2:\n        return \"NO\"\n    if k <= 2:\n        return \"YES\"\n    if n <= 2:\n        return \"NO\"\n    if m < n + k - 2:\n        return \"YES\"\n    return \"NO\"\n\ndef is_possible_with_timeout(n, m, k):\n    result = None\n    timeout_flag = False\n\n    def target():\n        nonlocal result, timeout_flag\n        result = is_possible(n, m, k)\n        timeout_flag = True\n\n    thread = threading.Thread(target=target)\n    thread.start()\n    thread.join(timeout=5)  # Timeout set to 5 seconds\n\n    if timeout_flag:\n        return \"TIMEOUT\"\n    else:\n        return result\n\nif __name__ == \"__main__\":\n    t = int(input())\n    for _ in range(t):\n        n, m, k = map(int, input().split())\n        print(is_possible_with_timeout(n, m, k))",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 8,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "28": {
+            "iteration_0": {
+                "solution": "def min_concert_duration_difference(t):\n    for _ in range(t):\n        a, b, c = map(int, input().split())\n        total_duration = a + 2*b + 3*c\n        if total_duration % 2 == 0:\n            print(total_duration // 2)\n        else:\n            print((total_duration + 1) // 2)\n\nif __name__ == \"__main__\":\n    t = int(input())\n    min_concert_duration_difference(t)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "29": {
+            "iteration_0": {
+                "solution": "import multiprocessing\n\ndef count_nearly_full_subsequences(n, arr):\n    s = sum(arr)\n    count = 0\n    for i in range(1, 2**n):\n        subset_sum = 0\n        for j in range(n):\n            if (i >> j) & 1:\n                subset_sum += arr[j]\n        if subset_sum == s - 1:\n            count += 1\n    return count\n\ndef process_wrapper(input_queue, output_queue):\n    while True:\n        data = input_queue.get()\n        if data is None:\n            break\n        n, arr = data\n        result = count_nearly_full_subsequences(n, arr)\n        output_queue.put(result)\n\ndef main():\n    t = int(input())\n    input_data = []\n    for _ in range(t):\n        n = int(input())\n        arr = list(map(int, input().split()))\n        input_data.append((n, arr))\n\n    num_processes = multiprocessing.cpu_count()\n    input_queue = multiprocessing.Queue()\n    output_queue = multiprocessing.Queue()\n\n    processes = []\n    for _ in range(num_processes):\n        p = multiprocessing.Process(target=process_wrapper, args=(input_queue, output_queue))\n        p.start()\n        processes.append(p)\n\n    for data in input_data:\n        input_queue.put(data)\n\n    for _ in range(t):\n        result = output_queue.get()\n        print(result)\n\n    for _ in range(num_processes):\n        input_queue.put(None)\n\n    for p in processes:\n        p.join()\n\nif __name__ == \"__main__\":\n    main()",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "30": {
+            "iteration_0": {
+                "solution": "def min_erased_symbols(t, test_cases):\n    results = []\n    for i in range(t):\n        n = test_cases[i][0]\n        s = test_cases[i][1]\n        counts = {}\n        for char in s:\n            if char in counts:\n                counts[char] += 1\n            else:\n                counts[char] = 1\n        max_count = 0\n        total_count = 0\n        for count in counts.values():\n            total_count += count\n            max_count = max(max_count, count)\n        if max_count == total_count:\n            results.append(0)\n        elif max_count > total_count - max_count + 1:\n            results.append(-1)\n        else:\n            results.append(total_count - max_count)\n    return results\n\nif __name__ == \"__main__\":\n    t = int(input())\n    test_cases = []\n    for _ in range(t):\n        n = int(input())\n        s = input()\n        test_cases.append((n, s))\n    \n    results = min_erased_symbols(t, test_cases)\n    for result in results:\n        print(result)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "31": {
+            "iteration_0": {
+                "solution": "def find_array_b(t, test_cases):\n    for i in range(t):\n        n = test_cases[i][0]\n        a = test_cases[i][1]\n        total_sum = sum(a)\n        b = [1] * n\n        b[0] = -total_sum + a[0]\n        print(*b)\n\nif __name__ == \"__main__\":\n    t = int(input())\n    test_cases = []\n    for _ in range(t):\n        n = int(input())\n        a = list(map(int, input().split()))\n        test_cases.append((n, a))\n    \n    find_array_b(t, test_cases)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 3,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "32": {
+            "iteration_0": {
+                "solution": "import time\n\ndef max_segments(t, test_cases):\n    results = []\n    for i in range(t):\n        n = test_cases[i][0]\n        arr = test_cases[i][1]\n        max_k = 1\n        curr_sum = arr[0]\n        for j in range(1, n):\n            if curr_sum < sum(arr[:j]):\n                max_k += 1\n            curr_sum += arr[j]\n        results.append(max_k)\n    return results\n\nif __name__ == \"__main__\":\n    t = int(input())\n    test_cases = []\n    for _ in range(t):\n        n = int(input())\n        arr = list(map(int, input().split()))\n        test_cases.append((n, arr))\n    \n    results = []\n    start_time = time.time()\n    for i in range(t):\n        n = test_cases[i][0]\n        arr = test_cases[i][1]\n        max_k = 1\n        curr_sum = arr[0]\n        for j in range(1, n):\n            if curr_sum < sum(arr[:j]):\n                max_k += 1\n            curr_sum += arr[j]\n            if time.time() - start_time > 2:  # Timeout set to 2 seconds\n                break\n        results.append(max_k)\n    \n    for res in results:\n        print(res)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 2,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "33": {
+            "iteration_0": {
+                "solution": "import platform\n\ndef find_x_values(n, a):\n    max_val = max(a)\n    xor_values = set()\n    for i in range(1 << n):\n        xor_val = 0\n        for j in range(n):\n            if i & (1 << j):\n                xor_val ^= a[j]\n        xor_values.add(xor_val)\n    return len(xor_values), sorted(list(xor_values))\n\nif __name__ == \"__main__\":\n    n = int(input())\n    a = list(map(int, input().split()))\n    \n    if platform.system() == 'Windows':\n        # Handle the timing/signal functionality differently for Windows\n        import time\n        start_time = time.time()\n        k, x_values = find_x_values(n, a)\n        end_time = time.time()\n        print(k)\n        print(\" \".join(map(str, x_values)))\n        print(\"Execution time:\", end_time - start_time, \"seconds\")\n    else:\n        k, x_values = find_x_values(n, a)\n        print(k)\n        print(\" \".join(map(str, x_values)))",
+                "test_passed_public": 0,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 10,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "34": {
+            "iteration_0": {
+                "solution": "def find_x_values(n, a):\n    max_val = max(a)\n    dp = [False] * (max_val + 1)\n    dp[0] = True\n\n    for num in a:\n        dp_copy = dp.copy()\n        for i in range(len(dp_copy)):\n            if dp_copy[i]:\n                dp[i ^ num] = True\n\n    result = [i for i in range(len(dp)) if dp[i]]\n    return len(result), result\n\nif __name__ == \"__main__\":\n    n = int(input())\n    a = list(map(int, input().split()))\n    k, x_values = find_x_values(n, a)\n    print(k)\n    print(*x_values)",
+                "test_passed_public": 0,
+                "test_failed_public": 0,
+                "test_timeout_public": 2,
+                "test_passed_private": 0,
+                "test_failed_private": 16,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "35": {
+            "iteration_0": {
+                "solution": "def count_simple_segments(n, a, b):\n    count = 0\n    for i in range(n):\n        x = a[i]\n        for j in range(i, n-1):\n            if b[j] == '*':\n                x *= a[j+1]\n            else:\n                x /= a[j+1]\n            if x.is_integer():\n                count += 1\n    return count\n\nif __name__ == \"__main__\":\n    n = int(input())\n    a = list(map(int, input().split()))\n    b = input().strip()\n    print(count_simple_segments(n, a, b))",
+                "test_passed_public": 0,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 6,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "36": {
+            "iteration_0": {
+                "solution": "def is_prime(n):\n    if n < 2:\n        return False\n    for i in range(2, int(n**0.5) + 1):\n        if n % i == 0:\n            return False\n    return True\n\ndef find_largest_subset(t, test_cases):\n    for _ in range(t):\n        n, arr = test_cases[_]\n        composite_sum = sum(arr)\n        if not is_prime(composite_sum):\n            print(n)\n            print(\" \".join(str(i+1) for i in range(n)))\n        else:\n            for i in range(n):\n                for j in range(i+1, n):\n                    if not is_prime(arr[i] + arr[j]):\n                        print(2)\n                        print(i+1, j+1)\n                        break\n                else:\n                    continue\n                break\n\nif __name__ == \"__main__\":\n    t = int(input())\n    test_cases = []\n    for _ in range(t):\n        n = int(input())\n        arr = list(map(int, input().split()))\n        test_cases.append((n, arr))\n    \n    find_largest_subset(t, test_cases)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 2,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "37": {
+            "iteration_0": {
+                "solution": "def construct_tree(n, m, restrictions):\n    edges = []\n    for i in range(1, n):\n        edges.append((i, i+1))\n    \n    for a, b, c in restrictions:\n        if b == 1:\n            edges.append((a, c))\n        elif c == 1:\n            edges.append((a, b))\n        else:\n            edges.append((b, c))\n    \n    for edge in edges:\n        print(edge[0], edge[1])\n\ndef construct_trees(test_cases):\n    for n, m, restrictions in test_cases:\n        construct_tree(n, m, restrictions)\n\nif __name__ == \"__main__\":\n    t = int(input())\n    test_cases = []\n    for _ in range(t):\n        n, m = map(int, input().split())\n        restrictions = []\n        for _ in range(m):\n            a, b, c = map(int, input().split())\n            restrictions.append((a, b, c))\n        test_cases.append((n, m, restrictions))\n    \n    construct_trees(test_cases)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "38": {
+            "iteration_0": {
+                "solution": "def is_determinable(n, m, grid, queries):\n    exitable_rows = [False] * n\n    exitable_cols = [False] * m\n\n    for i in range(n):\n        for j in range(m):\n            if grid[i][j] == 'X':\n                exitable_rows[i] = True\n                exitable_cols[j] = True\n\n    for x1, x2 in queries:\n        x1 -= 1\n        x2 -= 1\n        if any(exitable_rows[i] and exitable_cols[j] for i in range(n) for j in range(x1, x2 + 1)):\n            print(\"NO\")\n        else:\n            print(\"YES\")\n\nif __name__ == \"__main__\":\n    n, m = map(int, input().split())\n    grid = [input() for _ in range(n)]\n    q = int(input())\n    queries = [list(map(int, input().split())) for _ in range(q)]\n    is_determinable(n, m, grid, queries)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 22,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "39": {
+            "iteration_0": {
+                "solution": "import time\n\ndef query(a):\n    print(\"? \" + \" \".join(map(str, a)))\n    print()\n    return int(input())\n\ndef find_permutation(n):\n    p = [0] * n\n    for i in range(1, n + 1):\n        a = [i] * n\n        res = query(a)\n        if res == 0:\n            continue\n        p[res - 1] = i\n\n    print(\"! \" + \" \".join(map(str, p)))\n\nif __name__ == \"__main__\":\n    n = int(input())\n    find_permutation(n)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 26,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "40": {
+            "iteration_0": {
+                "solution": "from itertools import permutations\n\ndef is_even_weight(graph, paths):\n    for path in paths:\n        for i in range(len(path) - 1):\n            if (graph[path[i]][path[i+1]] % 2) != 0:\n                return False\n    return True\n\ndef brute_force(graph, queries):\n    n = len(graph)\n    for query in queries:\n        a, b = query\n        all_paths = list(permutations(range(1, n+1), n))\n        for path in all_paths:\n            paths = []\n            start = path.index(a)\n            end = path.index(b)\n            if start < end:\n                paths.append(path[start:end+1])\n            else:\n                paths.append(path[end:start+1])\n            if is_even_weight(graph, paths):\n                print(\"YES\")\n                for p in paths:\n                    print(len(p))\n                    print(\" \".join(str(x) for x in p))\n                return\n    print(\"NO\")\n    print(2)\n\nif __name__ == \"__main__\":\n    n, m = map(int, input().split())\n    graph = [[0] * (n+1) for _ in range(n+1)]\n    for _ in range(m):\n        x, y = map(int, input().split())\n        graph[x][y] += 1\n        graph[y][x] += 1\n    q = int(input())\n    queries = [tuple(map(int, input().split())) for _ in range(q)]\n    \n    brute_force(graph, queries)",
+                "test_passed_public": 0,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 1,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "41": {
+            "iteration_0": {
+                "solution": "def min_colors(n, k):\n    return 2 if k <= n // 2 else n - k\n\ndef edge_coloring(n, c):\n    colors = []\n    color = 1\n    for i in range(n):\n        for j in range(i + 1, n):\n            colors.append(color)\n            color = (color % c) + 1\n    return colors\n\nif __name__ == \"__main__\":\n    n, k = map(int, input().split())\n    c = min_colors(n, k)\n    print(c)\n    colors = edge_coloring(n, c)\n    print(*colors)",
+                "test_passed_public": 0,
+                "test_failed_public": 4,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 15,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "42": {
+            "iteration_0": {
+                "solution": "MOD = 10**9 + 7\n\ndef count_time_travels(n, tasks, t, funny_tasks):\n    tasks.sort(key=lambda x: x[1])\n    completed = [0] * n\n    total_completed = 0\n    time_travels = 0\n\n    for a, b in tasks:\n        if total_completed == t:\n            break\n        if a in funny_tasks:\n            if completed[a-1] == 0:\n                time_travels += 1\n                for i in range(a-1, n):\n                    if completed[i] == 1:\n                        total_completed -= 1\n                    completed[i] = 0\n            completed[a-1] = 1\n            total_completed += 1\n\n    return time_travels % MOD\n\nif __name__ == \"__main__\":\n    n = int(input())\n    tasks = [list(map(int, input().split())) for _ in range(n)]\n    t = int(input())\n    funny_tasks = list(map(int, input().split()))\n\n    print(count_time_travels(n, tasks, t, funny_tasks))",
+                "test_passed_public": 0,
+                "test_failed_public": 5,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 8,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 81,
+                "test_timeout_generate": 0
+            }
+        },
+        "43": {
+            "iteration_0": {
+                "solution": "import sys\nfrom collections import defaultdict\nfrom heapq import heappush, heappop\n\ndef dijkstra(graph, start):\n    dist = {node: float('inf') for node in graph}\n    dist[start] = 0\n    pq = [(0, start)]\n    \n    while pq:\n        cur_dist, node = heappop(pq)\n        if cur_dist > dist[node]:\n            continue\n        for neighbor, cost in graph[node]:\n            new_dist = max(cur_dist, cost)\n            if new_dist < dist[neighbor]:\n                dist[neighbor] = new_dist\n                heappush(pq, (new_dist, neighbor))\n    \n    return dist\n\ndef f1(n, q, enjoyment_values, road_list, queries):\n    graph = defaultdict(list)\n    for a, b, c, t in road_list:\n        graph[a].append((b, t))\n        graph[b].append((a, t))\n    \n    max_enjoyment_values = dijkstra(graph, 1)\n    \n    for v, x in queries:\n        max_enjoyment = max_enjoyment_values[x]\n        cost_per_vehicle = max(0, max_enjoyment - enjoyment_values[x])\n        print(max_enjoyment, cost_per_vehicle)\n\nif __name__ == \"__main__\":\n    n, q = map(int, input().split())\n    enjoyment_values = list(map(int, input().split()))\n    roads = [list(map(int, input().split())) for _ in range(n-1)]\n    queries = [list(map(int, input().split())) for _ in range(q)]\n    \n    f1(n, q, enjoyment_values, roads, queries)",
+                "test_passed_public": 0,
+                "test_failed_public": 3,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 3,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "44": {
+            "iteration_0": {
+                "solution": "def check_mastapeece(n, grid):\n    def is_valid(i, j):\n        return 0 <= i < n and 0 <= j < n\n\n    def count_adjacent_same_color(i, j, color):\n        count = 0\n        for dx, dy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:\n            ni, nj = i + dx, j + dy\n            if is_valid(ni, nj) and grid[ni][nj] == color:\n                count += 1\n        return count\n\n    sinoper_count = sum(row.count('S') for row in grid)\n    glaucous_count = sum(row.count('G') for row in grid)\n\n    if sinoper_count == 0 and glaucous_count == 0:\n        return \"UNIQUE\\n\" + \"\\n\".join([\"\".join(['S' for _ in range(n)]) for _ in range(n)])\n\n    for i in range(n):\n        for j in range(n):\n            if grid[i][j] == '.':\n                if count_adjacent_same_color(i, j, 'S') == sinoper_count or count_adjacent_same_color(i, j, 'G') == glaucous_count:\n                    return \"UNIQUE\\n\" + \"\\n\".join([\"\".join(['S' if grid[x][y] == 'S' else 'G' for y in range(n)]) for x in range(n)])\n    \n    return \"NONE\"\n\nif __name__ == \"__main__\":\n    n = int(input())\n    grid = [input() for _ in range(n)]\n    print(check_mastapeece(n, grid))",
+                "test_passed_public": 0,
+                "test_failed_public": 0,
+                "test_timeout_public": 4,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 26,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "45": {
+            "iteration_0": {
+                "solution": "def flower_height(n, days):\n    height = 1\n    consecutive_no_water = 0\n\n    for i in range(n):\n        if days[i] == 1:\n            if i > 0 and days[i-1] == 1:\n                height += 5\n            else:\n                height += 1\n            consecutive_no_water = 0\n        else:\n            consecutive_no_water += 1\n            if consecutive_no_water == 2:\n                return -1\n\n    return height\n\ndef main():\n    t = int(input())\n    for _ in range(t):\n        n = int(input())\n        days = list(map(int, input().split()))\n        print(flower_height(n, days))\n\nif __name__ == \"__main__\":\n    main()",
+                "test_passed_public": 0,
+                "test_failed_public": 0,
+                "test_timeout_public": 1,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 1,
+                "test_passed_generate": 0,
+                "test_failed_generate": 0,
+                "test_timeout_generate": 200
+            }
+        },
+        "46": {
+            "iteration_0": {
+                "solution": "def min_eversions(t, test_cases):\n    for case in test_cases:\n        n = case[0]\n        a = case[1]\n\n        x = a[-1]\n        left = []\n        right = []\n\n        for i in range(n-1):\n            if a[i] <= x:\n                left.append(a[i])\n            else:\n                right.append(a[i])\n\n        k = 1\n        while right:  # Check if 'right' list is not empty\n            x = right.pop()\n            new_left = []\n            new_right = []\n            for num in left:\n                if num <= x:\n                    new_left.append(num)\n                else:\n                    new_right.append(num)\n            left = new_left + [x] + new_right\n            if not right:  # Break out of the loop if 'right' becomes empty\n                break\n            right = new_right\n            k += 1\n\n        print(k)\n\nif __name__ == \"__main__\":\n    t = int(input())\n    test_cases = []\n    for _ in range(t):\n        n = int(input())\n        a = list(map(int, input().split()))\n        test_cases.append((n, a))\n\n    min_eversions(t, test_cases)",
+                "test_passed_public": 0,
+                "test_failed_public": 0,
+                "test_timeout_public": 1,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 1,
+                "test_passed_generate": 0,
+                "test_failed_generate": 0,
+                "test_timeout_generate": 200
+            }
+        },
+        "47": {
+            "iteration_0": {
+                "solution": "def min_distance(t, test_cases):\n    for case in test_cases:\n        n = case[0]\n        k = case[1]\n        depots = case[2]\n        depots.sort()\n        ans = 0\n        for i in range(k, n, k):\n            if i % k == 0:\n                ans += abs(depots[i])\n            else:\n                ans += min(abs(depots[i]), abs(depots[i] - depots[i - k]))\n        print(ans)\n\nif __name__ == \"__main__\":\n    t = int(input())\n    test_cases = []\n    for _ in range(t):\n        n, k = map(int, input().split())\n        depots = list(map(int, input().split()))\n        test_cases.append((n, k, depots))\n    \n    min_distance(t, test_cases)",
+                "test_passed_public": 0,
+                "test_failed_public": 0,
+                "test_timeout_public": 1,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "48": {
+            "iteration_0": {
+                "solution": "def can_sort_array(t, test_cases):\n    results = []\n    for i in range(t):\n        n = test_cases[i][0]\n        a = test_cases[i][1]\n        is_possible = False\n        count = 0\n        for j in range(n - 1):\n            if a[j] > a[j + 1]:\n                count += 1\n                if count > 2:\n                    break\n        if count <= 1:\n            is_possible = True\n        results.append(\"YES\" if is_possible else \"NO\")\n    return results\n\nif __name__ == \"__main__\":\n    try:\n        t = int(input())\n        test_cases = []\n        for _ in range(t):\n            n = int(input())\n            a = list(map(int, input().split()))\n            test_cases.append((n, a))\n        \n        results = can_sort_array(t, test_cases)\n        for result in results:\n            print(result)\n    except Exception as e:\n        print(\"Error:\", e)",
+                "test_passed_public": 0,
+                "test_failed_public": 0,
+                "test_timeout_public": 1,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "49": {
+            "iteration_0": {
+                "solution": "def process_question(sequence, l, k):\n    count_dict = {}\n    for num in sequence:\n        if num in count_dict:\n            count_dict[num] += 1\n        else:\n            count_dict[num] = 1\n    \n    filtered_sequence = [num for num in sequence if count_dict[num] >= l]\n    unique_sequence = list(set(filtered_sequence))\n    unique_sequence.sort(key=lambda x: (count_dict[x], x))\n    \n    if len(unique_sequence) < k:\n        print(-1)\n    else:\n        print(unique_sequence[k-1])\n\ndef process_test_case(n, q, vertices, parents, questions):\n    tree = {}\n    for i in range(1, n+1):\n        tree[i] = []\n    \n    for i in range(1, n):\n        parent = parents[i-1]\n        tree[parent].append(i+1)\n    \n    for v, l, k in questions:\n        sequence = []\n        while v != 0:\n            sequence.append(vertices[v-1])\n            v = parents[v-1] - 1  # Fixed the index here\n        \n        process_question(sequence, l, k)\n\nif __name__ == \"__main__\":\n    t = int(input())\n    for _ in range(t):\n        n, q = map(int, input().split())\n        vertices = list(map(int, input().split()))\n        parents = list(map(int, input().split()))\n        questions = [list(map(int, input().split())) for _ in range(q)]\n        \n        process_test_case(n, q, vertices, parents, questions)",
+                "test_passed_public": 0,
+                "test_failed_public": 0,
+                "test_timeout_public": 1,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 1,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "50": {
+            "iteration_0": {
+                "solution": "MOD = 998244353\n\ndef count_arrays(n, a):\n    if len(a) != n:\n        return \"Error: Length of input array does not match the specified value of n\"\n    \n    result = 1\n    prev_count = 0\n    for i in range(n):\n        if a[i] < prev_count:\n            return \"Error: Current element is less than the previous count\"\n        result = (result * max(1, a[i] - prev_count)) % MOD\n        prev_count = a[i]\n    \n    return result\n\nif __name__ == \"__main__\":\n    n = int(input())\n    a = list(map(int, input().split()))\n    result = count_arrays(n, a)\n    print(result)",
+                "test_passed_public": 0,
+                "test_failed_public": 0,
+                "test_timeout_public": 3,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 3,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "51": {
+            "iteration_0": {}
+        },
+        "52": {
+            "iteration_0": {}
+        },
+        "53": {
+            "iteration_0": {}
+        },
+        "54": {
+            "iteration_0": {}
+        },
+        "55": {
+            "iteration_0": {}
+        },
+        "56": {
+            "iteration_0": {}
+        },
+        "57": {
+            "iteration_0": {}
+        },
+        "58": {
+            "iteration_0": {}
+        },
+        "59": {
+            "iteration_0": {}
+        },
+        "60": {
+            "iteration_0": {}
+        },
+        "61": {
+            "iteration_0": {}
+        },
+        "62": {
+            "iteration_0": {}
+        },
+        "63": {
+            "iteration_0": {}
+        },
+        "64": {
+            "iteration_0": {}
+        },
+        "65": {
+            "iteration_0": {}
+        },
+        "66": {
+            "iteration_0": {}
+        },
+        "67": {
+            "iteration_0": {}
+        },
+        "68": {
+            "iteration_0": {}
+        },
+        "69": {
+            "iteration_0": {}
+        },
+        "70": {
+            "iteration_0": {}
+        },
+        "71": {
+            "iteration_0": {}
+        },
+        "72": {
+            "iteration_0": {}
+        },
+        "73": {
+            "iteration_0": {}
+        },
+        "74": {
+            "iteration_0": {}
+        },
+        "75": {
+            "iteration_0": {}
+        },
+        "76": {
+            "iteration_0": {}
+        },
+        "77": {
+            "iteration_0": {}
+        },
+        "78": {
+            "iteration_0": {}
+        },
+        "79": {
+            "iteration_0": {}
+        },
+        "80": {
+            "iteration_0": {}
+        },
+        "81": {
+            "iteration_0": {}
+        },
+        "82": {
+            "iteration_0": {}
+        },
+        "83": {
+            "iteration_0": {}
+        },
+        "84": {
+            "iteration_0": {}
+        },
+        "85": {
+            "iteration_0": {}
+        },
+        "86": {
+            "iteration_0": {}
+        },
+        "87": {
+            "iteration_0": {}
+        },
+        "88": {
+            "iteration_0": {}
+        },
+        "89": {
+            "iteration_0": {}
+        },
+        "90": {
+            "iteration_0": {}
+        },
+        "91": {
+            "iteration_0": {}
+        },
+        "92": {
+            "iteration_0": {}
+        },
+        "93": {
+            "iteration_0": {}
+        },
+        "94": {
+            "iteration_0": {}
+        },
+        "95": {
+            "iteration_0": {}
+        },
+        "96": {
+            "iteration_0": {}
+        },
+        "97": {
+            "iteration_0": {}
+        },
+        "98": {
+            "iteration_0": {}
+        },
+        "99": {
+            "iteration_0": {}
+        },
+        "100": {
+            "iteration_0": {}
+        },
+        "101": {
+            "iteration_0": {}
+        },
+        "102": {
+            "iteration_0": {}
+        },
+        "103": {
+            "iteration_0": {}
+        },
+        "104": {
+            "iteration_0": {}
+        },
+        "105": {
+            "iteration_0": {}
+        },
+        "106": {
+            "iteration_0": {}
+        },
+        "107": {
+            "iteration_0": {}
+        },
+        "108": {
+            "iteration_0": {}
+        },
+        "109": {
+            "iteration_0": {}
+        },
+        "110": {
+            "iteration_0": {}
+        },
+        "111": {
+            "iteration_0": {}
+        },
+        "112": {
+            "iteration_0": {}
+        },
+        "113": {
+            "iteration_0": {}
+        },
+        "114": {
+            "iteration_0": {}
+        },
+        "115": {
+            "iteration_0": {}
+        },
+        "116": {
+            "iteration_0": {}
+        },
+        "117": {
+            "iteration_0": {}
+        },
+        "118": {
+            "iteration_0": {}
+        },
+        "119": {
+            "iteration_0": {}
+        },
+        "120": {
+            "iteration_0": {}
+        },
+        "121": {
+            "iteration_0": {}
+        },
+        "122": {
+            "iteration_0": {}
+        },
+        "123": {
+            "iteration_0": {}
+        },
+        "124": {
+            "iteration_0": {}
+        },
+        "125": {
+            "iteration_0": {}
+        },
+        "126": {
+            "iteration_0": {}
+        },
+        "127": {
+            "iteration_0": {}
+        },
+        "128": {
+            "iteration_0": {}
+        },
+        "129": {
+            "iteration_0": {}
+        },
+        "130": {
+            "iteration_0": {}
+        },
+        "131": {
+            "iteration_0": {}
+        },
+        "132": {
+            "iteration_0": {}
+        },
+        "133": {
+            "iteration_0": {}
+        },
+        "134": {
+            "iteration_0": {}
+        },
+        "135": {
+            "iteration_0": {}
+        },
+        "136": {
+            "iteration_0": {}
+        },
+        "137": {
+            "iteration_0": {}
+        },
+        "138": {
+            "iteration_0": {}
+        },
+        "139": {
+            "iteration_0": {}
+        },
+        "140": {
+            "iteration_0": {}
+        },
+        "141": {
+            "iteration_0": {}
+        },
+        "142": {
+            "iteration_0": {}
+        },
+        "143": {
+            "iteration_0": {}
+        },
+        "144": {
+            "iteration_0": {}
+        },
+        "145": {
+            "iteration_0": {}
+        },
+        "146": {
+            "iteration_0": {}
+        },
+        "147": {
+            "iteration_0": {}
+        },
+        "148": {
+            "iteration_0": {}
+        },
+        "149": {
+            "iteration_0": {}
+        },
+        "150": {
+            "iteration_0": {}
+        },
+        "151": {
+            "iteration_0": {}
+        },
+        "152": {
+            "iteration_0": {}
+        },
+        "153": {
+            "iteration_0": {}
+        },
+        "154": {
+            "iteration_0": {}
+        },
+        "155": {
+            "iteration_0": {}
+        },
+        "156": {
+            "iteration_0": {}
+        },
+        "157": {
+            "iteration_0": {}
+        },
+        "158": {
+            "iteration_0": {}
+        },
+        "159": {
+            "iteration_0": {}
+        },
+        "160": {
+            "iteration_0": {}
+        },
+        "161": {
+            "iteration_0": {}
+        },
+        "162": {
+            "iteration_0": {}
+        },
+        "163": {
+            "iteration_0": {}
+        },
+        "164": {
+            "iteration_0": {}
+        }
+    }
+}
