@@ -8,17 +8,23 @@
 \usepackage{hyperref}
 \usepackage{float}
 
-\title{Title of the talk \\[0.5em] \large{Seminar on ``Machine Learning in Software Eningeering'' \\[0.5em]} }
+\title{Pair Programming  Framework \\[0.5em] \large{Seminar on ``Machine Learning in Software Eningeering'' \\[0.5em]} }
 
-\author{Taylan Bapur}
+\author{Taylan Bapur, Jan Härtrich}
 
-\date{Summer 2024}
+\date{Summer 2025}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Large Language Models (LLMs) have shown impressive capabilities in code generation, yet they often struggle with complex programming problems due to rigid, single-path reasoning. This paper explores PairCoder, a novel multi-agent framework inspired by human pair programming. PairCoder consists of two LLM agents—a Navigator and a Driver—that collaborate through multi-plan exploration and feedback-driven refinement. The system dynamically generates, evaluates, and repairs code using iterative reflection and execution feedback. Experimental results on benchmarks like HumanEval and CodeContest demonstrate superior accuracy over prompt-based methods. This paper also compares PairCoder to "Guided Code Generation with LLMs," which employs hierarchical decomposition and bottom-up synthesis to enhance LLMs’ compositional reasoning and long-context management. By contrasting these frameworks, we highlight strengths and limitations in adaptive versus structured agentic code generation strategies.
+Large Language Models (LLMs) have made notable progress in automatic code generation. However, they often fall short when faced with complex programming tasks that require flexible reasoning, iterative debugging, or adaptive planning. This seminar investigates PairCoder, a multi-agent framework inspired by the practice of human pair programming. The system integrates two LLM agents—a Navigator and a Driver—that work together through multi-plan exploration and feedback-driven refinement to iteratively generate, test, and repair code.
+
+Through experiments on benchmarks such as HumanEval and CodeContest, PairCoder demonstrates a clear improvement in performance compared to traditional prompt-based, single-pass methods. Beyond evaluating its architecture and effectiveness, this work also compares PairCoder to two other recent frameworks: Guided Code Generation, which uses hierarchical decomposition for structured reasoning, and MapCoder, which simulates the full development lifecycle with specialized agents for planning, coding, and debugging.
+
+By examining these frameworks side by side, this report highlights the contrasting strengths of adaptive iteration versus structured decomposition in LLM-based code generation—offering insights into how different agentic strategies handle complexity, context, and correctness in software tasks.
+
+
 \end{abstract}
 
 \newpage
@@ -26,35 +32,40 @@ Large Language Models (LLMs) have shown impressive capabilities in code generati
 \newpage
 
 \section{Introduction}
-Recent advancements in Large Language Models (LLMs) have revolutionized software engineering tasks such as code completion, synthesis, and debugging~\cite{zhang2024paircoder}. Despite their capabilities, LLMs often struggle to reason compositionally or manage complex dependencies across longer prompts, especially when relying on single-pass generation strategies~\cite{chen2024selfdebugging}.
+Recent years showed a big advancement of Large Language Models (LLMs) and how they have significantly impacted software engineering workflows, particularly in tasks such as code completion, and debugging~\cite{zhang2024paircoder}. While LLMs show strong capabilities in language understanding and pattern recognition, they often struggle in complex code generation, problem solving and deep understanding in code dependencies - especially in single-path generation strategies~\cite{chen2024selfdebugging}.
 
-To address these limitations, two recent agent-based frameworks have emerged. The first, \textit{PairCoder}, models human pair programming by pairing two LLM agents: a \textbf{Navigator} and a \textbf{Driver}~\cite{zhang2024paircoder}. Through iterative plan selection, code generation, and feedback-based refinement, PairCoder dynamically adapts its strategy based on test execution results. This allows it to overcome flaws in static prompting and recover from runtime failures.
 
-In contrast, \textit{Guided Code Generation with LLMs} introduces a structured decomposition-based architecture in which a \textbf{Generalist Agent} hierarchically splits a problem into subtasks, which are solved by \textbf{Code Agents} and validated by \textbf{Tester Agents}~\cite{almorsi2025guided}. This hierarchical, bottom-up tree synthesis enables improved compositionality, particularly for long-form or nested logic problems.
+To minimze those limitations, H. Zhang, W. Cheng, Y. Wu, and W. Hu. have proposed a multi-agent framework that presents a collaboration between two LLM agents. \textit{PairCoder} is a demonstration of a humanlike pair programming by using two agents: a \textbf{Navigator}, responsible for planning and strategy, and a  \textbf{Driver}, which focuses on code implementation and testing~\cite{zhang2024paircoder}. Through iterative plan generation, execution, and feedback-driven refinement, Paircoder reviews and apdapts to errors and test results for a better resilience than traditional LLMs methods.
 
-This seminar paper investigates the architecture, methodology, and performance of PairCoder, and compares it with Guided Code Generation. By contrasting iterative feedback refinement with structured hierarchical planning, we analyze the trade-offs in generality, scalability, and agent collaboration models for LLM-driven software engineering.
+Next to the \textit{PairCoder}, we will review two similar, yet different frameworks. \textit{Guided Code Generation with LLMs} and \textit{MapCoder}.
+
+While \textit{Guided Code Generation} focuses on \textbf{Generalist Agent}, which breaks down a problem into smaller subtasks, these are then passed by more agents \textbf{Code Agents} and to \textbf{Tester Agents} for validation using a bottom-up process~\cite{almorsi2025guided}.
+
+On the other hand we review MapCoder, which consists of four agents, a\textbf{Retrieval Agent} which creates k new and distinct problems and passes those to the \textbf{Planning Agent} to generate multiple plans and assign confidence scores, the chosen plan is used by the \textbf{Coding Agent} to implement, then the code is tested and potentially passed to the \textbf{Debugging Agent} for code review and debugging.
+
+in this report, we review the design and practical usage of Paircoder, comparing it with Guided Code Generation and MapCoder to better understand their strengths and weakness, by evaluating their architecture, models a performance trade offs. We aim to get an insight into how mulit-agent framework systems can improve the reliability and abilities for automated software development and engineering. 
 
 \section{Background}
 
 \subsection{LLMs for Code Generation}
-Large Language Models have become central to modern software automation. Tools like OpenAI’s Codex, Code Llama, and DeepSeek-Coder translate natural language into executable code~\cite{zhang2024paircoder}. Prompt-based enhancements such as Chain-of-Thought (CoT) and Self-Debugging improve reasoning depth~\cite{chen2024selfdebugging}, but they still face limitations in long-range dependency tracking and complex logic execution.
+Large Language Models have become central to modern software automation. Tools like OpenAI’s Codex, Code Llama, and DeepSeek-Coder translate natural language into executable code~\cite{zhang2024paircoder}. Prompt-based enhancements such as Chain-of-Thought (CoT) and Self-Debugging improves reasoning depth~\cite{chen2024selfdebugging}, but they still reach their limits when it comes to creating complex logic and code
 
 \subsection{Limitations of Single-Agent Approaches}
-Most LLM-based frameworks rely on a single agent to perform all stages of reasoning, planning, and implementation. This makes them brittle in multi-step synthesis tasks. They also lack resilience when outputs fail tests or miss edge cases, as they cannot easily backtrack, revise strategies, or shift plans without external scaffolding~\cite{zhang2024paircoder}.
+Most LLM-based frameworks rely on a single agent to perform all stages of reasoning, planning, and implementation. This makes them fragile in multi-step tasks. They also lack capacities when outputs fail tests or miss edge cases, as they cannot easily backtrack, revise strategies, or shift plans without external support~\cite{zhang2024paircoder}.
 
 \subsection{Rise of Multi-Agent Frameworks}
 To address these limitations, multi-agent approaches have emerged. \textit{Self-Debugging} enables autonomous correction using prompt-driven self-analysis~\cite{chen2024selfdebugging}, while \textit{MetaGPT} simulates full software teams with agentic roles such as product manager, architect, and engineer~\cite{metagpt2023}. However, these approaches often struggle to scale to deeper reasoning or fail to provide structured decomposition.
 
 \subsection{Introducing PairCoder and Guided Coder}
-\textbf{PairCoder} focuses on iterative refinement via two agents: a Navigator that proposes clustered solution plans, and a Driver that implements and tests code based on selected plans~\cite{zhang2024paircoder}. In contrast, \textbf{Guided Code Generation with LLMs} uses a hierarchical planning tree built by a Generalist Agent, solved bottom-up by Code Agents, and verified by Tester Agents~\cite{almorsi2025guided}. This structured orchestration helps solve deeply nested tasks that require compositional reasoning and contextual memory beyond standard prompting techniques.
+\textbf{PairCoder} focuses on iterative refinement via two agents: a Navigator that proposes clustered solution plans, and a Driver that implements and tests code based on selected plans~\cite{zhang2024paircoder}. In contrast, \textbf{Guided Code Generation with LLMs} uses a hierarchical planning tree built by a Generalist Agent, solved bottom-up by Code Agents, and verified by Tester Agents~\cite{almorsi2025guided}. This structure helps to solve deep tasks that require an deep understand of reasoning and contextual memory beyond standard prompting techniques.
 
 
 \section{The PairCoder Framework}
 \subsection{System Architecture}
-PairCoder is inspired by human pair programming, where a "Navigator" sets direction and a "Driver" executes tasks. In this framework, both roles are fulfilled by large language models (e.g., GPT-3.5 or DeepSeek-Coder). The two agents operate in an iterative loop where each round involves:
+PairCoder is inspired by human pair programming, where a Navigator sets direction and a Driver executes tasks. In this framework, both roles are fulfilled by large language models (e.g., GPT-3.5 or DeepSeek-Coder). The two agents operate in an iterative loop where each round involves:
 \begin{itemize}
-\item Problem reflection and plan proposal by the Navigator
-\item Plan selection and code generation by the Driver
+\item Problem reflection and plan proposal 
+\item Plan selection and code generation
 \item Testing and feedback from execution
 \item Plan reassessment or code repair based on feedback
 \end{itemize}
@@ -62,17 +73,17 @@ PairCoder is inspired by human pair programming, where a "Navigator" sets direct
 The workflow continues until the code passes all public test cases or the iteration limit is reached.
 
 \subsection{Navigator Agent}
-The Navigator is responsible for high-level reasoning and strategic control. Its tasks include:
+The Navigator is responsible for reasoning and strategic control. Its tasks include:
 \begin{itemize}
 \item Reflecting on the problem (e.g., input/output analysis, edge cases)
 \item Generating multiple possible solution plans using diverse sampling
 \item Clustering and selecting representative plans using k-means++
 \item Evaluating execution feedback to determine whether to repair or switch plans
 \end{itemize}
-The Navigator utilizes prompt templates to generate insights, select plans, and analyze errors. It also maintains a historical memory of attempted code and failures to avoid repeating past mistakes.
+The Navigator uses prompt templates to generate insights, select plans, and analyze errors. It also maintains a historical memory of attempted code and failures to avoid repeating past mistakes.
 
 \subsection{Driver Agent}
-The Driver receives a selected plan and is responsible for concrete implementation. Its key tasks are:
+The Driver receives a selected plan and is responsible for generating implementation. Its key tasks are:
 \begin{itemize}
 \item Generating initial code based on the plan
 \item Executing the code on provided public test cases
@@ -146,7 +157,7 @@ Though PairCoder makes more API calls than single-shot methods, its token usage 
 \subsection{Error Analysis}
 An error breakdown on failed test cases shows that \textit{Wrong Answers} dominate (60+\%), especially in complex tasks. Runtime errors and timeouts are less common. This suggests that LLMs need continued improvement in logic consistency and input handling rather than syntax or runtime reliability~\cite{zhang2024paircoder}.
 
-\section{Comparison with Guided Code Generation}
+\section{Guided Code Generation}
 The framework for Guided Code Generation proposed by Almorsi et al.\cite{almorsi2025guided} introduces a structured, multi-agent system to address limitations in LLMs' compositional reasoning and long-context handling. Instead of relying on prompt iteration or plan-switching like PairCoder, this approach decomposes complex programming tasks into a tree of atomic units, which are then solved and composed in a bottom-up fashion.
 
 \subsection{Architectural Scope}
@@ -166,31 +177,180 @@ The Guided Code framework shows a 23.79\% improvement in Pass@1 on HumanEval usi
 
 Both frameworks show that decompositional and agentic guidance are crucial for improving LLM coding performance. Their comparison illustrates the importance of structuring agent collaboration based on task complexity, resource constraints, and model capabilities.
 
-\section{Discussion}
-PairCoder demonstrates that agentic collaboration can significantly enhance code generation beyond what is achievable through prompt engineering or single-pass models~\cite{zhang2024paircoder}. Its strength lies in dynamic adaptability—switching strategies when execution feedback indicates stagnation, and incorporating structured reasoning through reflection and planning. The tight feedback loop between the Navigator and Driver allows the system to avoid local minima and arrive at correct solutions more consistently.
+\section{MapCoder}
 
-However, PairCoder has limitations. Its success depends on the diversity and quality of initial plan generation. If the clustered plans fail to capture the correct logic structure, even refined outputs may fall short. Additionally, the iteration-heavy design introduces computational overhead that can make real-time usage challenging.
+In this section, we present MapCoder, introduced in ``MapCoder: Multi-Agent Code Generation for Competitive Problem Solving'' by Md. Ashraful Islam, Mohammed Eunus Ali, and Md. Rizwan Parvez~\cite{islam2024mapcodermultiagentcodegeneration}. MapCoder aims to simulate a full cycle of programming by human developers. It consists of four LLM agents, each designed to emulate a specific stage in the development process: retrieving relevant examples, planning, code generation, and debugging.
 
-On the other hand, Guided Code Generation~\cite{almorsi2025guided} addresses these issues with a planning tree architecture and bottom-up code synthesis. By ensuring modularity and interpretability, it offers more control over composition and verification. Yet, its complexity increases with task depth, and it may incur latency from excessive function decomposition.
+\subsection{Retrieval Agent}
+Despite its name, the Retrieval Agent is neither based on external retrieval nor memory-based indexing. Instead, it is prompted to generate $k$ relevant and distinct problems for a given input. The agent performs the following tasks:
 
-Future development could merge both paradigms: using hierarchical planning from Guided Code Generation to feed robust plan clusters into PairCoder’s refinement loop, or applying PairCoder’s feedback model to bottom-level components in the Guided tree. Human-in-the-loop feedback and automatic test generation, as emphasized in prior work~\cite{chen2024selfdebugging}, remain promising extensions for both frameworks.
-
-\section{Conclusion and Future Work}
-PairCoder introduces a novel and effective agent-based paradigm for code generation, inspired by the dynamics of human pair programming. By coupling the strategic planning of a Navigator with the execution and feedback response of a Driver, PairCoder effectively integrates exploration and refinement. Its key innovations—multi-plan generation, clustering, and feedback-based repair—address limitations of single-pass generation frameworks.
-
-Empirical results show that PairCoder achieves state-of-the-art accuracy on standard benchmarks like HumanEval and CodeContest~\cite{zhang2024paircoder}. These improvements are especially pronounced in tasks requiring adaptability and logical reasoning.
-
-Compared to Guided Code Generation~\cite{almorsi2025guided}, which decomposes tasks hierarchically, PairCoder focuses on plan-level iteration. While both frameworks demonstrate the value of agentic collaboration, their differing strategies highlight opportunities for synergy.
-
-Future work could explore:
 \begin{itemize}
-  \item \textbf{Hybridization}: Embedding PairCoder’s feedback loop within Guided Coder’s tree structure to improve robustness at each level of abstraction
-  \item \textbf{Human-in-the-loop learning}: Enabling developer intervention in agent decision points~\cite{chen2024selfdebugging}
-  \item \textbf{Domain transfer}: Applying the framework to structured tasks such as theorem proving or symbolic querying
-  \item \textbf{Test suite evolution}: Generating new test cases on failure and reusing them to inform plan selection and error diagnosis
+  \item Create $k$ new, distinct problems.
+  \item For each generated problem:
+  \begin{itemize}
+    \item Generate a step-by-step solution code.
+    \item Provide a problem-solving plan.
+  \end{itemize}
+  \item Identify the algorithm needed to solve the original problem.
+  \item Write a high-level tutorial on the identified algorithm (without code).
 \end{itemize}
 
-Ultimately, PairCoder and Guided Code Generation represent complementary milestones toward collaborative, interpretable, and reliable AI software engineering systems.
+The agent uses a structured XML format in its output to ensure consistency.
+
+\paragraph{Example: Retrieval Agent on Problem \#133 (Sum Squares)}
+
+Let’s simulate how this functions using problem \#133 (sum squares) from the HumanEval benchmark. The problem description is as follows:
+
+\begin{verbatim}
+"""You are given a list of numbers.
+You need to return the sum of squared numbers numbers in the given list,
+ round each element in the list to the upper int (Ceiling) first.
+ Examples:
+ For lst = [1,2,3] the output should be 14
+ For lst = [1,4,9] the output should be 98
+ For lst = [1,3,5,7] the output should be 84
+ For lst = [1.4,4.2,0] the output should be 29
+ For lst = [-2.4,1,1] the output should be 6
+"""
+\end{verbatim}
+
+A potential output for this would be:
+\begin{itemize}
+  \item Find the sum of all even numbers in the list.
+\end{itemize}
+
+\subsection{Planning Agent}
+This agent serves two functions: generating plans to solve the original problem and assigning confidence scores to those plans.
+
+For plan generation, the LLM is prompted once per retrieved example problem, with each prompt containing:
+\begin{itemize}
+  \item Description of the example problem
+  \item The corresponding plan for the example problem
+  \item The algorithm identified for the original problem
+  \item Original problem statement
+  \item Sample input/output pairs
+\end{itemize}
+
+This process results in $k$ diverse, high-level problem-solving plans, without generating code.
+
+In the second stage, each plan is evaluated with the LLM prompted to:
+\begin{itemize}
+  \item Explain how solvable the problem is with the given plan
+  \item Assign a confidence score between 0 and 100 reflecting solvability
+\end{itemize}
+
+\subsection{Coding Agent}
+The Coding Agent generates code step-by-step using the chosen plan, the problem description, the identified algorithm, and sample input/output pairs. If the generated code passes all tests, it is returned as the final solution.
+
+\subsection{Debugging Agent}
+The Debugging Agent is invoked if the initially generated code fails to pass all test cases. In its first iteration, it receives the plan, algorithm, and code from the previous step. In subsequent iterations, it also receives and updates the modified plan and code, iteratively improving the solution.
+
+
+
+
+
+
+
+
+
+\section{Possible Performance Improvements}
+
+\subsection{Amount of Plans Generated}
+Experiments with different values of $k$ (number of plans) on HumanEval and CodeContest-test using GPT-3.5-Turbo revealed:
+
+\begin{itemize}
+  \item Strong improvements up to $k = 3$
+  \item Marginal gains beyond $k = 3$
+  \item Over 85\% of problems resolve before hitting maximum iteration (10)
+\end{itemize}
+
+Thus, increasing $k$ or the iteration cap may yield modest improvements at higher cost.
+
+\subsection{Few-Shot Prompting}
+Potential improvements may be realized through few-shot prompting techniques, which could surpass zero-shot accuracy. However, the selection of demonstrations for in-context learning poses a significant challenge, which can greatly influence the behavior of LLMs~\cite{ref3}.
+
+\section{Threats to Validity}
+
+While the results presented across PairCoder, Guided Code Generation, and MapCoder are promising, several potential threats to validity must be considered:
+
+\subsection*{1. Dataset Overlap and Data Leakage}
+One known concern is data leakage due to the release timing of model checkpoints relative to benchmark datasets. For instance, DeepSeek-Coder was released after HumanEval was made public, meaning some training overlap is possible. However, as all models under comparison use similar pretrained architectures and were evaluated uniformly, the relative performance trends remain fair and valid across all baselines \cite{zhang2024paircoder}.
+
+\subsection*{2. Generalization Beyond Benchmarks}
+Benchmarks like HumanEval and MBPP contain problems with clearly defined, relatively small inputs. These may not fully represent real-world software development challenges such as working with APIs, multi-file projects, or performance constraints. Both PairCoder and MapCoder operate within well-scoped, single-function settings. Thus, their generalization to large-scale, industry-grade tasks is untested \cite{almorsi2025guided}.
+
+\subsection*{3. Prompt Sensitivity and Tuning Bias}
+The performance of all systems relies heavily on prompt engineering and zero-shot or few-shot prompting quality. For example, PairCoder’s multi-plan generation effectiveness can be influenced by the temperature setting and clustering strategy used during plan sampling. Guided Code Generation similarly depends on how well the hierarchical decomposition is constructed by the Generalist Agent \cite{zhang2024paircoder, almorsi2025guided}.
+
+\subsection*{4. Benchmark Leakage and Fair Comparison}
+Some competitive systems evaluated against HumanEval or MBPP may have indirectly seen similar examples during pretraining (especially proprietary models like GPT-3.5 or Codex). As noted in the Self-Debugging paper, even slight overlap can disproportionately boost accuracy on small test sets. However, studies like PairCoder and MapCoder attempt to mitigate this by using multiple benchmarks (e.g., CodeContest and MBPP+) which are less prone to contamination \cite{zhang2024paircoder, islam2024mapcodermultiagentcodegeneration}.
+
+\subsection*{5. Evaluation Metrics and Execution Assumptions}
+All comparisons are made using Pass@1, which assumes correctness is binary (i.e., all test cases must pass). This metric does not reflect partial progress or human readability of code. Furthermore, some frameworks (e.g., Self-Debugging or Guided Code Generation) utilize custom test harnesses or execution environments which may affect reproducibility \cite{almorsi2025guided}. The absence of standardized, unified evaluation pipelines across all papers could influence reported results.
+
+\subsection*{6. Model Size and Resource Constraints}
+Guided Code Generation was evaluated using LLaMA 3.1 8B in int4 quantized form due to resource limits, while PairCoder used GPT-3.5-Turbo and DeepSeek-Coder 33B. These differences in model scale and inference quality can confound performance attribution. A more rigorous evaluation would include ablation studies across identical model families to ensure architectural benefits (rather than scale) drive improvements \cite{zhang2024paircoder, almorsi2025guided}.
+
+\subsection*{7. Iteration Budget and Hyperparameter Variance}
+PairCoder, Guided Code Generation, and MapCoder all rely on iteration caps (e.g., 10 repair loops or $k$ plans). The choice of these hyperparameters can dramatically alter performance. The reported results often reflect optimally chosen values found through internal tuning, which may not generalize across users or unseen problem types \cite{zhang2024paircoder, islam2024mapcodermultiagentcodegeneration}.
+
+\subsection*{8. Autonomy vs. Oracle Feedback}
+In frameworks like MapCoder, all corrections are derived from internal feedback using only sample I/O. In contrast, Self-Debugging assumes access to test execution environments or simulation traces. These differences introduce variance in the robustness of model behavior under noisy or incomplete feedback conditions \cite{almorsi2025guided, islam2024mapcoder}.
+
+Overall, while PairCoder and its peers advance the field significantly, careful consideration must be given to how benchmarks, model scale, evaluation settings, and feedback assumptions shape outcomes. Future work should adopt stricter experimental protocols, larger and more diverse datasets, and ideally include human evaluation for holistic assessment.
+
+
+
+
+
+
+
+
+
+
+\section{Discussion}
+
+Through this seminar, we explored how PairCoder applies the principles of pair programming to large language model (LLM)-based code generation. The results and structure presented in the original paper~\cite{zhang2024paircoder} clearly demonstrate that having two collaborative agents—Navigator and Driver—working iteratively on code problems can outperform traditional single-pass methods. One of the key reasons for this success is the framework's ability to switch strategies when it detects stagnation or repeated errors, which is something that most LLMs cannot handle on their own.
+
+The Navigator agent plays an especially important role here. By generating multiple diverse plans and clustering them, it avoids the common problem of LLMs being stuck in a single flawed reasoning path. The Driver, in turn, executes and tests these plans, and feeds back results that guide further decision-making. This feedback loop is very similar to how human developers test, debug, and revise code based on observed behavior.
+
+That said, PairCoder is not without its limitations. Its success heavily depends on the quality and diversity of the initial solution plans. If the Navigator fails to generate plans that cover a wide range of correct strategies, the system might still get stuck—even if the feedback loop is working correctly. Also, because the framework relies on multiple iterations (especially for complex tasks), it can be computationally expensive and slower than single-shot generation methods. This may limit its real-time applicability in some practical scenarios.
+
+Other frameworks like Guided Code Generation~\cite{almorsi2025guided} approach the problem differently. Instead of iteration and switching, they focus on decomposing the task into smaller parts in a tree-like structure. This helps especially in tasks that require deep reasoning and compositional logic, such as problems that involve multiple interdependent functions. However, Guided Code also has its challenges, particularly when it comes to managing the complexity of the tree and debugging at different levels of decomposition.
+
+Another interesting alternative is MapCoder~\cite{islam2024mapcodermultiagentcodegeneration}, which adds more structure by dividing the code generation pipeline into four agents: Retrieval, Planning, Coding, and Debugging. It adds confidence-based plan scoring and internal traversal mechanisms, which makes it more autonomous in some ways. However, like PairCoder, its performance depends a lot on the quality of generated examples and retrieved problem templates.
+
+Finally, Self-Debugging~\cite{chen2024selfdebugging} presents a more lightweight and explainability-focused approach. It allows models to reflect on their own failures using a sort of internal dialogue, which can be surprisingly effective even with smaller models. Still, it lacks the strategic planning depth of PairCoder or the structure of Guided Code.
+
+In summary, this comparison shows that different approaches are suited to different types of code generation challenges. PairCoder’s strength lies in dynamic iteration and plan refinement; Guided Code is better at structural decomposition; MapCoder is somewhere in between with modular design; and Self-Debugging emphasizes introspection and clarity. Combining these ideas could lead to even better systems in the future.
+
+Despite the impressive results reported in the original paper, it is worth mentioning that our own attempt to test or replicate the PairCoder implementation (from the official GitHub repository) did not succeed. The system either failed to produce correct results for some test problems or encountered runtime issues during execution. This suggests that while the conceptual framework is sound, the practical implementation may require further refinement, better documentation, or additional tuning to work reliably out of the box. It also highlights a common issue in machine learning research: reproducibility remains a challenge, especially for complex multi-agent systems.
+
+
+\section{Conclusion and Future Work}
+
+This seminar focused on PairCoder, a novel multi-agent code generation framework inspired by the human practice of pair programming. Throughout my research and analysis, we found that the key strength of PairCoder lies in its iterative structure—especially the way it combines high-level planning (via the Navigator) with low-level implementation and testing (via the Driver). This structure enables it to overcome some of the key weaknesses of large language models when they are used in isolation, such as their inability to correct flawed logic without external help.
+
+The experimental results presented in the original PairCoder paper~\cite{zhang2024paircoder} are quite compelling. On benchmarks like HumanEval and CodeContest, the framework shows significant improvements over standard prompting methods. These gains are particularly notable in complex tasks, where the ability to revise code based on test results is essential. The use of techniques such as multi-plan sampling, clustering, feedback memory, and error-driven repair all contribute to these improvements.
+
+At the same time, PairCoder is not the only attempt at improving LLM-based code generation. During this seminar, I studied two other recent frameworks: Guided Code Generation~\cite{almorsi2025guided} and MapCoder~\cite{islam2024mapcodermultiagentcodegeneration}. Guided Code Generation focuses more on modularity and structured planning by dividing problems into subcomponents that can be solved independently. MapCoder introduces multiple specialized agents that mimic the steps of real-world software development, such as planning, coding, and debugging.
+
+These comparisons lead to the idea that no single framework is universally better. Each has strengths that can be useful in different settings. For instance, PairCoder is well-suited for interactive and logic-heavy tasks that require fast adaptation, while Guided Code Generation may perform better on large, multi-function programs that benefit from hierarchical structure.
+
+\textbf{Future research} could combine the strengths of these different systems to create hybrid models. For example:
+\begin{itemize}
+  \item \textbf{Hybrid architectures}: One idea is to embed PairCoder’s feedback loop within the sub-task trees of Guided Code Generation. This would allow for robust plan-switching at each level of decomposition.
+  \item \textbf{Human-in-the-loop learning}: Developers could be allowed to intervene at key points—such as choosing between competing plans or interpreting test results—to improve accuracy and interpretability~\cite{chen2024selfdebugging}.
+  \item \textbf{Cross-domain adaptation}: These agentic frameworks could be applied to non-programming domains like theorem proving, symbolic logic, or natural language query generation.
+  \item \textbf{Test suite evolution}: Instead of relying only on predefined public test cases, models could learn to generate new edge cases or adversarial inputs to test their own solutions more thoroughly.
+\end{itemize}
+
+In conclusion, our report shows that the future of AI-assisted programming is likely to be built on collaboration—between multiple agents, between humans and models, and between different design philosophies. PairCoder represents a strong step in that direction, and it will be exciting to see how these ideas evolve in the years to come.
+
+While studying PairCoder, we also attempted to test the framework ourselves using the official GitHub implementation. Unfortunately, our test did not succeed—either due to code errors, environment setup issues, or limitations in the robustness of the current version. This experience underscores the gap between theoretical innovation and practical deployment. It reinforces the importance of reproducibility and the need for clearer implementation pipelines, especially for educational and research purposes. Future versions of frameworks like PairCoder could benefit from more accessible APIs, minimal working examples, and better compatibility with common development environments.
+
+
+
 
 \newpage
 \appendix
