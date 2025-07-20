@@ -1,0 +1,298 @@
+2025-07-20 17:13:09.879 | INFO     | gen.dataset_solver:solve_dataset:59 - problem_number: 0
+2025-07-20 17:13:09.879 | INFO     | gen.dataset_solver:solve_dataset:61 - problem_name: 11
+2025-07-20 17:13:09.889 | INFO     | gen.coding_competitor:run:43 - Method pair_programming, model gpt-4, embedding model text-embedding-3-large
+2025-07-20 17:13:09.890 | INFO     | gen.utils:set_configurations:192 - could not split description to short description, description: Write a python function to remove first and last occurrence of a given character from the string.
+Example:
+assert remove_Occ('hello','l') == 'heo'
+2025-07-20 17:13:09.890 | INFO     | gen.navigator.generate_reflection:generate_reflection:14 - --[NAVIGATOR] reflection stage--
+2025-07-20 17:13:09.894 | INFO     | llm.ai_handler:chat_completion:65 - -----------------
+2025-07-20 17:13:09.894 | INFO     | llm.ai_handler:chat_completion:66 - Running inference ...
+2025-07-20 17:13:09.894 | DEBUG    | llm.ai_handler:chat_completion:67 - system:
+You're an experienced programmer.
+2025-07-20 17:13:09.894 | DEBUG    | llm.ai_handler:chat_completion:68 - user:
+You are given a coding problem:
+Write a python function to remove first and last occurrence of a given character from the string.
+Example:
+assert remove_Occ('hello','l') == 'heo'
+Given the coding problem, you have two tasks using natural language:
+1. reflect on the problem:
+   - For simple problems, briefly provide a concise explanation and note all possible valid inputs and edge cases. Avoid overthinking.
+   - For complex problems, provide a comprehensive analysis covering all aspects, details, nuances, and how to properly handle all possible valid inputs and edge cases per problem description.
+2. For 1 provided public test case(s) in description, briefly explain how the specified input yields the expected output based on the problem description.
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+self_reflection:
+- |
+  ...
+tests_explanations:
+- input: |
+    ...
+  output: |
+    ..
+  explanation: |
+    ...
+...
+```
+Answer:
+```yaml
+2025-07-20 17:13:18.194 | DEBUG    | llm.ai_handler:chat_completion:99 - response:
+self_reflection:
+- |
+  The problem is relatively straightforward. It requires writing a Python function that removes the first and last occurrence of a given character from a string. The function takes two arguments: a string and a character. The string can be any sequence of characters, and the character is the one we want to remove from the string. The edge cases to consider are when the string is empty, when the character does not exist in the string, and when the character appears only once in the string. In these cases, the function should return the original string.
+
+tests_explanations:
+- input: |
+    ('hello', 'l')
+  output: |
+    'heo'
+  explanation: |
+    The function receives 'hello' as the string and 'l' as the character to remove. The first occurrence of 'l' is at the third position, and the last occurrence is at the fourth position. After removing these two characters, the remaining string is 'heo', which is the expected output.
+2025-07-20 17:13:18.194 | INFO     | llm.ai_handler:chat_completion:100 - done
+2025-07-20 17:13:18.194 | INFO     | llm.ai_handler:chat_completion:101 - -----------------
+2025-07-20 17:13:18.207 | INFO     | gen.navigator.generate_possible_solutions:generate_possible_solutions:14 - --[NAVIGATOR] generate possible solutions stage--
+2025-07-20 17:13:18.209 | INFO     | llm.ai_handler:chat_completion:65 - -----------------
+2025-07-20 17:13:18.209 | INFO     | llm.ai_handler:chat_completion:66 - Running inference ...
+2025-07-20 17:13:18.209 | DEBUG    | llm.ai_handler:chat_completion:67 - system:
+You are an experienced programmer.
+2025-07-20 17:13:18.209 | DEBUG    | llm.ai_handler:chat_completion:68 - user:
+You are given a coding problem:
+Write a python function to remove first and last occurrence of a given character from the string.
+Example:
+assert remove_Occ('hello','l') == 'heo'
+Self-reflection on the problem:
+- The problem is relatively straightforward. It requires writing a Python function that removes the first and last occurrence of a given character from a string. The function takes two arguments: a string and a character. The string can be any sequence of characters, and the character is the one we want to remove from the string. The edge cases to consider are when the string is empty, when the character does not exist in the string, and when the character appears only once in the string. In these
+Here are also explanations for public test cases:
+- input: |
+    ('hello', 'l')
+  output: |
+    'heo'
+  explanation: |
+    The function receives 'hello' as the string and 'l' as the character to remove. The first occurrence of 'l' is at the third position, and the last occurrence is at the fourth position. After removing these two characters, the remaining string is 'heo', which is the expected output.
+
+Provide up to 3 possible solution plans to the problem.
+Each solution plan should:
+1.Have a descriptive name.
+2.Outline the solution approach:
+   - For simple problems (e.g., reversing a list), provide a concise solution (e.g., we can directly use list1[::-1] to do it.).
+   - For complex problems (e.g., finding the shortest path in a graph), provide a problem-solving plan with high-level steps (e.g., we can use BFS to solve it. First, Initialize a queue with... Second, ...).
+  If necessary, select an appropriate algorithm through problem analysis such as brute force, simulation, greedy, hash map, two pointers, DFS/BFS, stack/queue, DP, etc.
+3.Ensure functional correctness by addressing all possible valid inputs and edge cases per problem description.
+
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+possible_solutions:
+  - name: |
+      ...
+    content: |
+      ...
+  - name: |
+      ...
+    content: |
+      ...
+  ...
+```
+Answer:
+```yaml
+2025-07-20 17:13:56.719 | DEBUG    | llm.ai_handler:chat_completion:99 - response:
+["possible_solutions:\n  - name: |\n      String traversal and character replacement\n    content: |\n      The solution approach would be to traverse the string from the start and end simultaneously, looking for the first and last occurrence of the character respectively. Once found, we replace the first and last occurrence with an empty string. The steps would be:\n        - Start from both ends of the string.\n        - Move towards the center until the given character is found from both ends.\n        - Replace the character at the first and last occurrence with an empty string.\n        - Return the modified string.\n      This approach works for all valid inputs and edge cases as it does not require any specific conditions to be met before it can be applied.\n  - name: |\n      Using Python built-in functions\n    content: |\n      In this solution, we will use Python's built-in string functions to find and remove the first and last occurrence of the character. The steps would be:\n        - Use the find() method to find the first occurrence of the character.\n        - Use the rfind() method to find the last occurrence of the character.\n        - Use slicing and concatenation to create a new string without the first and last occurrence.\n        - Return the new string.\n      This approach is efficient but only works with strings that have at least two occurrences of the character. If there is only one occurrence, we need to handle it separately.\n  - name: |\n      Using list conversion and join operation\n    content: |\n      In this solution, we convert the string into a list of characters, then remove the first and last occurrence of the character from this list, and finally join the list back into a string. The steps would be:\n        - Convert the string into a list of characters.\n        - Use the list's remove() method to remove the first occurrence of the character.\n        - Reverse the list and again use remove() to remove the last occurrence (which is now the first in the reversed list).\n        - Reverse the list back to its original order.\n        - Join the list into a string using the join() method.\n        - Return the resulting string.\n      This approach works with all valid inputs and edge cases, as it uses standard list operations that do not have any special prerequisites.", "possible_solutions:\n  - name: |\n      Using String replace() Method\n    content: |\n      The Python string replace() method replaces a specified phrase with another specified phrase.\n      The solution approach will be as follows:\n        - Firstly, replace the first occurrence of the character using string.replace(old, new, count). Here, old is the character to replace, new is the character that will replace the old character and count is the number of times you want to replace the old character. Here, we only want to replace the first occurrence, so count will be 1.\n        - Secondly, replace the last occurrence of the character. We can do this by reversing the string using string[::-1] and then replacing the first occurrence of the reversed character. After replacing, reverse the string again to get the original string.\n        - Return the string after replacing the first and last occurrence of the character.\n      This solution will work for all possible valid inputs and edge cases as mentioned in the problem description.\n  - name: |\n      Using List conversion and join() Method\n    content: |\n      Python list provides us with the method to remove a given object from the list i.e. remove(). We can use this method to remove the first and last occurrence of a character in a string.\n      The solution approach will be as follows:\n        - Convert the string into a list of characters. This can be done using list(string).\n        - Then use list.remove(element) to remove the first occurrence of character. It removes the first matching element from the list.\n        - To remove the last occurrence, reverse the list using list[::-1], remove the first occurrence of character and reverse the list again.\n        - Join the list of characters back into a string using ''.join(list). Return this string.\n      This solution will work for all possible valid inputs and edge cases as mentioned in the problem description.\n  - name: |\n      Using List comprehension and count() Method\n    content: |\n      We can iterate over each character in the string and add it to the new string if it's not the character to be removed or if it's not the first or last occurrence.\n      The solution approach will be as follows:\n        - Iterate over each character in the string using a loop.\n        - Inside the loop, use string.count(character) to get the count of occurrences of the character in the string.\n        - If the count is greater than 1, then only remove the first and last occurrence of the character. Otherwise, add all characters to the new string.\n        - Return the new string.\n      This solution will work for all possible valid inputs and edge cases as mentioned in the problem description.", "possible_solutions:\n  - name: Using Python's replace() method\n    content: |\n      The replace() method replaces the first occurrence of a specified value. We can use this method to replace the first and last occurrence of a character. The steps are as follows:\n      1. Use the replace() method to replace the first occurrence of the character with a unique string that does not appear in the input string.\n      2. Reverse the string.\n      3. Again, use the replace() method to replace the first occurrence of the character with a unique string.\n      4. Reverse the string back to its original order.\n      5. Finally, replace all occurrences of the unique string with an empty string.\n      In this way, we can remove the first and last occurrence of a given character from the string.\n\n  - name: Using Python's find() and rfind() methods\n    content: |\n      The find() method returns the index of the first occurrence of a specified value, and the rfind() method returns the last occurrence. We can use these two methods to find the first and last occurrence of a character and then remove them. The steps are as follows:\n      1. Use the find() method to find the index of the first occurrence of the character.\n      2. Use slicing to remove this character from the string.\n      3. Use the rfind() method to find the index of the last occurrence of the character in the updated string.\n      4. Again, use slicing to remove this character.\n      This approach is more straightforward than the first one but may have a higher time complexity because slicing a string involves creating a new string.\n\n  - name: Using list comprehension and Python's join() method\n    content: |\n      We can convert the string to a list of characters, then use list comprehension to generate a new list without the first and last occurrence of the character, and finally use the join() method to convert the list back to a string. The steps are as follows:\n      1. Convert the string to a list of characters.\n      2. Find the index of the first and last occurrence of the character.\n      3. Use list comprehension to generate a new list without these two characters.\n      4. Use the join() method to convert the list back to a string.\n      This approach can be more efficient than the previous ones, especially for long strings, because it only involves a single pass over the data.", "possible_solutions:\n  - name: |\n      Using Python string replace method\n    content: |\n      This solution uses python's built-in string replace method. First, we replace the first occurrence of the character by replacing it with an empty string. Then, we do the same for the last occurrence. The trick is to reverse the string before replacing the last occurrence, and then reverse it back.\n      Steps:\n        1. Replace the first occurrence of the character with an empty string.\n        2. Reverse the string.\n        3. Replace the first occurrence of the character (which was the last occurrence in the original string) with an empty string.\n        4. Reverse the string back.\n      This solution handles all edge cases: if the string is empty, the function returns an empty string. If the character does not exist in the string, the function returns the original string. If the character appears only once in the string, the function returns the string without that character.\n  - name: |\n      Using list slicing and join method\n    content: |\n      This solution uses Python's list slicing and join method to solve the problem.\n      Steps:\n        1. Convert the string into a list of characters.\n        2. Find the index of the first occurrence of the character and remove it.\n        3. Reverse the list.\n        4. Find the index of the first occurrence of the character (which was the last occurrence in the original string) and remove it.\n        5. Reverse the list back.\n        6. Join the list into a string and return it.\n      This solution handles all edge cases: if the string is empty, the function returns an empty string. If the character does not exist in the string, the function returns the original string. If the character appears only once in the string, the function returns the string without that character.\n  - name: |\n      Using Python string indexing and concatenation\n    content: |\n      This solution uses Python's string indexing and concatenation operations to solve the problem.\n      Steps:\n        1. Find the index of the first occurrence of the character.\n        2. Find the index of the last occurrence of the character.\n        3. Slice the string into three parts: before the first occurrence, between the first and last occurrence, and after the last occurrence.\n        4. Concatenate these parts together, skipping the first and last occurrence.\n      This solution handles all edge cases: if the string is empty, the function returns an empty string. If the character does not exist in the string, the function returns the original string. If the character appears only once in the string, the function returns the string without that character.", "possible_solutions:\n  - name: Using Python's replace function\n    content: |\n      We can use Python's built-in replace function to remove the first and last occurrence of a character from a string. To remove the first occurrence, we can directly use replace with count set to 1. To remove the last occurrence, we can reverse the string, remove the first occurrence of the character (which is actually the last occurrence in the original string), and then reverse the string again. The edge cases are handled naturally by the replace function: if the string is empty or the character does not exist in the string, the original string is returned; if the character appears only once in the string, it will be removed. The time complexity of this solution is O(n), where n is the length of the string.\n  - name: Using Python's find and rfind functions\n    content: |\n      We can also use Python's find and rfind functions to find the first and last occurrence of a character respectively, and then use slicing to remove these characters from the string. If find or rfind returns -1, it means that the character does not exist in the string, and we can return the original string directly. If find and rfind return the same index, it means that the character appears only once in the string, and we can remove it. The time complexity of this solution is also O(n).\n  - name: Using a single pass with two pointers\n    content: |\n      Another solution is to use a single pass with two pointers. We start one pointer from the beginning of the string and one from the end, and move them towards each other until they meet. During this process, if we encounter the target character, we remove it from the string and continue. This solution also has a time complexity of O(n), and it has an advantage over the previous two solutions in that it only needs to scan the string once. However, it requires more complex logic to handle the edge cases. For example, we need to check if the two pointers have crossed each other to avoid removing the same character twice."]
+2025-07-20 17:13:56.720 | INFO     | llm.ai_handler:chat_completion:100 - done
+2025-07-20 17:13:56.720 | INFO     | llm.ai_handler:chat_completion:101 - -----------------
+2025-07-20 17:13:57.452 | INFO     | llm.ai_handler:text_embedding:108 - -----------------
+2025-07-20 17:13:57.453 | INFO     | llm.ai_handler:text_embedding:109 - Generating embeddings with text-embedding-3-large
+2025-07-20 17:13:58.479 | INFO     | llm.ai_handler:text_embedding:126 - done
+2025-07-20 17:13:58.479 | INFO     | llm.ai_handler:text_embedding:127 - -----------------
+2025-07-20 17:13:58.479 | INFO     | gen.navigator.generate_possible_solutions:cluster:81 - [NAVIGATOR] Using kmeans method to cluster 15 strings into 3 clusters
+2025-07-20 17:14:00.369 | INFO     | gen.pair_programming:run_iterative_code_finder:29 - ======= Solution Finding Process Started =======
+2025-07-20 17:14:00.369 | INFO     | gen.pair_programming:run_iterative_code_finder:31 - --Attempting plan:0, there are 3 plans--
+2025-07-20 17:14:00.369 | INFO     | gen.navigator.choose_best_solution:choose_best_solution_by_LLM:10 - --[NAVIGATOR] choose best solution stage--
+2025-07-20 17:14:00.376 | INFO     | llm.ai_handler:chat_completion:65 - -----------------
+2025-07-20 17:14:00.376 | INFO     | llm.ai_handler:chat_completion:66 - Running inference ...
+2025-07-20 17:14:00.376 | DEBUG    | llm.ai_handler:chat_completion:67 - system:
+You are an experienced programmer.
+2025-07-20 17:14:00.376 | DEBUG    | llm.ai_handler:chat_completion:68 - user:
+You are given a coding problem:
+Write a python function to remove first and last occurrence of a given character from the string.
+Example:
+assert remove_Occ('hello','l') == 'heo'
+Self-reflection on the problem:
+- The problem is relatively straightforward. It requires writing a Python function that removes the first and last occurrence of a given character from a string. The function takes two arguments: a string and a character. The string can be any sequence of characters, and the character is the one we want to remove from the string. The edge cases to consider are when the string is empty, when the character does not exist in the string, and when the character appears only once in the string. In these
+Here is a list of 3 possible solutions to the problem, each preceded by its corresponding INDEX NUMBER.
+=======
+INDEX_NUMBER: 0
+ - name: 
+Using Python built-in functions
+
+- content: 
+In this solution, we will use Python's built-in string functions to find and remove the first and last occurrence of the character. The steps would be:
+  - Use the find() method to find the first occurrence of the character.
+  - Use the rfind() method to find the last occurrence of the character.
+  - Use slicing and concatenation to create a new string without the first and last occurrence.
+  - Return the new string.
+This approach is efficient but only works with strings that have at least two occurrences of the character. If there is only one occurrence, we need to handle it separately.
+
+
+INDEX_NUMBER: 1
+ - name: 
+Using list conversion and join operation
+
+- content: 
+In this solution, we convert the string into a list of characters, then remove the first and last occurrence of the character from this list, and finally join the list back into a string. The steps would be:
+  - Convert the string into a list of characters.
+  - Use the list's remove() method to remove the first occurrence of the character.
+  - Reverse the list and again use remove() to remove the last occurrence (which is now the first in the reversed list).
+  - Reverse the list back to its original order.
+  - Join the list into a string using the join() method.
+  - Return the resulting string.
+This approach works with all valid inputs and edge cases, as it uses standard list operations that do not have any special prerequisites.
+
+INDEX_NUMBER: 2
+ - name: 
+Using Python string replace method
+
+- content: 
+This solution uses python's built-in string replace method. First, we replace the first occurrence of the character by replacing it with an empty string. Then, we do the same for the last occurrence. The trick is to reverse the string before replacing the last occurrence, and then reverse it back.
+Steps:
+  1. Replace the first occurrence of the character with an empty string.
+  2. Reverse the string.
+  3. Replace the first occurrence of the character (which was the last occurrence in the original string) with an empty string.
+  4. Reverse the string back.
+This solution handles all edge cases: if the string is empty, the function returns an empty string. If the character does not exist in the string, the function returns the original string. If the character appears only once in the string, the function returns the string without that character.
+=======
+Choose the most robust and correct solution and provide a brief explanation for your choice.
+The selected solution should:
+1. Prioritize functional correctness over efficiency. If there is a simulation method or a direct brute force method available, prefer it.
+2. Fully solve the problem and correctly handle all possible valid inputs and edge cases as per the problem description.
+3. Consider more efficient methods only if they do not compromise correctness.
+
+Give the selected solutions their corresponding index numbers without altering them.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+INDEX_NUMBER: |
+  ...
+name: |
+  ...
+why: |
+  ...
+```
+Answer:
+```yaml
+2025-07-20 17:14:04.219 | DEBUG    | llm.ai_handler:chat_completion:99 - response:
+INDEX_NUMBER: 1
+name: Using list conversion and join operation
+why: This solution is the most robust and correct because it handles all possible valid inputs and edge cases. It uses standard list operations that do not have any special prerequisites. It works even if the character appears only once in the string or does not appear at all. It also works with an empty string. Although it may not be the most efficient solution in terms of time complexity due to the list reversal and join operations, it prioritizes functional correctness over efficiency, which is the main requirement.
+2025-07-20 17:14:04.219 | INFO     | llm.ai_handler:chat_completion:100 - done
+2025-07-20 17:14:04.219 | INFO     | llm.ai_handler:chat_completion:101 - -----------------
+2025-07-20 17:14:04.221 | INFO     | gen.driver.generate_initial_code:generate_initial_solve:12 - --[DRIVER] initial solve stage--
+2025-07-20 17:14:04.223 | INFO     | llm.ai_handler:chat_completion:65 - -----------------
+2025-07-20 17:14:04.225 | INFO     | llm.ai_handler:chat_completion:66 - Running inference ...
+2025-07-20 17:14:04.225 | DEBUG    | llm.ai_handler:chat_completion:67 - system:
+You are an experienced programmer.
+2025-07-20 17:14:04.225 | DEBUG    | llm.ai_handler:chat_completion:68 - user:
+You are given a coding problem:
+Write a python function to remove first and last occurrence of a given character from the string.
+Example:
+assert remove_Occ('hello','l') == 'heo'
+Please generate a Python code to fully solve the problem using the following solution plan:
+- name: 
+Using list conversion and join operation
+
+- content: 
+In this solution, we convert the string into a list of characters, then remove the first and last occurrence of the character from this list, and finally join the list back into a string. The steps would be:
+  - Convert the string into a list of characters.
+  - Use the list's remove() method to remove the first occurrence of the character.
+  - Reverse the list and again use remove() to remove the last occurrence (which is now the first in the reversed list).
+  - Reverse the list back to its original order.
+  - Join the list into a string using the join() method.
+  - Return the resulting string.
+This approach works with all valid inputs and edge cases, as it uses standard list operations that do not have any special prerequisites.
+Ensure the code includes all necessary module imports and has no Python syntax errors.
+Guidelines:
+- The code must use only one input() function to obtain an organized string contains the parameters for the function. You can directly pass the parameters using `*eval(input())`.
+- You must use only one print() statement to output the return value from the function you completed, without any additional words.
+The code must follow the following structure within a markdown block:
+```python
+def func(...):
+    ...
+    return ...
+
+if __name__ == "__main__":
+    print(func(*eval(input())))
+```
+Answer:
+```python
+2025-07-20 17:14:09.431 | DEBUG    | llm.ai_handler:chat_completion:99 - response:
+def remove_Occ(s, c):
+    # Convert the string into a list of characters
+    s_list = list(s)
+    
+    # Remove the first occurrence of the character
+    s_list.remove(c)
+    
+    # Reverse the list and remove the last occurrence (which is now the first in the reversed list)
+    s_list.reverse()
+    s_list.remove(c)
+    
+    # Reverse the list back to its original order
+    s_list.reverse()
+    
+    # Join the list into a string using the join() method
+    s = ''.join(s_list)
+    
+    # Return the resulting string
+    return s
+
+if __name__ == "__main__":
+    print(remove_Occ(*eval(input())))
+2025-07-20 17:14:09.431 | INFO     | llm.ai_handler:chat_completion:100 - done
+2025-07-20 17:14:09.433 | INFO     | llm.ai_handler:chat_completion:101 - -----------------
+2025-07-20 17:14:09.788 | INFO     | gen.pair_programming:run_iterative_code_finder:46 - [DRIVER] static analyze the code, success: True
+2025-07-20 17:14:09.788 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:82 - compilation results:ProgramStatus.kSuccess
+2025-07-20 17:14:09.788 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:84 - 
+2025-07-20 17:14:09.788 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:85 - 
+2025-07-20 17:14:09.788 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:96 - input:
+['hello','l']
+2025-07-20 17:14:09.788 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:97 - expected vs code output:
+heo
+---
+heo
+2025-07-20 17:14:09.788 | INFO     | code_contests.eval.code_test_runners:print_test_results:113 - test-0 :: status=ProgramStatus.kSuccess, passed=True
+2025-07-20 17:14:09.788 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:115 - passed=True
+2025-07-20 17:14:09.788 | INFO     | code_contests.eval.code_test_runners:print_test_results:118 - =====================================================================
+2025-07-20 17:14:09.788 | INFO     | gen.pair_programming:run_iterative_code_finder:69 - Passed tests in plan:0 after 0 attempts
+2025-07-20 17:14:09.795 | INFO     | gen.dataset_solver:solve_dataset:99 - solution code:
+def remove_Occ(s, c):
+    # Convert the string into a list of characters
+    s_list = list(s)
+    
+    # Remove the first occurrence of the character
+    s_list.remove(c)
+    
+    # Reverse the list and remove the last occurrence (which is now the first in the reversed list)
+    s_list.reverse()
+    s_list.remove(c)
+    
+    # Reverse the list back to its original order
+    s_list.reverse()
+    
+    # Join the list into a string using the join() method
+    s = ''.join(s_list)
+    
+    # Return the resulting string
+    return s
+
+if __name__ == "__main__":
+    print(remove_Occ(*eval(input())))
+2025-07-20 17:14:09.796 | INFO     | gen.dataset_solver:solve_dataset:103 - Evaluating solution on public tests...
+2025-07-20 17:14:09.799 | INFO     | gen.dataset_solver:solve_dataset:123 - evaluating solution on private tests...
+2025-07-20 17:14:09.805 | INFO     | gen.dataset_solver:solve_dataset:127 - evaluating solution on generated tests...
+2025-07-20 17:14:09.806 | INFO     | gen.dataset_solver:solve_dataset:131 - 
+test_passed_public: 1, test_failed_public: 0, test_timeout_public: 0
+test_passed_private: 3, test_failed_private: 0, test_timeout_private: 0
+test_passed_generate: 0, test_failed_generate: 0, test_timeout_generate: 0
+
+2025-07-20 17:14:09.806 | INFO     | gen.dataset_solver:solve_dataset:147 - PairCoder solved problem 0 in iteration 0

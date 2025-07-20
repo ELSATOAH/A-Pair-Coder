@@ -1,0 +1,279 @@
+2025-07-20 17:39:01.420 | INFO     | gen.dataset_solver:solve_dataset:59 - problem_number: 22
+2025-07-20 17:39:01.420 | INFO     | gen.dataset_solver:solve_dataset:61 - problem_name: 33
+2025-07-20 17:39:01.460 | INFO     | gen.coding_competitor:run:43 - Method pair_programming, model gpt-4, embedding model text-embedding-3-large
+2025-07-20 17:39:01.460 | INFO     | gen.utils:set_configurations:192 - could not split description to short description, description: Write a python function to convert a decimal number to binary number.
+Example:
+assert decimal_To_Binary(10) == 1010
+2025-07-20 17:39:01.460 | INFO     | gen.navigator.generate_reflection:generate_reflection:14 - --[NAVIGATOR] reflection stage--
+2025-07-20 17:39:01.467 | INFO     | llm.ai_handler:chat_completion:65 - -----------------
+2025-07-20 17:39:01.468 | INFO     | llm.ai_handler:chat_completion:66 - Running inference ...
+2025-07-20 17:39:01.468 | DEBUG    | llm.ai_handler:chat_completion:67 - system:
+You're an experienced programmer.
+2025-07-20 17:39:01.468 | DEBUG    | llm.ai_handler:chat_completion:68 - user:
+You are given a coding problem:
+Write a python function to convert a decimal number to binary number.
+Example:
+assert decimal_To_Binary(10) == 1010
+Given the coding problem, you have two tasks using natural language:
+1. reflect on the problem:
+   - For simple problems, briefly provide a concise explanation and note all possible valid inputs and edge cases. Avoid overthinking.
+   - For complex problems, provide a comprehensive analysis covering all aspects, details, nuances, and how to properly handle all possible valid inputs and edge cases per problem description.
+2. For 1 provided public test case(s) in description, briefly explain how the specified input yields the expected output based on the problem description.
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+self_reflection:
+- |
+  ...
+tests_explanations:
+- input: |
+    ...
+  output: |
+    ..
+  explanation: |
+    ...
+...
+```
+Answer:
+```yaml
+2025-07-20 17:39:10.304 | DEBUG    | llm.ai_handler:chat_completion:99 - response:
+self_reflection:
+- |
+  The problem is straightforward and requires a basic understanding of number systems. The task is to write a Python function that converts a decimal number to a binary number. The valid inputs for this function would be any non-negative integer, as binary representation is defined for these numbers. The edge cases would include 0 and very large numbers. The Python built-in function bin() could be used to solve this problem, but it returns a string that includes '0b' at the beginning, which is not desired in this case. Therefore, we need to implement the conversion manually, which can be done by repeatedly dividing the number by 2 and storing the remainder until the number becomes 0.
+
+tests_explanations:
+- input: |
+    10
+  output: |
+    1010
+  explanation: |
+    The binary representation of the decimal number 10 is 1010. This can be obtained by repeatedly dividing the number by 2 and storing the remainder. The process is as follows:
+    10 / 2 = 5 remainder 0 (least significant bit)
+    5 / 2 = 2 remainder 1
+    2 / 2 = 1 remainder 0
+    1 / 2 = 0 remainder 1 (most significant bit)
+    Reading the remainders from bottom to top gives the binary representation: 1010.
+2025-07-20 17:39:10.306 | INFO     | llm.ai_handler:chat_completion:100 - done
+2025-07-20 17:39:10.306 | INFO     | llm.ai_handler:chat_completion:101 - -----------------
+2025-07-20 17:39:10.306 | INFO     | gen.navigator.generate_possible_solutions:generate_possible_solutions:14 - --[NAVIGATOR] generate possible solutions stage--
+2025-07-20 17:39:10.313 | INFO     | llm.ai_handler:chat_completion:65 - -----------------
+2025-07-20 17:39:10.313 | INFO     | llm.ai_handler:chat_completion:66 - Running inference ...
+2025-07-20 17:39:10.313 | DEBUG    | llm.ai_handler:chat_completion:67 - system:
+You are an experienced programmer.
+2025-07-20 17:39:10.313 | DEBUG    | llm.ai_handler:chat_completion:68 - user:
+You are given a coding problem:
+Write a python function to convert a decimal number to binary number.
+Example:
+assert decimal_To_Binary(10) == 1010
+Self-reflection on the problem:
+- The problem is straightforward and requires a basic understanding of number systems. The task is to write a Python function that converts a decimal number to a binary number. The valid inputs for this function would be any non-negative integer, as binary representation is defined for these numbers. The edge cases would include 0 and very large numbers. The Python built-in function bin() could be used to solve this problem, but it returns a string that includes '0b' at the beginning, which is not
+Here are also explanations for public test cases:
+- input: |
+    10
+  output: |
+    1010
+  explanation: |
+    The binary representation of the decimal number 10 is 1010. This can be obtained by repeatedly dividing the number by 2 and storing the remainder. The process is as follows:
+    10 / 2 = 5 remainder 0 (least significant bit)
+    5 / 2 = 2 remainder 1
+    2 / 2 = 1 remainder 0
+    1 / 2 = 0 remainder 1 (most significant bit)
+    Reading the remainders from bottom to top gives the binary representation: 1010.
+
+Provide up to 3 possible solution plans to the problem.
+Each solution plan should:
+1.Have a descriptive name.
+2.Outline the solution approach:
+   - For simple problems (e.g., reversing a list), provide a concise solution (e.g., we can directly use list1[::-1] to do it.).
+   - For complex problems (e.g., finding the shortest path in a graph), provide a problem-solving plan with high-level steps (e.g., we can use BFS to solve it. First, Initialize a queue with... Second, ...).
+  If necessary, select an appropriate algorithm through problem analysis such as brute force, simulation, greedy, hash map, two pointers, DFS/BFS, stack/queue, DP, etc.
+3.Ensure functional correctness by addressing all possible valid inputs and edge cases per problem description.
+
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+possible_solutions:
+  - name: |
+      ...
+    content: |
+      ...
+  - name: |
+      ...
+    content: |
+      ...
+  ...
+```
+Answer:
+```yaml
+2025-07-20 17:39:32.036 | DEBUG    | llm.ai_handler:chat_completion:99 - response:
+['possible_solutions:\n  - name: |\n      "Iterative Solution"\n    content: |\n      1. Start by initializing an empty string that will hold the binary representation.\n      2. While the input number is greater than zero, compute the remainder of the number when divided by 2 (which will be either 0 or 1) and add it to the start of the binary string.\n      3. Then, divide the number by 2, discarding any fractional part (this can be done using floor division // in Python), and repeat the process until the number is zero.\n      4. Finally, return the binary string. If the input number was zero, the function should return \'0\'.\n      5. This solution handles all valid inputs and edge cases because it correctly computes the binary representation for all non-negative integers.\n\n  - name: |\n      "Recursive Solution"\n    content: |\n      1. The base case for the recursion is when the input number is zero, in which case the function should return \'0\'.\n      2. For any other number, the function should compute the binary representation by recursively calling itself with the number divided by 2 (using floor division to discard any fractional part), and then appending the remainder of the number when divided by 2 (which will be either 0 or 1).\n      3. This recursive solution essentially implements the same process as the iterative solution, but in a different way. It handles all valid inputs and edge cases because it correctly computes the binary representation for all non-negative integers.\n\n  - name: |\n      "Using Built-in Functions"\n    content: |\n      1. Python has a built-in function bin() that returns a string representing the binary version of an integer, however this string includes a \'0b\' prefix.\n      2. So, we can convert the number to binary using bin() and then remove the \'0b\' prefix by slicing the string from the second character onwards.\n      3. This solution is very simple and handles all valid inputs and edge cases, because the bin() function correctly computes the binary representation for all non-negative integers. However, it may not be allowed in a coding interview if the interviewer wants to see how you would implement the conversion process yourself.', "possible_solutions:\n  - name: |\n      Iterative Method\n    content: |\n      This approach involves the iterative division of the decimal number by 2. The remainder of each division is the binary digit, starting from the least significant bit. We keep dividing until the quotient becomes 0. The binary number is then obtained by reading the remainders in reverse order.\n      1. Initialize an empty string.\n      2. While the input number is not 0:\n          - Divide the number by 2 and get the remainder.\n          - Append the remainder to the string.\n          - Update the number to its quotient.\n      3. Reverse the string to get the final binary representation.\n      This approach handles all valid inputs as it iteratively reduces the input number to 0. For the edge case where the input number is already 0, the while loop will not execute and an empty string will be returned, which can be handled by an if condition.\n  \n  - name: |\n      Recursive Method\n    content: |\n      This solution uses a similar approach as the iterative method, but it does so in a recursive manner. The base case of the recursion is when the input number is 0, in which case we return an empty string. For other cases, we recursively call the function on the quotient of the number divided by 2, and append the remainder to the result.\n      1. If the input number is 0, return an empty string.\n      2. Else, recursively call the function on the quotient of the number divided by 2, and append the remainder to this result.\n      This recursive method also handles all valid inputs and edge cases.\n\n  - name: |\n      Using Python's Built-in bin() Function\n    content: |\n      This is a simple solution that makes use of Python's built-in bin() function, which returns a string representing the binary representation of a number. However, the resulting string includes the prefix '0b', so we need to remove this.\n      1. Call the bin() function on the input number.\n      2. Return the substring starting from index 2 to remove the '0b' prefix.\n      This solution is straightforward and handles all valid inputs and edge cases. However, it might be considered a less satisfying solution if the task is intended to test the understanding of binary representation and division by 2.", "possible_solutions:\n  - name: |\n      Using python built-in bin function\n    content: |\n      This approach uses Python's built-in bin() function to convert the decimal number to a binary string. Then, we remove the '0b' prefix from the binary string using Python's slice operation.\n      1. Define a function decimal_To_Binary that takes an integer as input.\n      2. Use bin() function to convert the integer to binary. The result is a binary string with '0b' prefix.\n      3. Return the binary string without the '0b' prefix.\n\n  - name: |\n      Using bitwise shift and bitwise AND operations\n    content: |\n      This approach uses bitwise operations to convert a decimal number to binary. It's a bit more low-level and does not rely on Python's built-in functions.\n      1. Define a function decimal_To_Binary that takes an integer n as input.\n      2. Initialize an empty string binary.\n      3. Iterate from the highest bit to the lowest bit (from 31 to 0) in the integer.\n      4. For each iteration, shift the bits of n to the right by i positions and perform a bitwise AND with 1.\n      5. If the result is 1, add '1' to binary; otherwise, add '0'.\n      6. Return binary as an integer.\n\n  - name: |\n      Using division and modulo operations\n    content: |\n      This approach uses the division and modulo operations to convert a decimal number to binary. It mimics the manual process of converting decimal numbers to binary.\n      1. Define a function decimal_To_Binary that takes an integer n as input.\n      2. If n is 0, return 0.\n      3. Initialize an empty string binary.\n      4. While n is greater than 0, divide n by 2 and append the remainder to binary, then update n to be the quotient.\n      5. Return binary reversed as an integer.", "possible_solutions:\n  - name: |\n      Using built-in function bin() after stripping '0b'\n    content: |\n      The Python built-in function bin() can be used to convert a decimal number to a binary string. However, it adds '0b' at the beginning, so we need to remove it using string slicing.\n\n      def decimal_To_Binary(n):\n          return int(bin(n)[2:])\n      \n      This solution is efficient and works for all valid inputs including edge cases.\n\n  - name: |\n      Using bitwise shift and bitwise AND operation\n    content: |\n      This solution involves repeatedly shifting the bits of the number to the right and performing a bitwise AND operation with 1 to get the least significant bit. The binary representation is constructed by concatenating these bits.\n\n      def decimal_To_Binary(n):\n          binary = ''\n          while n:\n              binary = str(n & 1) + binary\n              n >>= 1\n          return int(binary) if binary else 0\n      \n      This solution doesn't use any built-in functions and works for all valid inputs including edge cases.\n\n  - name: |\n      Using recursion\n    content: |\n      The binary representation can be obtained by recursively dividing the number by 2 and concatenating the remainders.\n\n      def decimal_To_Binary(n):\n          if n == 0:\n              return 0\n          else:\n              return n % 2 + 10 * decimal_To_Binary(n // 2)\n      \n      This solution uses a recursive approach and works for all valid inputs including edge cases. It can be inefficient for large numbers due to recursion depth limit.", "possible_solutions:\n  - name: |\n      Using Built-in Functions\n    content: |\n      This is the simplest and most straightforward way to solve the problem. Python provides a built-in function called bin() that can convert an integer into binary. However, the output of bin() is a string that begins with '0b'. Therefore, we need to remove '0b' from the result. \n      This approach works for all valid inputs including edge cases. However, it's not the most efficient way to solve the problem when dealing with very large numbers.\n    plan:\n      - Use the bin() function to convert the input decimal number to a binary string.\n      - Remove '0b' from the beginning of the binary string.\n  - name: |\n      Using Bitwise Operations\n    content: |\n      This solution uses bitwise operations to convert a decimal number to binary. It's more efficient than using built-in functions, especially for large numbers. It works by shifting bits and appending 1 or 0 based on whether the rightmost bit is set or not.\n      It should work for all valid inputs. However, it's slightly more complex than using built-in functions.\n    plan:\n      - Initialize an empty string to store the binary representation.\n      - While the number is greater than 0, perform the following steps:\n        - Use bitwise AND operation to check if the rightmost bit is set. If it's set, append '1' to the binary string; otherwise, append '0'.\n        - Right shift the number by one bit.\n      - Reverse the binary string before returning it.\n  - name: |\n      Using Division and Modulus Operations\n    content: |\n      This solution uses division and modulus operations to convert a decimal number to binary. It's a classic approach that works for all valid inputs. However, it's not as efficient as using bitwise operations for large numbers.\n      This approach works by repeatedly dividing the number by 2 and storing the remainder until the number becomes 0. The binary representation is obtained by reading the remainders from bottom to top.\n    plan:\n      - Initialize an empty string to store the binary representation.\n      - While the number is greater than 0, perform the following steps:\n        - Divide the number by 2 and store the remainder. Append '1' to the binary string if the remainder is 1; otherwise, append '0'.\n        - Update the number by dividing it by 2.\n      - Reverse the binary string before returning it."]
+2025-07-20 17:39:32.037 | INFO     | llm.ai_handler:chat_completion:100 - done
+2025-07-20 17:39:32.037 | INFO     | llm.ai_handler:chat_completion:101 - -----------------
+2025-07-20 17:39:32.048 | INFO     | llm.ai_handler:text_embedding:108 - -----------------
+2025-07-20 17:39:32.048 | INFO     | llm.ai_handler:text_embedding:109 - Generating embeddings with text-embedding-3-large
+2025-07-20 17:39:33.002 | INFO     | llm.ai_handler:text_embedding:126 - done
+2025-07-20 17:39:33.005 | INFO     | llm.ai_handler:text_embedding:127 - -----------------
+2025-07-20 17:39:33.007 | INFO     | gen.navigator.generate_possible_solutions:cluster:81 - [NAVIGATOR] Using kmeans method to cluster 15 strings into 3 clusters
+2025-07-20 17:39:33.016 | INFO     | gen.pair_programming:run_iterative_code_finder:29 - ======= Solution Finding Process Started =======
+2025-07-20 17:39:33.018 | INFO     | gen.pair_programming:run_iterative_code_finder:31 - --Attempting plan:0, there are 3 plans--
+2025-07-20 17:39:33.018 | INFO     | gen.navigator.choose_best_solution:choose_best_solution_by_LLM:10 - --[NAVIGATOR] choose best solution stage--
+2025-07-20 17:39:33.020 | INFO     | llm.ai_handler:chat_completion:65 - -----------------
+2025-07-20 17:39:33.021 | INFO     | llm.ai_handler:chat_completion:66 - Running inference ...
+2025-07-20 17:39:33.021 | DEBUG    | llm.ai_handler:chat_completion:67 - system:
+You are an experienced programmer.
+2025-07-20 17:39:33.021 | DEBUG    | llm.ai_handler:chat_completion:68 - user:
+You are given a coding problem:
+Write a python function to convert a decimal number to binary number.
+Example:
+assert decimal_To_Binary(10) == 1010
+Self-reflection on the problem:
+- The problem is straightforward and requires a basic understanding of number systems. The task is to write a Python function that converts a decimal number to a binary number. The valid inputs for this function would be any non-negative integer, as binary representation is defined for these numbers. The edge cases would include 0 and very large numbers. The Python built-in function bin() could be used to solve this problem, but it returns a string that includes '0b' at the beginning, which is not
+Here is a list of 3 possible solutions to the problem, each preceded by its corresponding INDEX NUMBER.
+=======
+INDEX_NUMBER: 0
+ - name: 
+Using bitwise shift and bitwise AND operations
+
+- content: 
+This approach uses bitwise operations to convert a decimal number to binary. It's a bit more low-level and does not rely on Python's built-in functions.
+1. Define a function decimal_To_Binary that takes an integer n as input.
+2. Initialize an empty string binary.
+3. Iterate from the highest bit to the lowest bit (from 31 to 0) in the integer.
+4. For each iteration, shift the bits of n to the right by i positions and perform a bitwise AND with 1.
+5. If the result is 1, add '1' to binary; otherwise, add '0'.
+6. Return binary as an integer.
+
+
+INDEX_NUMBER: 1
+ - name: 
+"Iterative Solution"
+
+- content: 
+1. Start by initializing an empty string that will hold the binary representation.
+2. While the input number is greater than zero, compute the remainder of the number when divided by 2 (which will be either 0 or 1) and add it to the start of the binary string.
+3. Then, divide the number by 2, discarding any fractional part (this can be done using floor division // in Python), and repeat the process until the number is zero.
+4. Finally, return the binary string. If the input number was zero, the function should return '0'.
+5. This solution handles all valid inputs and edge cases because it correctly computes the binary representation for all non-negative integers.
+
+
+INDEX_NUMBER: 2
+ - name: 
+Recursive Method
+
+- content: 
+This solution uses a similar approach as the iterative method, but it does so in a recursive manner. The base case of the recursion is when the input number is 0, in which case we return an empty string. For other cases, we recursively call the function on the quotient of the number divided by 2, and append the remainder to the result.
+1. If the input number is 0, return an empty string.
+2. Else, recursively call the function on the quotient of the number divided by 2, and append the remainder to this result.
+This recursive method also handles all valid inputs and edge cases.
+=======
+Choose the most robust and correct solution and provide a brief explanation for your choice.
+The selected solution should:
+1. Prioritize functional correctness over efficiency. If there is a simulation method or a direct brute force method available, prefer it.
+2. Fully solve the problem and correctly handle all possible valid inputs and edge cases as per the problem description.
+3. Consider more efficient methods only if they do not compromise correctness.
+
+Give the selected solutions their corresponding index numbers without altering them.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+INDEX_NUMBER: |
+  ...
+name: |
+  ...
+why: |
+  ...
+```
+Answer:
+```yaml
+2025-07-20 17:39:37.476 | DEBUG    | llm.ai_handler:chat_completion:99 - response:
+INDEX_NUMBER: 1
+name: Iterative Solution
+why: This solution is chosen because it is straightforward, easy to understand, and does not rely on low-level bitwise operations. It correctly handles all valid inputs and edge cases, including 0 and large numbers. It uses a simple while loop to iteratively divide the input number by 2 and add the remainder to the binary string, which is a direct implementation of the process of converting a decimal number to binary. Although it may not be as efficient as the bitwise operation method for large numbers, it prioritizes functional correctness over efficiency, as required.
+2025-07-20 17:39:37.476 | INFO     | llm.ai_handler:chat_completion:100 - done
+2025-07-20 17:39:37.476 | INFO     | llm.ai_handler:chat_completion:101 - -----------------
+2025-07-20 17:39:37.485 | INFO     | gen.driver.generate_initial_code:generate_initial_solve:12 - --[DRIVER] initial solve stage--
+2025-07-20 17:39:37.485 | INFO     | llm.ai_handler:chat_completion:65 - -----------------
+2025-07-20 17:39:37.485 | INFO     | llm.ai_handler:chat_completion:66 - Running inference ...
+2025-07-20 17:39:37.491 | DEBUG    | llm.ai_handler:chat_completion:67 - system:
+You are an experienced programmer.
+2025-07-20 17:39:37.491 | DEBUG    | llm.ai_handler:chat_completion:68 - user:
+You are given a coding problem:
+Write a python function to convert a decimal number to binary number.
+Example:
+assert decimal_To_Binary(10) == 1010
+Please generate a Python code to fully solve the problem using the following solution plan:
+- name: 
+"Iterative Solution"
+
+- content: 
+1. Start by initializing an empty string that will hold the binary representation.
+2. While the input number is greater than zero, compute the remainder of the number when divided by 2 (which will be either 0 or 1) and add it to the start of the binary string.
+3. Then, divide the number by 2, discarding any fractional part (this can be done using floor division // in Python), and repeat the process until the number is zero.
+4. Finally, return the binary string. If the input number was zero, the function should return '0'.
+5. This solution handles all valid inputs and edge cases because it correctly computes the binary representation for all non-negative integers.
+Ensure the code includes all necessary module imports and has no Python syntax errors.
+Guidelines:
+- The code must use only one input() function to obtain an organized string contains the parameters for the function. You can directly pass the parameters using `*eval(input())`.
+- You must use only one print() statement to output the return value from the function you completed, without any additional words.
+The code must follow the following structure within a markdown block:
+```python
+def func(...):
+    ...
+    return ...
+
+if __name__ == "__main__":
+    print(func(*eval(input())))
+```
+Answer:
+```python
+2025-07-20 17:39:42.248 | DEBUG    | llm.ai_handler:chat_completion:99 - response:
+def decimal_To_Binary(n):
+    binary = ""
+    if n == 0:
+        return '0'
+    while n > 0:
+        binary = str(n % 2) + binary
+        n = n // 2
+    return int(binary)
+
+if __name__ == "__main__":
+    print(decimal_To_Binary(*eval(input())))
+2025-07-20 17:39:42.248 | INFO     | llm.ai_handler:chat_completion:100 - done
+2025-07-20 17:39:42.248 | INFO     | llm.ai_handler:chat_completion:101 - -----------------
+2025-07-20 17:39:42.315 | INFO     | gen.pair_programming:run_iterative_code_finder:46 - [DRIVER] static analyze the code, success: True
+2025-07-20 17:39:42.319 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:82 - compilation results:ProgramStatus.kSuccess
+2025-07-20 17:39:42.319 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:84 - 
+2025-07-20 17:39:42.319 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:85 - 
+2025-07-20 17:39:42.320 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:96 - input:
+[10]
+2025-07-20 17:39:42.320 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:97 - expected vs code output:
+1010
+---
+1010
+2025-07-20 17:39:42.320 | INFO     | code_contests.eval.code_test_runners:print_test_results:113 - test-0 :: status=ProgramStatus.kSuccess, passed=True
+2025-07-20 17:39:42.321 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:115 - passed=True
+2025-07-20 17:39:42.321 | INFO     | code_contests.eval.code_test_runners:print_test_results:118 - =====================================================================
+2025-07-20 17:39:42.322 | INFO     | gen.pair_programming:run_iterative_code_finder:69 - Passed tests in plan:0 after 0 attempts
+2025-07-20 17:39:42.323 | INFO     | gen.dataset_solver:solve_dataset:99 - solution code:
+def decimal_To_Binary(n):
+    binary = ""
+    if n == 0:
+        return '0'
+    while n > 0:
+        binary = str(n % 2) + binary
+        n = n // 2
+    return int(binary)
+
+if __name__ == "__main__":
+    print(decimal_To_Binary(*eval(input())))
+2025-07-20 17:39:42.324 | INFO     | gen.dataset_solver:solve_dataset:103 - Evaluating solution on public tests...
+2025-07-20 17:39:42.326 | INFO     | gen.dataset_solver:solve_dataset:123 - evaluating solution on private tests...
+2025-07-20 17:39:42.332 | INFO     | gen.dataset_solver:solve_dataset:127 - evaluating solution on generated tests...
+2025-07-20 17:39:42.332 | INFO     | gen.dataset_solver:solve_dataset:131 - 
+test_passed_public: 1, test_failed_public: 0, test_timeout_public: 0
+test_passed_private: 3, test_failed_private: 0, test_timeout_private: 0
+test_passed_generate: 0, test_failed_generate: 0, test_timeout_generate: 0
+
+2025-07-20 17:39:42.332 | INFO     | gen.dataset_solver:solve_dataset:147 - PairCoder solved problem 22 in iteration 0

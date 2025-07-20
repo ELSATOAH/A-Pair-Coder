@@ -1,0 +1,3578 @@
+2025-07-20 21:18:27.392 | INFO     | gen.dataset_solver:solve_dataset:59 - problem_number: 10
+2025-07-20 21:18:27.399 | INFO     | gen.dataset_solver:solve_dataset:61 - problem_name: 1551_B2. Wonderful Coloring - 2
+2025-07-20 21:18:27.414 | INFO     | gen.coding_competitor:run:43 - Method pair_programming, model gpt-3.5-turbo, embedding model text-embedding-3-large
+2025-07-20 21:18:27.414 | INFO     | gen.navigator.generate_reflection:generate_reflection:14 - --[NAVIGATOR] reflection stage--
+2025-07-20 21:18:27.422 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:18:27.422 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:18:27.424 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You're an experienced programmer.
+2025-07-20 21:18:27.424 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+
+Example
+
+Input
+
+
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+
+Output
+
+
+1 1 0 2 3 2 2 1 3 3
+4 2 1 3
+1
+0 0 1 1 0 1 1 1 0 1 1 1 0
+2 1 2 2 1 1 1 1 2 1 0 2 2
+1 1 3 2 1 3 3 1 2 2 3 2 0
+
+Note
+
+In the first test case, the answer is shown in the figure in the statement. The red color has number 1, the blue color — 2, the green — 3.
+Given the coding problem, you have two tasks using natural language:
+1. reflect on the problem:
+   - For simple problems, briefly provide a concise explanation and note all possible valid inputs and edge cases. Avoid overthinking.
+   - For complex problems, provide a comprehensive analysis covering all aspects, details, nuances, and how to properly handle all possible valid inputs and edge cases per problem description.
+2. For 1 provided public test case(s) in description, briefly explain how the specified input yields the expected output based on the problem description.
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+self_reflection:
+- |
+  ...
+tests_explanations:
+- input: |
+    ...
+  output: |
+    ..
+  explanation: |
+    ...
+...
+```
+Answer:
+```yaml
+2025-07-20 21:18:30.110 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```yaml
+self_reflection:
+- |
+  This problem involves coloring a sequence of integers with a given number of colors while maximizing the total count of painted elements. The conditions for a wonderful coloring must be met, including having equal numbers of elements painted in each color and ensuring no two equal values are painted in the same color.
+
+tests_explanations:
+- input: |
+    10 3
+    3 1 1 1 1 10 3 10 10 2
+  output: |
+    1 1 0 2 3 2 2 1 3 3
+  explanation: |
+    In this test case, the sequence is [3, 1, 1, 1, 1, 10, 3, 10, 10, 2] with k=3 colors. One possible wonderful coloring is to paint elements as follows:
+    - Color 1: [3, 1, 1, 1, 10, 3, 10]
+    - Color 2: [2, 10, 2]
+    - Color 3: [2, 3]
+    This coloring satisfies all conditions and maximizes the total count of painted elements.
+```
+2025-07-20 21:18:30.110 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:18:30.110 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:18:30.110 | INFO     | gen.navigator.generate_possible_solutions:generate_possible_solutions:14 - --[NAVIGATOR] generate possible solutions stage--
+2025-07-20 21:18:30.118 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:18:30.118 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:18:30.118 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programmer.
+2025-07-20 21:18:30.118 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+
+Example
+
+Input
+
+
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+
+Output
+
+
+1 1 0 2 3 2 2 1 3 3
+4 2 1 3
+1
+0 0 1 1 0 1 1 1 0 1 1 1 0
+2 1 2 2 1 1 1 1 2 1 0 2 2
+1 1 3 2 1 3 3 1 2 2 3 2 0
+
+Note
+
+In the first test case, the answer is shown in the figure in the statement. The red color has number 1, the blue color — 2, the green — 3.
+Self-reflection on the problem:
+- This problem involves coloring a sequence of integers with a given number of colors while maximizing the total count of painted elements. The conditions for a wonderful coloring must be met, including having equal numbers of elements painted in each color and ensuring no two equal values are painted in the same color.
+Here are also explanations for public test cases:
+- input: |
+    10 3
+    3 1 1 1 1 10 3 10 10 2
+  output: |
+    1 1 0 2 3 2 2 1 3 3
+  explanation: |
+    In this test case, the sequence is [3, 1, 1, 1, 1, 10, 3, 10, 10, 2] with k=3 colors. One possible wonderful coloring is to paint elements as follows:
+    - Color 1: [3, 1, 1, 1, 10, 3, 10]
+    - Color 2: [2, 10, 2]
+    - Color 3: [2, 3]
+    This coloring satisfies all conditions and maximizes the total count of painted elements.
+
+Provide up to 3 possible solution plans to the problem.
+Each solution plan should:
+1.Have a descriptive name.
+2.Outline the solution approach:
+   - For simple problems (e.g., reversing a list), provide a concise solution (e.g., we can directly use list1[::-1] to do it.).
+   - For complex problems (e.g., finding the shortest path in a graph), provide a problem-solving plan with high-level steps (e.g., we can use BFS to solve it. First, Initialize a queue with... Second, ...).
+  If necessary, select an appropriate algorithm through problem analysis such as brute force, simulation, greedy, hash map, two pointers, DFS/BFS, stack/queue, DP, etc.
+3.Ensure functional correctness by addressing all possible valid inputs and edge cases per problem description.
+
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+possible_solutions:
+  - name: |
+      ...
+    content: |
+      ...
+  - name: |
+      ...
+    content: |
+      ...
+  ...
+```
+Answer:
+```yaml
+2025-07-20 21:18:36.570 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+['```yaml\npossible_solutions:\n  - name: Brute Force Solution\n    content: |\n      - Iterate through all possible colorings of the sequence.\n      - For each coloring, check if it satisfies the conditions of a wonderful coloring.\n      - Keep track of the coloring that maximizes the total count of painted elements.\n      - Output the coloring that meets the criteria.\n\n  - name: Greedy Approach\n    content: |\n      - Initialize an array to store the count of occurrences of each unique value in the sequence.\n      - Sort the unique values based on their count in non-increasing order.\n      - Assign colors to values starting from the most frequent one and following the conditions.\n      - Output the coloring that satisfies all conditions and maximizes the total count of painted elements.\n\n  - name: HashMap and Sorting\n    content: |\n      - Create a hashmap to store the count of occurrences for each unique value in the sequence.\n      - Sort the unique values based on their count in non-increasing order.\n      - Assign colors to values starting from the most frequent one and following the conditions.\n      - Output the coloring that meets the criteria and maximizes the total count of painted elements.\n```', '```yaml\npossible_solutions:\n  - name: Solution Plan 1 - Greedy Approach\n    content: |\n      - Sort the sequence in non-decreasing order.\n      - Assign colors to elements starting from the smallest element and increment the color count for each new element.\n      - If the color count reaches k, reset it to 1.\n      - This approach ensures that no two equal values are painted in the same color and maximizes the total count of painted elements.\n\n  - name: Solution Plan 2 - Hash Map and Sorting\n    content: |\n      - Create a hash map to store the frequency of each element in the sequence.\n      - Sort the elements based on their frequency in non-increasing order.\n      - Assign colors to elements based on the sorted order, ensuring that each color has an equal number of elements.\n      - This approach guarantees that all conditions for a wonderful coloring are met while maximizing the total count of painted elements.\n\n  - name: Solution Plan 3 - Bucketing Approach\n    content: |\n      - Create k buckets to store elements based on their frequency.\n      - Distribute elements into buckets such that each bucket contains elements with the same frequency.\n      - Assign colors to elements by iterating through the buckets, ensuring no two equal values are painted in the same color.\n      - This approach optimally distributes elements into colors while meeting all conditions for a wonderful coloring.\n```', '```yaml\npossible_solutions:\n  - name: Greedy Coloring\n    content: |\n      - Sort the sequence in non-decreasing order.\n      - Initialize a dictionary to keep track of the count of each number painted in each color.\n      - Initialize a list to store the color assignments for each element.\n      - Assign colors greedily by iterating through the sorted sequence:\n        - For each number, assign the color that has the least count for that number so far, breaking ties by choosing the color with the least count overall.\n        - Update the counts of both the number and color.\n      - Output the final color assignments.\n\n  - name: Prefix Sum Coloring\n    content: |\n      - Use a prefix sum array to store the number of occurrences of each number in the sequence.\n      - Initialize an array to store the count of numbers painted in each color.\n      - Initialize an array to store the color assignment for each element.\n      - Iterate over the prefix sum array from the end to update the color assignments:\n        - For each number, find the maximum color count from previous numbers.\n        - Assign the color that minimizes the difference between the total number of painted elements and the maximum color count.\n        - Update the counts of both the number and color.\n      - Output the final color assignments.\n\n  - name: Counting Coloring\n    content: |\n      - Use a hashmap to store the count of each number in the sequence.\n      - Initialize a list to store the color assignments for each element.\n      - Initialize a priority queue based on the count of each number.\n      - Assign colors by popping elements from the priority queue and assigning colors with lower counts first.\n      - Update the counts of both the number and color.\n      - Output the final color assignments.\n```', '```yaml\npossible_solutions:\n  - name: Greedy Coloring\n    content: |\n      Approach:\n      1. Create a dictionary to store the frequency of each element in the sequence.\n      2. Sort the elements based on their frequency in descending order.\n      3. Assign colors to the elements starting from the most frequent element to the least frequent.\n      4. Ensure that each color has an equal number of elements and no two same elements are painted with the same color.\n      5. If the number of unique elements is less than or equal to k, assign each unique element a different color.\n  \n  - name: Brute Force Coloring\n    content: |\n      Approach:\n      1. Generate all possible colorings of the sequence using backtracking.\n      2. For each coloring, check if it satisfies the wonderful coloring conditions.\n      3. Keep track of the coloring that maximizes the total count of painted elements.\n  \n  - name: Counting Sort Coloring\n    content: |\n      Approach:\n      1. Use counting sort to group elements with the same value together.\n      2. Assign colors to each group based on the number of elements in the group.\n      3. Ensure that each color has an equal number of elements and no two same elements are painted with the same color.\n```\n```', '```yaml\npossible_solutions:\n  - name: Solution Plan 1 - Greedy Approach\n    content: |\n      Approach:\n      1. Create a dictionary to store the counts of each unique element in the sequence.\n      2. Sort the dictionary based on the counts of elements in descending order.\n      3. Iterate through the sorted dictionary and assign colors to each unique element.\n      4. Ensure that no two equal values are painted in the same color by tracking the last assigned color for each unique element.\n      5. Output the coloring based on the assigned colors.\n\n  - name: Solution Plan 2 - Hash Map and Sorting\n    content: |\n      Approach:\n      1. Create a hash map to store the counts of each unique element in the sequence.\n      2. Sort the elements based on their counts in descending order.\n      3. Initialize an array to store the color assignments for each element.\n      4. Assign colors greedily while ensuring that no two equal values are painted in the same color.\n      5. Output the coloring based on the assigned colors.\n\n  - name: Solution Plan 3 - Two Pointers Approach\n    content: |\n      Approach:\n      1. Initialize two pointers, one at the beginning of the sequence and another at the end.\n      2. Create a dictionary to store the counts of each unique element in the sequence.\n      3. While there are unpainted elements, assign colors to elements pointed by the two pointers simultaneously, moving them towards each other.\n      4. Ensure that no two equal values are painted in the same color by updating the counts of elements and colors accordingly.\n      5. Output the coloring based on the assigned colors.\n```']
+2025-07-20 21:18:36.570 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:18:36.574 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:18:36.584 | INFO     | llm.ai_handler:text_embedding:137 - -----------------
+2025-07-20 21:18:36.586 | INFO     | llm.ai_handler:text_embedding:138 - Generating embeddings with text-embedding-3-large
+2025-07-20 21:18:37.614 | INFO     | llm.ai_handler:text_embedding:155 - done
+2025-07-20 21:18:37.614 | INFO     | llm.ai_handler:text_embedding:156 - -----------------
+2025-07-20 21:18:37.614 | INFO     | gen.navigator.generate_possible_solutions:cluster:81 - [NAVIGATOR] Using kmeans method to cluster 15 strings into 3 clusters
+2025-07-20 21:18:37.630 | INFO     | gen.pair_programming:run_iterative_code_finder:29 - ======= Solution Finding Process Started =======
+2025-07-20 21:18:37.632 | INFO     | gen.pair_programming:run_iterative_code_finder:31 - --Attempting plan:0, there are 3 plans--
+2025-07-20 21:18:37.632 | INFO     | gen.navigator.choose_best_solution:choose_best_solution_by_LLM:10 - --[NAVIGATOR] choose best solution stage--
+2025-07-20 21:18:37.636 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:18:37.636 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:18:37.637 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programmer.
+2025-07-20 21:18:37.637 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+
+Example
+
+Input
+
+
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+
+Output
+
+
+1 1 0 2 3 2 2 1 3 3
+4 2 1 3
+1
+0 0 1 1 0 1 1 1 0 1 1 1 0
+2 1 2 2 1 1 1 1 2 1 0 2 2
+1 1 3 2 1 3 3 1 2 2 3 2 0
+
+Note
+
+In the first test case, the answer is shown in the figure in the statement. The red color has number 1, the blue color — 2, the green — 3.
+Self-reflection on the problem:
+- This problem involves coloring a sequence of integers with a given number of colors while maximizing the total count of painted elements. The conditions for a wonderful coloring must be met, including having equal numbers of elements painted in each color and ensuring no two equal values are painted in the same color.
+Here is a list of 3 possible solutions to the problem, each preceded by its corresponding INDEX NUMBER.
+=======
+INDEX_NUMBER: 0
+ - name: 
+Greedy Approach
+- content: 
+- Initialize an array to store the count of occurrences of each unique value in the sequence.
+- Sort the unique values based on their count in non-increasing order.
+- Assign colors to values starting from the most frequent one and following the conditions.
+- Output the coloring that satisfies all conditions and maximizes the total count of painted elements.
+
+
+INDEX_NUMBER: 1
+ - name: 
+Brute Force Solution
+- content: 
+- Iterate through all possible colorings of the sequence.
+- For each coloring, check if it satisfies the conditions of a wonderful coloring.
+- Keep track of the coloring that maximizes the total count of painted elements.
+- Output the coloring that meets the criteria.
+
+
+INDEX_NUMBER: 2
+ - name: 
+Solution Plan 2 - Hash Map and Sorting
+- content: 
+Approach:
+1. Create a hash map to store the counts of each unique element in the sequence.
+2. Sort the elements based on their counts in descending order.
+3. Initialize an array to store the color assignments for each element.
+4. Assign colors greedily while ensuring that no two equal values are painted in the same color.
+5. Output the coloring based on the assigned colors.
+=======
+Choose the most robust and correct solution and provide a brief explanation for your choice.
+The selected solution should:
+1. Prioritize functional correctness over efficiency. If there is a simulation method or a direct brute force method available, prefer it.
+2. Fully solve the problem and correctly handle all possible valid inputs and edge cases as per the problem description.
+3. Consider more efficient methods only if they do not compromise correctness.
+
+Give the selected solutions their corresponding index numbers without altering them.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+INDEX_NUMBER: |
+  ...
+name: |
+  ...
+why: |
+  ...
+```
+Answer:
+```yaml
+2025-07-20 21:18:39.123 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```yaml
+INDEX_NUMBER: |
+  1
+name: |
+  Brute Force Solution
+why: |
+  This solution iterates through all possible colorings of the sequence, ensuring that it exhaustively checks all combinations to find the one that maximizes the total count of painted elements while meeting the conditions of a wonderful coloring. It prioritizes functional correctness over efficiency and handles all possible valid inputs and edge cases as per the problem description.
+```
+2025-07-20 21:18:39.123 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:18:39.125 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:18:39.127 | INFO     | gen.driver.generate_initial_code:generate_initial_solve:12 - --[DRIVER] initial solve stage--
+2025-07-20 21:18:39.132 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:18:39.132 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:18:39.132 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programmer.
+2025-07-20 21:18:39.132 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+
+Example
+
+Input
+
+
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+
+Output
+
+
+1 1 0 2 3 2 2 1 3 3
+4 2 1 3
+1
+0 0 1 1 0 1 1 1 0 1 1 1 0
+2 1 2 2 1 1 1 1 2 1 0 2 2
+1 1 3 2 1 3 3 1 2 2 3 2 0
+
+Note
+
+In the first test case, the answer is shown in the figure in the statement. The red color has number 1, the blue color — 2, the green — 3.
+Please generate a Python code to fully solve the problem using the following solution plan:
+- name: 
+Brute Force Solution
+- content: 
+- Iterate through all possible colorings of the sequence.
+- For each coloring, check if it satisfies the conditions of a wonderful coloring.
+- Keep track of the coloring that maximizes the total count of painted elements.
+- Output the coloring that meets the criteria.
+Ensure the code includes all necessary module imports and has no Python syntax errors.
+Guidelines:
+- The code should read the input using the 'input()' method and properly parse it according to the problem description.
+- The output should be printed without additional words using the 'print()' method.
+The code must follow the following structure within a markdown block:
+```python
+def f1(...):
+    ...
+    return ...
+
+def f2(...):
+    ...
+    return ...
+...
+if __name__ == "__main__":
+    ...
+```
+Answer:
+```python
+2025-07-20 21:18:41.676 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```python
+def is_wonderful_coloring(coloring, k):
+    color_counts = [0] * (k + 1)
+    for color in coloring:
+        color_counts[color] += 1
+    max_count = max(color_counts)
+    if max_count == 0:
+        return False
+    for count in color_counts:
+        if count != 0 and count != max_count:
+            return False
+    return True
+
+def brute_force_wonderful_coloring(n, k, sequence):
+    max_painted = 0
+    best_coloring = []
+    for i in range(1, k + 1):
+        for j in range(1, k + 1):
+            coloring = [0] * n
+            painted = 0
+            for idx, num in enumerate(sequence):
+                if (idx % k == i - 1) or (idx % k == j - 1):
+                    coloring[idx] = 1 if idx % k == i - 1 else 2
+                    painted += 1
+            if painted > max_painted and is_wonderful_coloring(coloring, 2):
+                max_painted = painted
+                best_coloring = coloring[:]
+    return best_coloring
+
+if __name__ == "__main__":
+    t = int(input())
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        coloring = brute_force_wonderful_coloring(n, k, sequence)
+        print(*coloring)
+```
+```
+2025-07-20 21:18:41.676 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:18:41.676 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:18:41.782 | INFO     | gen.pair_programming:run_iterative_code_finder:46 - [DRIVER] static analyze the code, success: True
+2025-07-20 21:18:41.790 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:82 - compilation results:ProgramStatus.kSuccess
+2025-07-20 21:18:41.790 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:84 - 
+2025-07-20 21:18:41.790 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:85 - 
+2025-07-20 21:18:41.790 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:96 - input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+2025-07-20 21:18:41.790 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:97 - expected vs code output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+---
+1
+1 1 1 1 1 1 1 1 1 1 1 1 1
+2025-07-20 21:18:41.790 | INFO     | code_contests.eval.code_test_runners:print_test_results:113 - test-0 :: status=ProgramStatus.kSuccess, passed=False
+2025-07-20 21:18:41.790 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:115 - passed=False. 
+2025-07-20 21:18:41.790 | INFO     | code_contests.eval.code_test_runners:print_test_results:118 - =====================================================================
+2025-07-20 21:18:41.794 | INFO     | gen.pair_programming:run_iterative_code_finder:76 - Failed to pass tests in plan:0 after 0 attempts, try to fix it
+2025-07-20 21:18:41.795 | INFO     | gen.navigator.analyze_code_errors:analyze_code_errors:15 - --[NAVIGATOR] analyze runtime failure--
+2025-07-20 21:18:41.799 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:18:41.799 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:18:41.799 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced and patient programming expert, skilled at analyzing code bugs and providing precise guidance for fixing them.
+2025-07-20 21:18:41.799 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+A Python code solution was generated for the problem:
+```
+def is_wonderful_coloring(coloring, k):
+    color_counts = [0] * (k + 1)
+    for color in coloring:
+        color_counts[color] += 1
+    max_count = max(color_counts)
+    if max_count == 0:
+        return False
+    for count in color_counts:
+        if count != 0 and count != max_count:
+            return False
+    return True
+
+def brute_force_wonderful_coloring(n, k, sequence):
+    max_painted = 0
+    best_coloring = []
+    for i in range(1, k + 1):
+        for j in range(1, k + 1):
+            coloring = [0] * n
+            painted = 0
+            for idx, num in enumerate(sequence):
+                if (idx % k == i - 1) or (idx % k == j - 1):
+                    coloring[idx] = 1 if idx % k == i - 1 else 2
+                    painted += 1
+            if painted > max_painted and is_wonderful_coloring(coloring, 2):
+                max_painted = painted
+                best_coloring = coloring[:]
+    return best_coloring
+
+if __name__ == "__main__":
+    t = int(input())
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        coloring = brute_force_wonderful_coloring(n, k, sequence)
+        print(*coloring)
+```
+However, the code solution failed to produce the expected output:
+```
+Example 0:
+test input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+expected output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+code output:
+1
+1 1 1 1 1 1 1 1 1 1 1 1 1
+--------------
+```
+Identify and briefly explain the logical or functional errors in the code that prevent it from producing the expected output for the given input.
+Provide a step-by-step approach to fix the issues, ensuring the corrected code can handle all valid inputs correctly.
+Keep the fix steps concise for minor issues, but provide more detailed steps if major revisions are required.
+
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+what_went_wrong: |
+  ...
+fixed_flow: |
+  ...
+```
+Answer:
+```yaml
+2025-07-20 21:18:43.529 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```yaml
+what_went_wrong: |
+  - The `brute_force_wonderful_coloring` function in the provided code has logical errors that prevent it from producing the correct output.
+  - The function does not correctly handle the conditions for a wonderful coloring, leading to incorrect results.
+  - The function does not consider all possible combinations of coloring to maximize the total count of painted elements.
+
+fixed_flow: |
+  1. Update the `brute_force_wonderful_coloring` function to consider all possible combinations of coloring to maximize the total count of painted elements.
+  2. Ensure that the function correctly checks if a coloring is wonderful according to the given conditions.
+  3. Modify the logic to iterate through all possible color combinations for each element in the sequence.
+  4. Update the logic to track and return the best coloring that maximizes the total count of painted elements.
+```
+2025-07-20 21:18:43.529 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:18:43.531 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:18:43.533 | INFO     | gen.driver.fix_code_errors:fix_code_errors:13 - --[DRIVER] fix code runtime errors--
+2025-07-20 21:18:43.543 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:18:43.553 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:18:43.554 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programming expert.
+2025-07-20 21:18:43.554 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+A Python code solution was generated for the problem:
+```
+def is_wonderful_coloring(coloring, k):
+    color_counts = [0] * (k + 1)
+    for color in coloring:
+        color_counts[color] += 1
+    max_count = max(color_counts)
+    if max_count == 0:
+        return False
+    for count in color_counts:
+        if count != 0 and count != max_count:
+            return False
+    return True
+
+def brute_force_wonderful_coloring(n, k, sequence):
+    max_painted = 0
+    best_coloring = []
+    for i in range(1, k + 1):
+        for j in range(1, k + 1):
+            coloring = [0] * n
+            painted = 0
+            for idx, num in enumerate(sequence):
+                if (idx % k == i - 1) or (idx % k == j - 1):
+                    coloring[idx] = 1 if idx % k == i - 1 else 2
+                    painted += 1
+            if painted > max_painted and is_wonderful_coloring(coloring, 2):
+                max_painted = painted
+                best_coloring = coloring[:]
+    return best_coloring
+
+if __name__ == "__main__":
+    t = int(input())
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        coloring = brute_force_wonderful_coloring(n, k, sequence)
+        print(*coloring)
+```
+However, when running the following input example, the code solution above failed to produce the expected output:
+```
+Example 0:
+test input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+expected output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+code output:
+1
+1 1 1 1 1 1 1 1 1 1 1 1 1
+--------------
+```
+Please fix the code using the following approach:
+```
+Error Analysis:
+- The `brute_force_wonderful_coloring` function in the provided code has logical errors that prevent it from producing the correct output.
+- The function does not correctly handle the conditions for a wonderful coloring, leading to incorrect results.
+- The function does not consider all possible combinations of coloring to maximize the total count of painted elements.
+Fix Process:
+1. Update the `brute_force_wonderful_coloring` function to consider all possible combinations of coloring to maximize the total count of painted elements.
+2. Ensure that the function correctly checks if a coloring is wonderful according to the given conditions.
+3. Modify the logic to iterate through all possible color combinations for each element in the sequence.
+4. Update the logic to track and return the best coloring that maximizes the total count of painted elements.
+```
+Guidelines:
+- The code should read the input using the 'input()' method and properly parse it according to the problem description.
+- The output should be printed without additional words using the 'print()' method.
+The code must follow the following structure within a markdown block:
+```python
+def f1(...):
+    ...
+    return ...
+
+def f2(...):
+    ...
+    return ...
+...
+if __name__ == "__main__":
+    ...
+```
+Answer:
+```python
+2025-07-20 21:18:46.396 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```python
+def is_wonderful_coloring(coloring, k):
+    color_counts = [0] * (k + 1)
+    for color in coloring:
+        color_counts[color] += 1
+    max_count = max(color_counts)
+    if max_count == 0:
+        return False
+    for count in color_counts:
+        if count != 0 and count != max_count:
+            return False
+    return True
+
+def brute_force_wonderful_coloring(n, k, sequence):
+    max_painted = 0
+    best_coloring = []
+    for i in range(1, k + 1):
+        for j in range(i, k + 1):
+            coloring = [0] * n
+            painted = 0
+            for idx, num in enumerate(sequence):
+                if (idx % k == i - 1) or (idx % k == j - 1):
+                    coloring[idx] = 1 if idx % k == i - 1 else 2
+                    painted += 1
+            if painted > max_painted and is_wonderful_coloring(coloring, 2):
+                max_painted = painted
+                best_coloring = coloring[:]
+    return best_coloring
+
+if __name__ == "__main__":
+    t = int(input())
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        coloring = brute_force_wonderful_coloring(n, k, sequence)
+        print(*coloring)
+```
+2025-07-20 21:18:46.396 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:18:46.396 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:18:46.514 | INFO     | gen.pair_programming:run_iterative_code_finder:46 - [DRIVER] static analyze the code, success: True
+2025-07-20 21:18:46.520 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:82 - compilation results:ProgramStatus.kSuccess
+2025-07-20 21:18:46.520 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:84 - 
+2025-07-20 21:18:46.520 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:85 - 
+2025-07-20 21:18:46.520 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:96 - input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+2025-07-20 21:18:46.520 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:97 - expected vs code output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+---
+1
+1 1 1 1 1 1 1 1 1 1 1 1 1
+2025-07-20 21:18:46.520 | INFO     | code_contests.eval.code_test_runners:print_test_results:113 - test-0 :: status=ProgramStatus.kSuccess, passed=False
+2025-07-20 21:18:46.520 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:115 - passed=False. 
+2025-07-20 21:18:46.520 | INFO     | code_contests.eval.code_test_runners:print_test_results:118 - =====================================================================
+2025-07-20 21:18:46.523 | INFO     | gen.pair_programming:run_iterative_code_finder:74 - [NAVIGATOR] think should change plan:0
+2025-07-20 21:18:46.525 | INFO     | gen.pair_programming:run_iterative_code_finder:31 - --Attempting plan:1, there are 3 plans--
+2025-07-20 21:18:46.526 | INFO     | gen.navigator.choose_best_solution:choose_best_solution_by_LLM:10 - --[NAVIGATOR] choose best solution stage--
+2025-07-20 21:18:46.530 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:18:46.533 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:18:46.533 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programmer.
+2025-07-20 21:18:46.533 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+
+Example
+
+Input
+
+
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+
+Output
+
+
+1 1 0 2 3 2 2 1 3 3
+4 2 1 3
+1
+0 0 1 1 0 1 1 1 0 1 1 1 0
+2 1 2 2 1 1 1 1 2 1 0 2 2
+1 1 3 2 1 3 3 1 2 2 3 2 0
+
+Note
+
+In the first test case, the answer is shown in the figure in the statement. The red color has number 1, the blue color — 2, the green — 3.
+Self-reflection on the problem:
+- This problem involves coloring a sequence of integers with a given number of colors while maximizing the total count of painted elements. The conditions for a wonderful coloring must be met, including having equal numbers of elements painted in each color and ensuring no two equal values are painted in the same color.
+Here is a list of 2 possible solutions to the problem, each preceded by its corresponding INDEX NUMBER.
+=======
+INDEX_NUMBER: 0
+ - name: 
+Greedy Approach
+- content: 
+- Initialize an array to store the count of occurrences of each unique value in the sequence.
+- Sort the unique values based on their count in non-increasing order.
+- Assign colors to values starting from the most frequent one and following the conditions.
+- Output the coloring that satisfies all conditions and maximizes the total count of painted elements.
+
+
+INDEX_NUMBER: 2
+ - name: 
+Solution Plan 2 - Hash Map and Sorting
+- content: 
+Approach:
+1. Create a hash map to store the counts of each unique element in the sequence.
+2. Sort the elements based on their counts in descending order.
+3. Initialize an array to store the color assignments for each element.
+4. Assign colors greedily while ensuring that no two equal values are painted in the same color.
+5. Output the coloring based on the assigned colors.
+=======
+Choose the most robust and correct solution and provide a brief explanation for your choice.
+The selected solution should:
+1. Prioritize functional correctness over efficiency. If there is a simulation method or a direct brute force method available, prefer it.
+2. Fully solve the problem and correctly handle all possible valid inputs and edge cases as per the problem description.
+3. Consider more efficient methods only if they do not compromise correctness.
+
+Give the selected solutions their corresponding index numbers without altering them.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+INDEX_NUMBER: |
+  ...
+name: |
+  ...
+why: |
+  ...
+```
+Answer:
+```yaml
+2025-07-20 21:18:47.725 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```yaml
+INDEX_NUMBER: 0
+name: Greedy Approach
+why: This solution provides a straightforward and correct approach to solving the problem by prioritizing functional correctness. It ensures that all conditions for a wonderful coloring are met while maximizing the total count of painted elements. The greedy nature of the algorithm simplifies the implementation and guarantees a valid solution for all test cases.
+```
+2025-07-20 21:18:47.725 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:18:47.727 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:18:47.730 | INFO     | gen.driver.generate_initial_code:generate_initial_solve:12 - --[DRIVER] initial solve stage--
+2025-07-20 21:18:47.730 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:18:47.730 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:18:47.730 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programmer.
+2025-07-20 21:18:47.730 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+
+Example
+
+Input
+
+
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+
+Output
+
+
+1 1 0 2 3 2 2 1 3 3
+4 2 1 3
+1
+0 0 1 1 0 1 1 1 0 1 1 1 0
+2 1 2 2 1 1 1 1 2 1 0 2 2
+1 1 3 2 1 3 3 1 2 2 3 2 0
+
+Note
+
+In the first test case, the answer is shown in the figure in the statement. The red color has number 1, the blue color — 2, the green — 3.
+Please generate a Python code to fully solve the problem using the following solution plan:
+- name: 
+Greedy Approach
+- content: 
+- Initialize an array to store the count of occurrences of each unique value in the sequence.
+- Sort the unique values based on their count in non-increasing order.
+- Assign colors to values starting from the most frequent one and following the conditions.
+- Output the coloring that satisfies all conditions and maximizes the total count of painted elements.
+Ensure the code includes all necessary module imports and has no Python syntax errors.
+Guidelines:
+- The code should read the input using the 'input()' method and properly parse it according to the problem description.
+- The output should be printed without additional words using the 'print()' method.
+The code must follow the following structure within a markdown block:
+```python
+def f1(...):
+    ...
+    return ...
+
+def f2(...):
+    ...
+    return ...
+...
+if __name__ == "__main__":
+    ...
+```
+Answer:
+```python
+2025-07-20 21:18:49.773 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```python
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_dict = defaultdict(int)
+        for num in sequence:
+            count_dict[num] += 1
+
+        unique_values = sorted(count_dict.keys(), key=lambda x: count_dict[x], reverse=True)
+        color_count = 0
+        coloring = [0] * n
+        for val in unique_values:
+            color_count += 1
+            for i in range(n):
+                if sequence[i] == val and coloring[i] == 0:
+                    coloring[i] = color_count
+            if color_count == k:
+                break
+
+        print(*coloring)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+
+    wonderful_coloring(t, test_cases)
+```
+2025-07-20 21:18:49.773 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:18:49.773 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:18:49.865 | INFO     | gen.pair_programming:run_iterative_code_finder:46 - [DRIVER] static analyze the code, success: True
+2025-07-20 21:18:49.873 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:82 - compilation results:ProgramStatus.kSuccess
+2025-07-20 21:18:49.873 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:84 - 
+2025-07-20 21:18:49.873 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:85 - 
+2025-07-20 21:18:49.873 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:96 - input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+2025-07-20 21:18:49.873 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:97 - expected vs code output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+---
+3 1 1 1 1 2 3 2 2 0
+1 1 1 1
+1
+0 0 0 0 1 0 0 0 1 0 1 0 0
+2 0 0 0 1 0 0 0 1 2 1 0 0
+2 3 0 3 1 0 0 0 1 2 1 0 0
+2025-07-20 21:18:49.873 | INFO     | code_contests.eval.code_test_runners:print_test_results:113 - test-0 :: status=ProgramStatus.kSuccess, passed=False
+2025-07-20 21:18:49.873 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:115 - passed=False. 
+2025-07-20 21:18:49.873 | INFO     | code_contests.eval.code_test_runners:print_test_results:118 - =====================================================================
+2025-07-20 21:18:49.873 | INFO     | gen.pair_programming:run_iterative_code_finder:76 - Failed to pass tests in plan:1 after 0 attempts, try to fix it
+2025-07-20 21:18:49.877 | INFO     | gen.navigator.analyze_code_errors:analyze_code_errors:15 - --[NAVIGATOR] analyze runtime failure--
+2025-07-20 21:18:49.882 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:18:49.882 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:18:49.882 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced and patient programming expert, skilled at analyzing code bugs and providing precise guidance for fixing them.
+2025-07-20 21:18:49.882 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+A Python code solution was generated for the problem:
+```
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_dict = defaultdict(int)
+        for num in sequence:
+            count_dict[num] += 1
+
+        unique_values = sorted(count_dict.keys(), key=lambda x: count_dict[x], reverse=True)
+        color_count = 0
+        coloring = [0] * n
+        for val in unique_values:
+            color_count += 1
+            for i in range(n):
+                if sequence[i] == val and coloring[i] == 0:
+                    coloring[i] = color_count
+            if color_count == k:
+                break
+
+        print(*coloring)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+
+    wonderful_coloring(t, test_cases)
+```
+However, the code solution failed to produce the expected output:
+```
+Example 0:
+test input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+expected output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+code output:
+3 1 1 1 1 2 3 2 2 0
+1 1 1 1
+1
+0 0 0 0 1 0 0 0 1 0 1 0 0
+2 0 0 0 1 0 0 0 1 2 1 0 0
+2 3 0 3 1 0 0 0 1 2 1 0 0
+--------------
+```
+Identify and briefly explain the logical or functional errors in the code that prevent it from producing the expected output for the given input.
+Provide a step-by-step approach to fix the issues, ensuring the corrected code can handle all valid inputs correctly.
+Keep the fix steps concise for minor issues, but provide more detailed steps if major revisions are required.
+
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+what_went_wrong: |
+  ...
+fixed_flow: |
+  ...
+```
+Answer:
+```yaml
+2025-07-20 21:18:51.311 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```yaml
+what_went_wrong: |
+  - The code fails to correctly assign colors to elements in the sequence while maximizing the total count of painted elements.
+  - The code does not handle cases where the number of unique elements in the sequence is less than the number of colors available.
+fixed_flow: |
+  1. Update the logic for assigning colors to elements in the sequence to ensure that each color is used optimally while following the given conditions.
+  2. Handle cases where the number of unique elements in the sequence is less than the number of colors available by adjusting the coloring strategy.
+  3. Modify the code to handle cases where the number of unique elements is less than k by assigning colors to all unique elements first before repeating colors.
+```
+2025-07-20 21:18:51.311 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:18:51.311 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:18:51.311 | INFO     | gen.driver.fix_code_errors:fix_code_errors:13 - --[DRIVER] fix code runtime errors--
+2025-07-20 21:18:51.317 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:18:51.317 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:18:51.325 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programming expert.
+2025-07-20 21:18:51.325 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+A Python code solution was generated for the problem:
+```
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_dict = defaultdict(int)
+        for num in sequence:
+            count_dict[num] += 1
+
+        unique_values = sorted(count_dict.keys(), key=lambda x: count_dict[x], reverse=True)
+        color_count = 0
+        coloring = [0] * n
+        for val in unique_values:
+            color_count += 1
+            for i in range(n):
+                if sequence[i] == val and coloring[i] == 0:
+                    coloring[i] = color_count
+            if color_count == k:
+                break
+
+        print(*coloring)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+
+    wonderful_coloring(t, test_cases)
+```
+However, when running the following input example, the code solution above failed to produce the expected output:
+```
+Example 0:
+test input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+expected output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+code output:
+3 1 1 1 1 2 3 2 2 0
+1 1 1 1
+1
+0 0 0 0 1 0 0 0 1 0 1 0 0
+2 0 0 0 1 0 0 0 1 2 1 0 0
+2 3 0 3 1 0 0 0 1 2 1 0 0
+--------------
+```
+Please fix the code using the following approach:
+```
+Error Analysis:
+- The code fails to correctly assign colors to elements in the sequence while maximizing the total count of painted elements.
+- The code does not handle cases where the number of unique elements in the sequence is less than the number of colors available.
+Fix Process:
+1. Update the logic for assigning colors to elements in the sequence to ensure that each color is used optimally while following the given conditions.
+2. Handle cases where the number of unique elements in the sequence is less than the number of colors available by adjusting the coloring strategy.
+3. Modify the code to handle cases where the number of unique elements is less than k by assigning colors to all unique elements first before repeating colors.
+```
+Guidelines:
+- The code should read the input using the 'input()' method and properly parse it according to the problem description.
+- The output should be printed without additional words using the 'print()' method.
+The code must follow the following structure within a markdown block:
+```python
+def f1(...):
+    ...
+    return ...
+
+def f2(...):
+    ...
+    return ...
+...
+if __name__ == "__main__":
+    ...
+```
+Answer:
+```python
+2025-07-20 21:18:54.176 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```python
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_dict = defaultdict(int)
+        for num in sequence:
+            count_dict[num] += 1
+
+        unique_values = sorted(count_dict.keys(), key=lambda x: count_dict[x], reverse=True)
+        color_count = 0
+        coloring = [0] * n
+        color_index = 1
+        for val in unique_values:
+            for i in range(n):
+                if sequence[i] == val and coloring[i] == 0:
+                    coloring[i] = color_index
+                    color_count += 1
+                    if color_count == k:
+                        break
+            color_index = (color_index % k) + 1
+
+        print(*coloring)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+
+    wonderful_coloring(t, test_cases)
+```
+2025-07-20 21:18:54.176 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:18:54.176 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:18:54.261 | INFO     | gen.pair_programming:run_iterative_code_finder:46 - [DRIVER] static analyze the code, success: True
+2025-07-20 21:18:54.261 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:82 - compilation results:ProgramStatus.kSuccess
+2025-07-20 21:18:54.261 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:84 - 
+2025-07-20 21:18:54.261 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:85 - 
+2025-07-20 21:18:54.261 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:96 - input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+2025-07-20 21:18:54.261 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:97 - expected vs code output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+---
+3 1 1 1 0 2 3 2 2 1
+1 1 1 1
+1
+1 1 1 1 1 1 1 1 0 1 0 1 1
+2 1 1 1 1 2 2 1 1 2 0 2 2
+2 3 2 3 1 1 3 1 1 2 1 2 1
+2025-07-20 21:18:54.261 | INFO     | code_contests.eval.code_test_runners:print_test_results:113 - test-0 :: status=ProgramStatus.kSuccess, passed=False
+2025-07-20 21:18:54.270 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:115 - passed=False. 
+2025-07-20 21:18:54.270 | INFO     | code_contests.eval.code_test_runners:print_test_results:118 - =====================================================================
+2025-07-20 21:18:54.274 | INFO     | gen.pair_programming:run_iterative_code_finder:76 - Failed to pass tests in plan:1 after 1 attempts, try to fix it
+2025-07-20 21:18:54.274 | INFO     | gen.navigator.analyze_code_errors:analyze_code_errors:15 - --[NAVIGATOR] analyze runtime failure--
+2025-07-20 21:18:54.280 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:18:54.280 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:18:54.282 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced and patient programming expert, skilled at analyzing code bugs and providing precise guidance for fixing them.
+2025-07-20 21:18:54.282 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+A Python code solution was generated for the problem:
+```
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_dict = defaultdict(int)
+        for num in sequence:
+            count_dict[num] += 1
+
+        unique_values = sorted(count_dict.keys(), key=lambda x: count_dict[x], reverse=True)
+        color_count = 0
+        coloring = [0] * n
+        color_index = 1
+        for val in unique_values:
+            for i in range(n):
+                if sequence[i] == val and coloring[i] == 0:
+                    coloring[i] = color_index
+                    color_count += 1
+                    if color_count == k:
+                        break
+            color_index = (color_index % k) + 1
+
+        print(*coloring)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+
+    wonderful_coloring(t, test_cases)
+```
+However, the code solution failed to produce the expected output:
+```
+Example 0:
+test input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+expected output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+code output:
+3 1 1 1 0 2 3 2 2 1
+1 1 1 1
+1
+1 1 1 1 1 1 1 1 0 1 0 1 1
+2 1 1 1 1 2 2 1 1 2 0 2 2
+2 3 2 3 1 1 3 1 1 2 1 2 1
+--------------
+```
+Identify and briefly explain the logical or functional errors in the code that prevent it from producing the expected output for the given input.
+Provide a step-by-step approach to fix the issues, ensuring the corrected code can handle all valid inputs correctly.
+Keep the fix steps concise for minor issues, but provide more detailed steps if major revisions are required.
+
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+what_went_wrong: |
+  ...
+fixed_flow: |
+  ...
+```
+Answer:
+```yaml
+2025-07-20 21:18:55.917 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```yaml
+what_went_wrong: |
+  - The code fails to correctly assign colors to elements in the sequence to maximize the total count of painted elements.
+  - The color assignment logic is flawed, leading to incorrect coloring in some cases.
+  - The code does not handle cases where the number of unique elements is less than the number of colors available.
+
+fixed_flow: |
+  1. Update the color assignment logic to ensure that each color is assigned to the maximum possible number of elements while following the given conditions.
+  2. Modify the code to handle cases where the number of unique elements is less than the number of colors available by adjusting the color assignment strategy.
+  3. Refactor the code to improve readability and maintainability.
+```
+2025-07-20 21:18:55.917 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:18:55.919 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:18:55.921 | INFO     | gen.driver.fix_code_errors:fix_code_errors:13 - --[DRIVER] fix code runtime errors--
+2025-07-20 21:18:55.931 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:18:55.933 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:18:55.933 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programming expert.
+2025-07-20 21:18:55.933 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+A Python code solution was generated for the problem:
+```
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_dict = defaultdict(int)
+        for num in sequence:
+            count_dict[num] += 1
+
+        unique_values = sorted(count_dict.keys(), key=lambda x: count_dict[x], reverse=True)
+        color_count = 0
+        coloring = [0] * n
+        color_index = 1
+        for val in unique_values:
+            for i in range(n):
+                if sequence[i] == val and coloring[i] == 0:
+                    coloring[i] = color_index
+                    color_count += 1
+                    if color_count == k:
+                        break
+            color_index = (color_index % k) + 1
+
+        print(*coloring)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+
+    wonderful_coloring(t, test_cases)
+```
+However, when running the following input example, the code solution above failed to produce the expected output:
+```
+Example 0:
+test input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+expected output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+code output:
+3 1 1 1 0 2 3 2 2 1
+1 1 1 1
+1
+1 1 1 1 1 1 1 1 0 1 0 1 1
+2 1 1 1 1 2 2 1 1 2 0 2 2
+2 3 2 3 1 1 3 1 1 2 1 2 1
+--------------
+```
+Please fix the code using the following approach:
+```
+Error Analysis:
+- The code fails to correctly assign colors to elements in the sequence to maximize the total count of painted elements.
+- The color assignment logic is flawed, leading to incorrect coloring in some cases.
+- The code does not handle cases where the number of unique elements is less than the number of colors available.
+Fix Process:
+1. Update the color assignment logic to ensure that each color is assigned to the maximum possible number of elements while following the given conditions.
+2. Modify the code to handle cases where the number of unique elements is less than the number of colors available by adjusting the color assignment strategy.
+3. Refactor the code to improve readability and maintainability.
+```
+Guidelines:
+- The code should read the input using the 'input()' method and properly parse it according to the problem description.
+- The output should be printed without additional words using the 'print()' method.
+The code must follow the following structure within a markdown block:
+```python
+def f1(...):
+    ...
+    return ...
+
+def f2(...):
+    ...
+    return ...
+...
+if __name__ == "__main__":
+    ...
+```
+Answer:
+```python
+2025-07-20 21:18:58.067 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```python
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_dict = defaultdict(int)
+        for num in sequence:
+            count_dict[num] += 1
+
+        unique_values = sorted(count_dict.keys(), key=lambda x: count_dict[x], reverse=True)
+        coloring = [0] * n
+        color_index = 1
+        for val in unique_values:
+            indices = [i for i in range(n) if sequence[i] == val]
+            for i in range(len(indices)):
+                coloring[indices[i]] = color_index
+                color_index = (color_index % k) + 1
+
+        print(*coloring)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+
+    wonderful_coloring(t, test_cases)
+```
+2025-07-20 21:18:58.067 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:18:58.072 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:18:58.172 | INFO     | gen.pair_programming:run_iterative_code_finder:46 - [DRIVER] static analyze the code, success: True
+2025-07-20 21:18:58.190 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:82 - compilation results:ProgramStatus.kSuccess
+2025-07-20 21:18:58.190 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:84 - 
+2025-07-20 21:18:58.190 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:85 - 
+2025-07-20 21:18:58.190 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:96 - input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+2025-07-20 21:18:58.190 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:97 - expected vs code output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+---
+2 1 2 3 1 2 3 3 1 1
+1 2 3 4
+1
+1 1 1 1 1 1 1 1 1 1 1 1 1
+2 2 2 1 1 2 1 2 2 1 1 1 1
+1 3 1 1 1 2 2 3 2 2 3 1 3
+2025-07-20 21:18:58.190 | INFO     | code_contests.eval.code_test_runners:print_test_results:113 - test-0 :: status=ProgramStatus.kSuccess, passed=False
+2025-07-20 21:18:58.192 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:115 - passed=False. 
+2025-07-20 21:18:58.192 | INFO     | code_contests.eval.code_test_runners:print_test_results:118 - =====================================================================
+2025-07-20 21:18:58.192 | INFO     | gen.pair_programming:run_iterative_code_finder:76 - Failed to pass tests in plan:1 after 2 attempts, try to fix it
+2025-07-20 21:18:58.192 | INFO     | gen.navigator.analyze_code_errors:analyze_code_errors:15 - --[NAVIGATOR] analyze runtime failure--
+2025-07-20 21:18:58.194 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:18:58.194 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:18:58.201 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced and patient programming expert, skilled at analyzing code bugs and providing precise guidance for fixing them.
+2025-07-20 21:18:58.201 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+A Python code solution was generated for the problem:
+```
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_dict = defaultdict(int)
+        for num in sequence:
+            count_dict[num] += 1
+
+        unique_values = sorted(count_dict.keys(), key=lambda x: count_dict[x], reverse=True)
+        coloring = [0] * n
+        color_index = 1
+        for val in unique_values:
+            indices = [i for i in range(n) if sequence[i] == val]
+            for i in range(len(indices)):
+                coloring[indices[i]] = color_index
+                color_index = (color_index % k) + 1
+
+        print(*coloring)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+
+    wonderful_coloring(t, test_cases)
+```
+However, the code solution failed to produce the expected output:
+```
+Example 0:
+test input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+expected output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+code output:
+2 1 2 3 1 2 3 3 1 1
+1 2 3 4
+1
+1 1 1 1 1 1 1 1 1 1 1 1 1
+2 2 2 1 1 2 1 2 2 1 1 1 1
+1 3 1 1 1 2 2 3 2 2 3 1 3
+--------------
+```
+Identify and briefly explain the logical or functional errors in the code that prevent it from producing the expected output for the given input.
+Provide a step-by-step approach to fix the issues, ensuring the corrected code can handle all valid inputs correctly.
+Keep the fix steps concise for minor issues, but provide more detailed steps if major revisions are required.
+
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+what_went_wrong: |
+  ...
+fixed_flow: |
+  ...
+```
+Answer:
+```yaml
+2025-07-20 21:18:59.606 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```yaml
+what_went_wrong: |
+  - The code fails to correctly assign colors to elements in the sequence while ensuring the conditions for a wonderful coloring are met.
+  - The color_index is not updated correctly, leading to incorrect coloring assignments.
+  - The code does not handle cases where the number of unique values in the sequence is less than k.
+
+fixed_flow: |
+  1. Update the color_index calculation to ensure it cycles through colors correctly.
+  2. Modify the logic for assigning colors to elements based on the count of unique values and the number of colors available.
+  3. Handle cases where the number of unique values is less than k by assigning colors to all elements in the sequence.
+```
+2025-07-20 21:18:59.606 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:18:59.608 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:18:59.610 | INFO     | gen.driver.fix_code_errors:fix_code_errors:13 - --[DRIVER] fix code runtime errors--
+2025-07-20 21:18:59.639 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:18:59.639 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:18:59.640 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programming expert.
+2025-07-20 21:18:59.640 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+A Python code solution was generated for the problem:
+```
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_dict = defaultdict(int)
+        for num in sequence:
+            count_dict[num] += 1
+
+        unique_values = sorted(count_dict.keys(), key=lambda x: count_dict[x], reverse=True)
+        coloring = [0] * n
+        color_index = 1
+        for val in unique_values:
+            indices = [i for i in range(n) if sequence[i] == val]
+            for i in range(len(indices)):
+                coloring[indices[i]] = color_index
+                color_index = (color_index % k) + 1
+
+        print(*coloring)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+
+    wonderful_coloring(t, test_cases)
+```
+However, when running the following input example, the code solution above failed to produce the expected output:
+```
+Example 0:
+test input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+expected output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+code output:
+2 1 2 3 1 2 3 3 1 1
+1 2 3 4
+1
+1 1 1 1 1 1 1 1 1 1 1 1 1
+2 2 2 1 1 2 1 2 2 1 1 1 1
+1 3 1 1 1 2 2 3 2 2 3 1 3
+--------------
+```
+Please fix the code using the following approach:
+```
+Error Analysis:
+- The code fails to correctly assign colors to elements in the sequence while ensuring the conditions for a wonderful coloring are met.
+- The color_index is not updated correctly, leading to incorrect coloring assignments.
+- The code does not handle cases where the number of unique values in the sequence is less than k.
+Fix Process:
+1. Update the color_index calculation to ensure it cycles through colors correctly.
+2. Modify the logic for assigning colors to elements based on the count of unique values and the number of colors available.
+3. Handle cases where the number of unique values is less than k by assigning colors to all elements in the sequence.
+```
+Guidelines:
+- The code should read the input using the 'input()' method and properly parse it according to the problem description.
+- The output should be printed without additional words using the 'print()' method.
+The code must follow the following structure within a markdown block:
+```python
+def f1(...):
+    ...
+    return ...
+
+def f2(...):
+    ...
+    return ...
+...
+if __name__ == "__main__":
+    ...
+```
+Answer:
+```python
+2025-07-20 21:19:01.753 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```python
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_dict = defaultdict(int)
+        for num in sequence:
+            count_dict[num] += 1
+
+        unique_values = sorted(count_dict.keys(), key=lambda x: count_dict[x], reverse=True)
+        coloring = [0] * n
+        color_index = 1
+        for val in unique_values:
+            indices = [i for i in range(n) if sequence[i] == val]
+            for i in range(len(indices)):
+                if len(unique_values) < k:
+                    coloring[indices[i]] = i % k + 1
+                else:
+                    coloring[indices[i]] = color_index
+                    color_index = (color_index % k) + 1
+
+        print(*coloring)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+
+    wonderful_coloring(t, test_cases)
+```
+2025-07-20 21:19:01.753 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:19:01.759 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:19:01.861 | INFO     | gen.pair_programming:run_iterative_code_finder:46 - [DRIVER] static analyze the code, success: True
+2025-07-20 21:19:01.867 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:82 - compilation results:ProgramStatus.kSuccess
+2025-07-20 21:19:01.867 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:84 - 
+2025-07-20 21:19:01.867 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:85 - 
+2025-07-20 21:19:01.867 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:96 - input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+2025-07-20 21:19:01.867 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:97 - expected vs code output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+---
+2 1 2 3 1 2 3 3 1 1
+1 2 3 4
+1
+1 1 1 1 1 1 1 1 1 1 1 1 1
+2 2 2 1 1 2 1 2 2 1 1 1 1
+1 3 1 1 1 2 2 3 2 2 3 1 3
+2025-07-20 21:19:01.867 | INFO     | code_contests.eval.code_test_runners:print_test_results:113 - test-0 :: status=ProgramStatus.kSuccess, passed=False
+2025-07-20 21:19:01.867 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:115 - passed=False. 
+2025-07-20 21:19:01.867 | INFO     | code_contests.eval.code_test_runners:print_test_results:118 - =====================================================================
+2025-07-20 21:19:01.869 | INFO     | gen.pair_programming:run_iterative_code_finder:74 - [NAVIGATOR] think should change plan:1
+2025-07-20 21:19:01.870 | INFO     | gen.pair_programming:run_iterative_code_finder:31 - --Attempting plan:2, there are 3 plans--
+2025-07-20 21:19:01.871 | INFO     | gen.navigator.choose_best_solution:choose_best_solution_by_LLM:10 - --[NAVIGATOR] choose best solution stage--
+2025-07-20 21:19:01.871 | INFO     | gen.driver.generate_initial_code:generate_initial_solve:12 - --[DRIVER] initial solve stage--
+2025-07-20 21:19:01.871 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:19:01.871 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:19:01.871 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programmer.
+2025-07-20 21:19:01.871 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+
+Example
+
+Input
+
+
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+
+Output
+
+
+1 1 0 2 3 2 2 1 3 3
+4 2 1 3
+1
+0 0 1 1 0 1 1 1 0 1 1 1 0
+2 1 2 2 1 1 1 1 2 1 0 2 2
+1 1 3 2 1 3 3 1 2 2 3 2 0
+
+Note
+
+In the first test case, the answer is shown in the figure in the statement. The red color has number 1, the blue color — 2, the green — 3.
+Please generate a Python code to fully solve the problem using the following solution plan:
+- name: 
+Solution Plan 2 - Hash Map and Sorting
+- content: 
+Approach:
+1. Create a hash map to store the counts of each unique element in the sequence.
+2. Sort the elements based on their counts in descending order.
+3. Initialize an array to store the color assignments for each element.
+4. Assign colors greedily while ensuring that no two equal values are painted in the same color.
+5. Output the coloring based on the assigned colors.
+Ensure the code includes all necessary module imports and has no Python syntax errors.
+Guidelines:
+- The code should read the input using the 'input()' method and properly parse it according to the problem description.
+- The output should be printed without additional words using the 'print()' method.
+The code must follow the following structure within a markdown block:
+```python
+def f1(...):
+    ...
+    return ...
+
+def f2(...):
+    ...
+    return ...
+...
+if __name__ == "__main__":
+    ...
+```
+Answer:
+```python
+2025-07-20 21:19:04.213 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```python
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_map = defaultdict(int)
+        for num in sequence:
+            count_map[num] += 1
+        
+        sorted_counts = sorted(count_map.items(), key=lambda x: x[1], reverse=True)
+        
+        colors = [0] * n
+        color_num = 1
+        for num, count in sorted_counts:
+            for i in range(count):
+                colors[i] = color_num
+                color_num = (color_num % k) + 1
+        
+        print(*colors)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+    
+    wonderful_coloring(t, test_cases)
+```
+```
+2025-07-20 21:19:04.213 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:19:04.215 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:19:04.324 | INFO     | gen.pair_programming:run_iterative_code_finder:46 - [DRIVER] static analyze the code, success: True
+2025-07-20 21:19:04.330 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:82 - compilation results:ProgramStatus.kSuccess
+2025-07-20 21:19:04.330 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:84 - 
+2025-07-20 21:19:04.330 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:85 - 
+2025-07-20 21:19:04.330 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:96 - input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+2025-07-20 21:19:04.330 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:97 - expected vs code output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+---
+1 3 1 1 0 0 0 0 0 0
+1 2 3 4
+1
+1 1 1 0 0 0 0 0 0 0 0 0 0
+1 1 1 0 0 0 0 0 0 0 0 0 0
+1 3 3 0 0 0 0 0 0 0 0 0 0
+2025-07-20 21:19:04.330 | INFO     | code_contests.eval.code_test_runners:print_test_results:113 - test-0 :: status=ProgramStatus.kSuccess, passed=False
+2025-07-20 21:19:04.330 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:115 - passed=False. 
+2025-07-20 21:19:04.330 | INFO     | code_contests.eval.code_test_runners:print_test_results:118 - =====================================================================
+2025-07-20 21:19:04.332 | INFO     | gen.pair_programming:run_iterative_code_finder:76 - Failed to pass tests in plan:2 after 0 attempts, try to fix it
+2025-07-20 21:19:04.333 | INFO     | gen.navigator.analyze_code_errors:analyze_code_errors:15 - --[NAVIGATOR] analyze runtime failure--
+2025-07-20 21:19:04.335 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:19:04.340 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:19:04.341 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced and patient programming expert, skilled at analyzing code bugs and providing precise guidance for fixing them.
+2025-07-20 21:19:04.341 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+A Python code solution was generated for the problem:
+```
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_map = defaultdict(int)
+        for num in sequence:
+            count_map[num] += 1
+        
+        sorted_counts = sorted(count_map.items(), key=lambda x: x[1], reverse=True)
+        
+        colors = [0] * n
+        color_num = 1
+        for num, count in sorted_counts:
+            for i in range(count):
+                colors[i] = color_num
+                color_num = (color_num % k) + 1
+        
+        print(*colors)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+    
+    wonderful_coloring(t, test_cases)
+```
+However, the code solution failed to produce the expected output:
+```
+Example 0:
+test input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+expected output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+code output:
+1 3 1 1 0 0 0 0 0 0
+1 2 3 4
+1
+1 1 1 0 0 0 0 0 0 0 0 0 0
+1 1 1 0 0 0 0 0 0 0 0 0 0
+1 3 3 0 0 0 0 0 0 0 0 0 0
+--------------
+```
+Identify and briefly explain the logical or functional errors in the code that prevent it from producing the expected output for the given input.
+Provide a step-by-step approach to fix the issues, ensuring the corrected code can handle all valid inputs correctly.
+Keep the fix steps concise for minor issues, but provide more detailed steps if major revisions are required.
+
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+what_went_wrong: |
+  ...
+fixed_flow: |
+  ...
+```
+Answer:
+```yaml
+2025-07-20 21:19:07.598 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```yaml
+what_went_wrong: |
+  - The code fails to correctly assign colors to elements in the sequence while ensuring the conditions for a wonderful coloring are met.
+  - The color assignment logic is incorrect, leading to incorrect output.
+  - The code does not handle cases where the number of colors (k) is greater than the distinct elements in the sequence.
+
+fixed_flow: |
+  1. Update the color assignment logic to ensure that each element is painted in a color different from other elements with the same value.
+  2. Modify the color assignment loop to correctly handle cases where the number of colors (k) is greater than the distinct elements in the sequence.
+  3. Ensure that the total count of painted elements is maximized while meeting the conditions for a wonderful coloring.
+  4. Refactor the code to improve readability and maintainability.
+
+Fixed code snippet:
+
+```python
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_map = defaultdict(int)
+        for num in sequence:
+            count_map[num] += 1
+        
+        sorted_counts = sorted(count_map.items(), key=lambda x: x[1], reverse=True)
+        
+        colors = [0] * n
+        color_num = 1
+        for num, count in sorted_counts:
+            for i in range(n):
+                if count == 0:
+                    break
+                if colors[i] == 0 or colors[i] == color_num:
+                    colors[i] = color_num
+                    count -= 1
+                color_num = (color_num % k) + 1
+        
+        print(*colors)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+    
+    wonderful_coloring(t, test_cases)
+```
+```
+2025-07-20 21:19:07.598 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:19:07.615 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:19:07.619 | INFO     | gen.navigator.analyze_code_errors:analyze_code_errors:37 - what_went_wrong and fixed_flow have been done, so go on
+2025-07-20 21:19:07.622 | INFO     | gen.driver.fix_code_errors:fix_code_errors:13 - --[DRIVER] fix code runtime errors--
+2025-07-20 21:19:07.630 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:19:07.632 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:19:07.632 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programming expert.
+2025-07-20 21:19:07.632 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+A Python code solution was generated for the problem:
+```
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_map = defaultdict(int)
+        for num in sequence:
+            count_map[num] += 1
+        
+        sorted_counts = sorted(count_map.items(), key=lambda x: x[1], reverse=True)
+        
+        colors = [0] * n
+        color_num = 1
+        for num, count in sorted_counts:
+            for i in range(count):
+                colors[i] = color_num
+                color_num = (color_num % k) + 1
+        
+        print(*colors)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+    
+    wonderful_coloring(t, test_cases)
+```
+However, when running the following input example, the code solution above failed to produce the expected output:
+```
+Example 0:
+test input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+expected output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+code output:
+1 3 1 1 0 0 0 0 0 0
+1 2 3 4
+1
+1 1 1 0 0 0 0 0 0 0 0 0 0
+1 1 1 0 0 0 0 0 0 0 0 0 0
+1 3 3 0 0 0 0 0 0 0 0 0 0
+--------------
+```
+Please fix the code using the following approach:
+```
+Error Analysis:
+what_went_wrong: |
+  - The code fails to correctly assign colors to elements in the sequence while ensuring the conditions for a wonderful coloring are met.
+  - The color assignment logic is incorrect, leading to incorrect output.
+  - The code does not handle cases where the number of colors (k) is greater than the distinct elements in the sequence.
+Fix Process:
+fixed_flow: |
+  1. Update the color assignment logic to ensure that each element is painted in a color different from other elements with the same value.
+  2. Modify the color assignment loop to correctly handle cases where the number of colors (k) is greater than the distinct elements in the sequence.
+  3. Ensure that the total count of painted elements is maximized while meeting the conditions for a wonderful coloring.
+  4. Refactor the code to improve readability and maintainability.
+
+Fixed c
+```
+Guidelines:
+- The code should read the input using the 'input()' method and properly parse it according to the problem description.
+- The output should be printed without additional words using the 'print()' method.
+The code must follow the following structure within a markdown block:
+```python
+def f1(...):
+    ...
+    return ...
+
+def f2(...):
+    ...
+    return ...
+...
+if __name__ == "__main__":
+    ...
+```
+Answer:
+```python
+2025-07-20 21:19:10.049 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```python
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_map = defaultdict(list)
+        for i, num in enumerate(sequence):
+            count_map[num].append(i)
+        
+        colors = [0] * n
+        color_num = 1
+        for num, indices in count_map.items():
+            for i, idx in enumerate(indices):
+                colors[idx] = (i % k) + 1
+        
+        print(*colors)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+    
+    wonderful_coloring(t, test_cases)
+```  
+2025-07-20 21:19:10.049 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:19:10.056 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:19:10.189 | INFO     | gen.pair_programming:run_iterative_code_finder:46 - [DRIVER] static analyze the code, success: True
+2025-07-20 21:19:10.189 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:82 - compilation results:ProgramStatus.kSuccess
+2025-07-20 21:19:10.189 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:84 - 
+2025-07-20 21:19:10.189 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:85 - 
+2025-07-20 21:19:10.189 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:96 - input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+2025-07-20 21:19:10.189 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:97 - expected vs code output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+---
+1 1 2 3 1 1 2 2 3 1
+1 2 3 4
+1
+1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 2 1 1 1 1 2 2 1 1 2
+1 1 1 2 1 1 1 1 2 2 3 1 2
+2025-07-20 21:19:10.189 | INFO     | code_contests.eval.code_test_runners:print_test_results:113 - test-0 :: status=ProgramStatus.kSuccess, passed=False
+2025-07-20 21:19:10.189 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:115 - passed=False. 
+2025-07-20 21:19:10.189 | INFO     | code_contests.eval.code_test_runners:print_test_results:118 - =====================================================================
+2025-07-20 21:19:10.199 | INFO     | gen.pair_programming:run_iterative_code_finder:76 - Failed to pass tests in plan:2 after 1 attempts, try to fix it
+2025-07-20 21:19:10.200 | INFO     | gen.navigator.analyze_code_errors:analyze_code_errors:15 - --[NAVIGATOR] analyze runtime failure--
+2025-07-20 21:19:10.201 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:19:10.201 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:19:10.206 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced and patient programming expert, skilled at analyzing code bugs and providing precise guidance for fixing them.
+2025-07-20 21:19:10.206 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+A Python code solution was generated for the problem:
+```
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_map = defaultdict(list)
+        for i, num in enumerate(sequence):
+            count_map[num].append(i)
+        
+        colors = [0] * n
+        color_num = 1
+        for num, indices in count_map.items():
+            for i, idx in enumerate(indices):
+                colors[idx] = (i % k) + 1
+        
+        print(*colors)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+    
+    wonderful_coloring(t, test_cases)
+```
+However, the code solution failed to produce the expected output:
+```
+Example 0:
+test input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+expected output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+code output:
+1 1 2 3 1 1 2 2 3 1
+1 2 3 4
+1
+1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 2 1 1 1 1 2 2 1 1 2
+1 1 1 2 1 1 1 1 2 2 3 1 2
+--------------
+```
+Identify and briefly explain the logical or functional errors in the code that prevent it from producing the expected output for the given input.
+Provide a step-by-step approach to fix the issues, ensuring the corrected code can handle all valid inputs correctly.
+Keep the fix steps concise for minor issues, but provide more detailed steps if major revisions are required.
+
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+what_went_wrong: |
+  ...
+fixed_flow: |
+  ...
+```
+Answer:
+```yaml
+2025-07-20 21:19:12.507 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```yaml
+what_went_wrong: |
+  - The issue lies in the way colors are assigned to elements in the sequence. The current implementation does not ensure that the total count of painted elements is maximized.
+  - The loop that assigns colors to elements based on the count map is not correctly updating the color_num variable to ensure that all colors have an equal number of elements painted.
+fixed_flow: |
+  1. Update the loop that assigns colors to elements in the sequence to ensure that each color has an equal number of elements painted.
+  2. Modify the logic to correctly update the color_num variable to cycle through colors and assign them to elements in a way that maximizes the total count of painted elements.
+  3. Ensure that the total count of painted elements is maximized by distributing colors evenly among elements with the same value.
+```
+2025-07-20 21:19:12.509 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:19:12.509 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:19:12.511 | INFO     | gen.driver.fix_code_errors:fix_code_errors:13 - --[DRIVER] fix code runtime errors--
+2025-07-20 21:19:12.520 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:19:12.520 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:19:12.520 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programming expert.
+2025-07-20 21:19:12.520 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+A Python code solution was generated for the problem:
+```
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_map = defaultdict(list)
+        for i, num in enumerate(sequence):
+            count_map[num].append(i)
+        
+        colors = [0] * n
+        color_num = 1
+        for num, indices in count_map.items():
+            for i, idx in enumerate(indices):
+                colors[idx] = (i % k) + 1
+        
+        print(*colors)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+    
+    wonderful_coloring(t, test_cases)
+```
+However, when running the following input example, the code solution above failed to produce the expected output:
+```
+Example 0:
+test input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+expected output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+code output:
+1 1 2 3 1 1 2 2 3 1
+1 2 3 4
+1
+1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 2 1 1 1 1 2 2 1 1 2
+1 1 1 2 1 1 1 1 2 2 3 1 2
+--------------
+```
+Please fix the code using the following approach:
+```
+Error Analysis:
+- The issue lies in the way colors are assigned to elements in the sequence. The current implementation does not ensure that the total count of painted elements is maximized.
+- The loop that assigns colors to elements based on the count map is not correctly updating the color_num variable to ensure that all colors have an equal number of elements painted.
+Fix Process:
+1. Update the loop that assigns colors to elements in the sequence to ensure that each color has an equal number of elements painted.
+2. Modify the logic to correctly update the color_num variable to cycle through colors and assign them to elements in a way that maximizes the total count of painted elements.
+3. Ensure that the total count of painted elements is maximized by distributing colors evenly among elements with the same value.
+```
+Guidelines:
+- The code should read the input using the 'input()' method and properly parse it according to the problem description.
+- The output should be printed without additional words using the 'print()' method.
+The code must follow the following structure within a markdown block:
+```python
+def f1(...):
+    ...
+    return ...
+
+def f2(...):
+    ...
+    return ...
+...
+if __name__ == "__main__":
+    ...
+```
+Answer:
+```python
+2025-07-20 21:19:14.451 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```python
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_map = defaultdict(list)
+        for i, num in enumerate(sequence):
+            count_map[num].append(i)
+        
+        colors = [0] * n
+        color_num = 1
+        for num, indices in count_map.items():
+            for idx in indices:
+                colors[idx] = color_num
+                color_num = (color_num % k) + 1
+        
+        print(*colors)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+    
+    wonderful_coloring(t, test_cases)
+```
+2025-07-20 21:19:14.453 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:19:14.453 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:19:14.561 | INFO     | gen.pair_programming:run_iterative_code_finder:46 - [DRIVER] static analyze the code, success: True
+2025-07-20 21:19:14.563 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:82 - compilation results:ProgramStatus.kSuccess
+2025-07-20 21:19:14.567 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:84 - 
+2025-07-20 21:19:14.567 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:85 - 
+2025-07-20 21:19:14.567 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:96 - input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+2025-07-20 21:19:14.567 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:97 - expected vs code output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+---
+1 3 1 2 3 1 2 2 3 1
+1 2 3 4
+1
+1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 2 2 1 1 2 1 2 2 1 2
+1 3 2 1 3 3 2 3 1 2 2 1 1
+2025-07-20 21:19:14.567 | INFO     | code_contests.eval.code_test_runners:print_test_results:113 - test-0 :: status=ProgramStatus.kSuccess, passed=False
+2025-07-20 21:19:14.567 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:115 - passed=False. 
+2025-07-20 21:19:14.567 | INFO     | code_contests.eval.code_test_runners:print_test_results:118 - =====================================================================
+2025-07-20 21:19:14.569 | INFO     | gen.pair_programming:run_iterative_code_finder:76 - Failed to pass tests in plan:2 after 2 attempts, try to fix it
+2025-07-20 21:19:14.571 | INFO     | gen.navigator.analyze_code_errors:analyze_code_errors:15 - --[NAVIGATOR] analyze runtime failure--
+2025-07-20 21:19:14.576 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:19:14.576 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:19:14.577 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced and patient programming expert, skilled at analyzing code bugs and providing precise guidance for fixing them.
+2025-07-20 21:19:14.577 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+A Python code solution was generated for the problem:
+```
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_map = defaultdict(list)
+        for i, num in enumerate(sequence):
+            count_map[num].append(i)
+        
+        colors = [0] * n
+        color_num = 1
+        for num, indices in count_map.items():
+            for idx in indices:
+                colors[idx] = color_num
+                color_num = (color_num % k) + 1
+        
+        print(*colors)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+    
+    wonderful_coloring(t, test_cases)
+```
+However, the code solution failed to produce the expected output:
+```
+Example 0:
+test input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+expected output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+code output:
+1 3 1 2 3 1 2 2 3 1
+1 2 3 4
+1
+1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 2 2 1 1 2 1 2 2 1 2
+1 3 2 1 3 3 2 3 1 2 2 1 1
+--------------
+```
+Identify and briefly explain the logical or functional errors in the code that prevent it from producing the expected output for the given input.
+Provide a step-by-step approach to fix the issues, ensuring the corrected code can handle all valid inputs correctly.
+Keep the fix steps concise for minor issues, but provide more detailed steps if major revisions are required.
+
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+what_went_wrong: |
+  ...
+fixed_flow: |
+  ...
+```
+Answer:
+```yaml
+2025-07-20 21:19:16.194 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```yaml
+what_went_wrong: |
+  The logical error in the code is in the calculation of the color number for each element in the sequence. The current implementation does not ensure that the total count of painted elements is maximized as required by the problem statement.
+
+fixed_flow: |
+  1. Update the calculation of the color number to ensure that each color is used equally and the total count of painted elements is maximized.
+  2. Modify the color assignment logic to achieve a wonderful coloring that satisfies all conditions.
+  3. Adjust the code to handle cases where the number of colors is greater than the distinct elements in the sequence.
+  4. Refactor the code for better readability and maintainability.
+```
+2025-07-20 21:19:16.194 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:19:16.196 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:19:16.198 | INFO     | gen.driver.fix_code_errors:fix_code_errors:13 - --[DRIVER] fix code runtime errors--
+2025-07-20 21:19:16.210 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:19:16.214 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:19:16.214 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programming expert.
+2025-07-20 21:19:16.214 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+
+You are given a coding problem:
+This problem is an extension of the problem "Wonderful Coloring - 1". It has quite many differences, so you should read this statement completely.
+
+Recently, Paul and Mary have found a new favorite sequence of integers a_1, a_2, ..., a_n. They want to paint it using pieces of chalk of k colors. The coloring of a sequence is called wonderful if the following conditions are met:
+
+  1. each element of the sequence is either painted in one of k colors or isn't painted; 
+  2. each two elements which are painted in the same color are different (i. e. there's no two equal values painted in the same color); 
+  3. let's calculate for each of k colors the number of elements painted in the color — all calculated numbers must be equal; 
+  4. the total number of painted elements of the sequence is the maximum among all colorings of the sequence which meet the first three conditions. 
+
+
+
+E. g. consider a sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. One of the wonderful colorings of the sequence is shown in the figure.
+
+<image> The example of a wonderful coloring of the sequence a=[3, 1, 1, 1, 1, 10, 3, 10, 10, 2] and k=3. Note that one of the elements isn't painted.
+
+Help Paul and Mary to find a wonderful coloring of a given sequence a.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 10000) — the number of test cases. Then t test cases follow.
+
+Each test case consists of two lines. The first one contains two integers n and k (1 ≤ n ≤ 2⋅10^5, 1 ≤ k ≤ n) — the length of a given sequence and the number of colors, respectively. The second one contains n integers a_1, a_2, ..., a_n (1 ≤ a_i ≤ n).
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5.
+
+Output
+
+Output t lines, each of them must contain a description of a wonderful coloring for the corresponding test case.
+
+Each wonderful coloring must be printed as a sequence of n integers c_1, c_2, ..., c_n (0 ≤ c_i ≤ k) separated by spaces where
+
+  * c_i=0, if i-th element isn't painted; 
+  * c_i>0, if i-th element is painted in the c_i-th color. 
+
+
+
+Remember that you need to maximize the total count of painted elements for the wonderful coloring. If there are multiple solutions, print any one.
+A Python code solution was generated for the problem:
+```
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_map = defaultdict(list)
+        for i, num in enumerate(sequence):
+            count_map[num].append(i)
+        
+        colors = [0] * n
+        color_num = 1
+        for num, indices in count_map.items():
+            for idx in indices:
+                colors[idx] = color_num
+                color_num = (color_num % k) + 1
+        
+        print(*colors)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+    
+    wonderful_coloring(t, test_cases)
+```
+However, when running the following input example, the code solution above failed to produce the expected output:
+```
+Example 0:
+test input:
+6
+10 3
+3 1 1 1 1 10 3 10 10 2
+4 4
+1 1 1 1
+1 1
+1
+13 1
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 2
+3 1 4 1 5 9 2 6 5 3 5 8 9
+13 3
+3 1 4 1 5 9 2 6 5 3 5 8 9
+
+expected output:
+2 1 2 3 0 1 3 2 3 1 
+1 2 3 4 
+1 
+1 1 1 0 1 1 1 1 0 0 0 1 0 
+2 1 2 2 1 1 1 1 2 1 0 2 2 
+1 1 3 2 1 3 3 1 2 2 3 2 0
+code output:
+1 3 1 2 3 1 2 2 3 1
+1 2 3 4
+1
+1 1 1 1 1 1 1 1 1 1 1 1 1
+1 1 1 2 2 1 1 2 1 2 2 1 2
+1 3 2 1 3 3 2 3 1 2 2 1 1
+--------------
+```
+Please fix the code using the following approach:
+```
+Error Analysis:
+The logical error in the code is in the calculation of the color number for each element in the sequence. The current implementation does not ensure that the total count of painted elements is maximized as required by the problem statement.
+Fix Process:
+1. Update the calculation of the color number to ensure that each color is used equally and the total count of painted elements is maximized.
+2. Modify the color assignment logic to achieve a wonderful coloring that satisfies all conditions.
+3. Adjust the code to handle cases where the number of colors is greater than the distinct elements in the sequence.
+4. Refactor the code for better readability and maintainability.
+```
+Guidelines:
+- The code should read the input using the 'input()' method and properly parse it according to the problem description.
+- The output should be printed without additional words using the 'print()' method.
+The code must follow the following structure within a markdown block:
+```python
+def f1(...):
+    ...
+    return ...
+
+def f2(...):
+    ...
+    return ...
+...
+if __name__ == "__main__":
+    ...
+```
+Answer:
+```python
+2025-07-20 21:19:18.485 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```python
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_map = defaultdict(list)
+        for i, num in enumerate(sequence):
+            count_map[num].append(i)
+        
+        colors = [0] * n
+        color_num = 1
+        for num, indices in count_map.items():
+            for idx in indices:
+                colors[idx] = color_num
+                color_num = (color_num % k) + 1
+                if color_num == 0:
+                    color_num = k
+        
+        print(*colors)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+    
+    wonderful_coloring(t, test_cases)
+```
+2025-07-20 21:19:18.485 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:19:18.485 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:19:18.485 | INFO     | gen.pair_programming:run_iterative_code_finder:85 - current coding count has reached max count 10. Exiting choose the best one
+2025-07-20 21:19:18.485 | INFO     | gen.dataset_solver:solve_dataset:99 - solution code:
+from collections import defaultdict
+
+def wonderful_coloring(t, test_cases):
+    for _ in range(t):
+        n, k, sequence = test_cases[_]
+        count_dict = defaultdict(int)
+        for num in sequence:
+            count_dict[num] += 1
+
+        unique_values = sorted(count_dict.keys(), key=lambda x: count_dict[x], reverse=True)
+        color_count = 0
+        coloring = [0] * n
+        for val in unique_values:
+            color_count += 1
+            for i in range(n):
+                if sequence[i] == val and coloring[i] == 0:
+                    coloring[i] = color_count
+            if color_count == k:
+                break
+
+        print(*coloring)
+
+if __name__ == "__main__":
+    t = int(input())
+    test_cases = []
+    for _ in range(t):
+        n, k = map(int, input().split())
+        sequence = list(map(int, input().split()))
+        test_cases.append((n, k, sequence))
+
+    wonderful_coloring(t, test_cases)
+2025-07-20 21:19:18.485 | INFO     | gen.dataset_solver:solve_dataset:103 - Evaluating solution on public tests...
+2025-07-20 21:19:18.506 | INFO     | gen.dataset_solver:solve_dataset:123 - evaluating solution on private tests...
+2025-07-20 21:19:18.517 | INFO     | gen.dataset_solver:solve_dataset:127 - evaluating solution on generated tests...
+2025-07-20 21:19:18.878 | INFO     | gen.dataset_solver:solve_dataset:131 - 
+test_passed_public: 0, test_failed_public: 1, test_timeout_public: 0
+test_passed_private: 0, test_failed_private: 2, test_timeout_private: 0
+test_passed_generate: 0, test_failed_generate: 200, test_timeout_generate: 0
+
+2025-07-20 21:19:18.878 | INFO     | gen.dataset_solver:solve_dataset:150 - PairCoder failed to solve problem 10 in iteration 0

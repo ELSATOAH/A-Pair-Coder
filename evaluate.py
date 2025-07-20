@@ -1,239 +1,316 @@
 import os
 import json
 import pandas as pd
-import zipfile
+import re
 from pathlib import Path
+from typing import Dict, List, Tuple
 
-def find_result_files(base_path):
-    """Find all result files in the logs directory structure"""
-    result_files = {
-        'resultsmbpp': [],
-        'resultshumaneval': [],
-        'resultscodecontest': []
+
+def find_log_directories(base_path: str) -> Dict[str, List[str]]:
+    """Find all log directories in the specified path structure."""
+    log_dirs = {
+        'codecontest': [],
+        'humaneval': [],
+        'mbpp': []
     }
     
-    logs_dir = Path(base_path) / "logs"
-    if not logs_dir.exists():
-        print(f"Logs directory not found: {logs_dir}")
-        return result_files
+    logs_base = Path(base_path) / "logs"
     
-    for root, dirs, files in os.walk(logs_dir):
-        for file in files:
-            if file.endswith('.zip'):
-                if 'resultsmbpp' in file:
-                    result_files['resultsmbpp'].append(os.path.join(root, file))
-                elif 'resultshumaneval' in file:
-                    result_files['resultshumaneval'].append(os.path.join(root, file))
-                elif 'resultscodecontest' in file:
-                    result_files['resultscodecontest'].append(os.path.join(root, file))
+    if not logs_base.exists():
+        print(f"Logs directory not found: {logs_base}")
+        return log_dirs
     
-    return result_files
+    # Search for each dataset type
+    for dataset in ['codecontest', 'humaneval', 'mbpp']:
+        dataset_path = logs_base / dataset
+        if dataset_path.exists():
+            # Recursively find results directories
+            for root, dirs, files in os.walk(dataset_path):
+                if 'results' in dirs:
+                    results_path = os.path.join(root, 'results')
+                    log_dirs[dataset].append(results_path)
+    
+    return log_dirs
 
-def load_json_from_zip(zip_path):
-    """Load JSON data from a ZIP file"""
+
+def parse_solutions_json(solutions_file: str) -> List[Dict]:
+    """Parse solutions.json file and extract test results."""
     try:
-        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-            json_files = [f for f in zip_ref.namelist() if f.endswith('.json')]
-            if not json_files:
-                print(f"No JSON files found in {zip_path}")
-                return {}
-            
-            with zip_ref.open(json_files[0]) as json_file:
-                return json.load(json_file)
+        with open(solutions_file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
     except Exception as e:
-        print(f"Error loading {zip_path}: {e}")
-        return {}
-
-def load_json_data(file_path):
-    """Load JSON data from file or ZIP"""
-    if file_path.endswith('.zip'):
-        return load_json_from_zip(file_path)
-    else:
-        try:
-            with open(file_path, 'r') as f:
-                return json.load(f)
-        except Exception as e:
-            print(f"Error loading {file_path}: {e}")
-            return {}
-
-def extract_fail_reason(iter_data):
-    # Suche nach typischen Fehlerfeldern
-    for key in ["sandbox_result", "error_message", "traceback", "exception", "stderr", "fail_reason"]:
-        val = iter_data.get(key)
-        if val and isinstance(val, str) and val.strip():
-            return val.strip().replace('\n', ' | ')
-    return ""
-
-def evaluate_structured_json(data, dataset_name):
-    """Evaluate the structured JSON data for a dataset, alle Iterationen!"""
+        print(f"Error reading {solutions_file}: {e}")
+        return []
+    
     results = []
-    for prob_id, iterations in data.items():
-        for iter_name, iter_data in iterations.items():
-            passed = iter_data.get("test_passed_public", 0) + iter_data.get("test_passed_private", 0)
-            failed = iter_data.get("test_failed_public", 0) + iter_data.get("test_failed_private", 0)
-            timeout = iter_data.get("test_timeout_public", 0) + iter_data.get("test_timeout_private", 0)
-            total = passed + failed + timeout
+    
+    # Iterate through all problems in the solutions file
+    for dataset_type, problems in data.items():
+        for problem_id, iterations in problems.items():
+            for iteration_name, iteration_data in iterations.items():
+                # Extract test results
+                passed_public = iteration_data.get("test_passed_public", 0)
+                failed_public = iteration_data.get("test_failed_public", 0)
+                timeout_public = iteration_data.get("test_timeout_public", 0)
+                
+                passed_private = iteration_data.get("test_passed_private", 0)
+                failed_private = iteration_data.get("test_failed_private", 0)
+                timeout_private = iteration_data.get("test_timeout_private", 0)
+                
+                passed_generate = iteration_data.get("test_passed_generate", 0)
+                failed_generate = iteration_data.get("test_failed_generate", 0)
+                timeout_generate = iteration_data.get("test_timeout_generate", 0)
+                
+                total_passed = passed_public + passed_private + passed_generate
+                total_failed = failed_public + failed_private + failed_generate
+                total_timeout = timeout_public + timeout_private + timeout_generate
+                total_tests = total_passed + total_failed + total_timeout
+                
+                # Determine overall status
+                if total_passed > 0 and total_failed == 0 and total_timeout == 0:
+                    status = "PASSED"
+                elif total_tests == 0:
+                    status = "NO_TESTS"
+                else:
+                    status = "FAILED"
+                
+                result = {
+                    'problem_id': problem_id,
+                    'iteration': iteration_name,
+                    'dataset_type': dataset_type,
+                    'status': status,
+                    'passed_public': passed_public,
+                    'failed_public': failed_public,
+                    'timeout_public': timeout_public,
+                    'passed_private': passed_private,
+                    'failed_private': failed_private,
+                    'timeout_private': timeout_private,
+                    'passed_generate': passed_generate,
+                    'failed_generate': failed_generate,
+                    'timeout_generate': timeout_generate,
+                    'total_passed': total_passed,
+                    'total_failed': total_failed,
+                    'total_timeout': total_timeout,
+                    'total_tests': total_tests
+                }
+                results.append(result)
+    
+    return results
 
-            result = {
-                "problem_id": prob_id,
-                "iteration": iter_name,
-                "dataset": dataset_name,
-                "status": "Passed" if passed > 0 and failed == 0 else "Failed",
-                # 'fail_reason'
-                "passed_tests": passed,
-                "failed_tests": failed,
-                "timeout_tests": timeout,
-                "total_tests": total
-            }
-            results.append(result)
-    return pd.DataFrame(results)
 
-def evaluate_results(base_path=".", output_dir="."):
-    """Main function to evaluate all results"""
-    all_result_files = find_result_files(base_path)
+def analyze_log_file(log_file: str) -> Dict:
+    """Analyze a single log file for additional information."""
+    log_info = {
+        'file_name': os.path.basename(log_file),
+        'error_count': 0,
+        'timeout_detected': False,
+        'last_timestamp': None,
+        'execution_time': None
+    }
     
-    print("Found result files:")
-    for dataset, files in all_result_files.items():
-        print(f"  {dataset}: {len(files)} files")
-        for file in files:
-            print(f"    - {file}")
-    
-    dataframes = {}
-    
-    if all_result_files['resultsmbpp']:
-        print("\nProcessing MBPP results...")
-        data_mbpp = load_json_data(all_result_files['resultsmbpp'][0])
-        df_mbpp = evaluate_structured_json(data_mbpp, "mbpp")
-        dataframes['mbpp'] = df_mbpp
-        
-        mbpp_csv = os.path.join(output_dir, "paircoder_detailed_mbpp.csv")
-        df_mbpp.to_csv(mbpp_csv, index=False)
-        print(f"MBPP results saved to: {mbpp_csv}")
-        
-        total_problems = len(df_mbpp)
-        passed_problems = len(df_mbpp[df_mbpp['status'] == 'Passed'])
-        print(f"MBPP Summary: {passed_problems}/{total_problems} problems passed ({passed_problems/total_problems*100:.1f}%)")
-    
-    if all_result_files['resultshumaneval']:
-        print("\nProcessing HumanEval results...")
-        data_humaneval = load_json_data(all_result_files['resultshumaneval'][0])
-        df_humaneval = evaluate_structured_json(data_humaneval, "humaneval")
-        dataframes['humaneval'] = df_humaneval
-        
-        humaneval_csv = os.path.join(output_dir, "paircoder_detailed_humaneval.csv")
-        df_humaneval.to_csv(humaneval_csv, index=False)
-        print(f"HumanEval results saved to: {humaneval_csv}")
-        
-        total_problems = len(df_humaneval)
-        passed_problems = len(df_humaneval[df_humaneval['status'] == 'Passed'])
-        print(f"HumanEval Summary: {passed_problems}/{total_problems} problems passed ({passed_problems/total_problems*100:.1f}%)")
-    
-    if all_result_files['resultscodecontest']:
-        print("\nProcessing CodeContest results...")
-        data_codecontest = load_json_data(all_result_files['resultscodecontest'][0])
-        df_codecontest = evaluate_structured_json(data_codecontest, "codecontest")
-        dataframes['codecontest'] = df_codecontest
-        
-        codecontest_csv = os.path.join(output_dir, "paircoder_detailed_codecontest.csv")
-        df_codecontest.to_csv(codecontest_csv, index=False)
-        print(f"CodeContest results saved to: {codecontest_csv}")
-        
-        total_problems = len(df_codecontest)
-        passed_problems = len(df_codecontest[df_codecontest['status'] == 'Passed'])
-        print(f"CodeContest Summary: {passed_problems}/{total_problems} problems passed ({passed_problems/total_problems*100:.1f}%)")
-    
-    if dataframes:
-        print("\n" + "="*50)
-        print("OVERALL SUMMARY")
-        print("="*50)
-        
-        for dataset_name, df in dataframes.items():
-            total = len(df)
-            passed = len(df[df['status'] == 'Passed'])
-            failed = len(df[df['status'] == 'Failed'])
-            
-            print(f"{dataset_name.upper()}:")
-            print(f"  Total problems: {total}")
-            print(f"  Passed: {passed} ({passed/total*100:.1f}%)")
-            print(f"  Failed: {failed} ({failed/total*100:.1f}%)")
-            print()
-        
-        if len(dataframes) > 1:
-            combined_df = pd.concat(dataframes.values(), ignore_index=True)
-            combined_csv = os.path.join(output_dir, "paircoder_combined_results.csv")
-            combined_df.to_csv(combined_csv, index=False)
-            print(f"Combined results saved to: {combined_csv}")
-    
-    return dataframes
-
-def print_log_report(file_path, dataset_name):
-    """creates a table for log files."""
-    print(f"\n{'='*60}")
-    print(f"Logfile: {file_path}")
-    print(f"Dataset: {dataset_name}")
-    print(f"{'='*60}")
-    data = load_json_data(file_path)
-    if not data:
-        print("  [WARN] No data load!")
-        return
-    df = evaluate_structured_json(data, dataset_name)
-    if df.empty:
-        print("  [WARN] no evaulable data!")
-        return
-    print(df[['problem_id', 'status', 'passed_tests', 'failed_tests', 'timeout_tests', 'total_tests']].to_string(index=False))
-    print(f"{'-'*60}")
-    total = len(df)
-    passed = len(df[df['status'] == 'Passed'])
-    failed = len(df[df['status'] == 'Failed'])
-    print(f"  summary: {passed} Passed, {failed} Failed, total: {total}")
-    print(f"{'='*60}\n")
-
-def print_logs(zip_path):
-    """printing previews of logs."""
-    import re
-    print(f"\n{'*'*60}")
-    print(f"all Log files in: {zip_path}")
-    print(f"{'*'*60}")
     try:
-        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-            log_files = [f for f in zip_ref.namelist() if f.endswith('.log')]
-            if not log_files:
-                print("  [INFO] no logs found.")
-                return
-            for logname in sorted(log_files):
-                print(f"\n--- {logname} ---")
-                with zip_ref.open(logname) as logf:
-                    try:
-                        lines = logf.read().decode(errors='replace').splitlines()
-                    except Exception as e:
-                        print(f"  [WARN] could not read file: {e}")
-                        continue
-                    important = []
-                    for line in lines:
-                        l = line.lower()
-                        if any(word in l for word in ['error', 'fail', 'timeout', 'traceback', 'exception']):
-                            important.append(line)
-                    preview = lines[:2] + (["..."] if len(lines) > 4 else []) + lines[-2:]
-                    print("  preview:")
-                    for l in preview:
-                        print("   ", l)
-                    if important:
-                        print("  important line:")
-                        for l in important:
-                            print("   ", l)
-                    else:
-                        print("  [INFO] No important lines found.")
+        with open(log_file, 'r', encoding='utf-8', errors='ignore') as f:
+            lines = f.readlines()
+        
+        first_timestamp = None
+        last_timestamp = None
+        
+        for line in lines:
+            # Extract timestamps
+            timestamp_match = re.search(r'(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3})', line)
+            if timestamp_match:
+                timestamp = timestamp_match.group(1)
+                if first_timestamp is None:
+                    first_timestamp = timestamp
+                last_timestamp = timestamp
+            
+            # Count errors
+            if any(keyword in line.lower() for keyword in ['error', 'exception', 'failed', 'traceback']):
+                log_info['error_count'] += 1
+            
+            # Check for timeouts
+            if 'timeout' in line.lower():
+                log_info['timeout_detected'] = True
+        
+        log_info['last_timestamp'] = last_timestamp
+        
+        # Calculate execution time if we have both timestamps
+        if first_timestamp and last_timestamp:
+            try:
+                from datetime import datetime
+                fmt = '%Y-%m-%d %H:%M:%S.%f'
+                start_time = datetime.strptime(first_timestamp, fmt)
+                end_time = datetime.strptime(last_timestamp, fmt)
+                execution_time = (end_time - start_time).total_seconds()
+                log_info['execution_time'] = execution_time
+            except:
+                pass
+                
     except Exception as e:
-        print(f"[ERROR] Could not open zip: {e}")
-    print(f"{'*'*60}\n")
+        print(f"Error analyzing log file {log_file}: {e}")
+    
+    return log_info
+
+
+def process_results_directory(results_dir: str, dataset_name: str) -> Tuple[List[Dict], Dict]:
+    """Process a single results directory."""
+    solutions_file = os.path.join(results_dir, 'solutions.json')
+    
+    # Parse solutions.json
+    if not os.path.exists(solutions_file):
+        print(f"No solutions.json found in {results_dir}")
+        return [], {}
+    
+    results = parse_solutions_json(solutions_file)
+    
+    # Add dataset name and directory info to results
+    for result in results:
+        result['dataset_name'] = dataset_name
+        result['results_directory'] = results_dir
+    
+    # Analyze log files
+    log_files = [f for f in os.listdir(results_dir) if f.endswith('.log')]
+    log_analysis = {}
+    
+    for log_file in log_files:
+        log_path = os.path.join(results_dir, log_file)
+        log_info = analyze_log_file(log_path)
+        log_analysis[log_file] = log_info
+    
+    return results, log_analysis
+
+
+def calculate_summary_stats(df: pd.DataFrame) -> Dict:
+    """Calculate summary statistics for a dataset."""
+    total_problems = len(df)
+    passed_problems = len(df[df['status'] == 'PASSED'])
+    failed_problems = len(df[df['status'] == 'FAILED'])
+    no_test_problems = len(df[df['status'] == 'NO_TESTS'])
+    
+    accuracy = (passed_problems / total_problems * 100) if total_problems > 0 else 0
+    
+    return {
+        'total_problems': total_problems,
+        'passed_problems': passed_problems,
+        'failed_problems': failed_problems,
+        'no_test_problems': no_test_problems,
+        'accuracy_percent': accuracy,
+        'total_tests_run': df['total_tests'].sum(),
+        'total_tests_passed': df['total_passed'].sum(),
+        'total_tests_failed': df['total_failed'].sum(),
+        'total_tests_timeout': df['total_timeout'].sum()
+    }
+
+
+def main():
+    # Configuration
+    base_path = r"C:\Users\tayla\OneDrive\Dokumente\Paircoder\A-Pair-Coder\Examples\PairCoder-main"
+    output_dir = r"C:\Users\tayla\OneDrive\Dokumente\Paircoder\A-Pair-Coder"
+    
+    # Find all log directories
+    log_dirs = find_log_directories(base_path)
+    
+    print("Found log directories:")
+    for dataset, dirs in log_dirs.items():
+        print(f"  {dataset}: {len(dirs)} directories")
+        for dir_path in dirs:
+            print(f"    - {dir_path}")
+    
+    all_results = []
+    dataset_summaries = {}
+    
+    # Process each dataset
+    for dataset_name, results_directories in log_dirs.items():
+        if not results_directories:
+            print(f"\nNo results directories found for {dataset_name}")
+            continue
+            
+        print(f"\nProcessing {dataset_name} dataset...")
+        
+        dataset_results = []
+        
+        for results_dir in results_directories:
+            print(f"  Processing: {results_dir}")
+            results, log_analysis = process_results_directory(results_dir, dataset_name)
+            dataset_results.extend(results)
+            all_results.extend(results)
+        
+        if dataset_results:
+            # Create DataFrame for this dataset
+            df = pd.DataFrame(dataset_results)
+            
+            # Calculate summary statistics
+            summary = calculate_summary_stats(df)
+            dataset_summaries[dataset_name] = summary
+            
+            # Save detailed CSV for this dataset
+            detailed_csv = os.path.join(output_dir, f"paircoder_detailed_{dataset_name}.csv")
+            df.to_csv(detailed_csv, index=False)
+            print(f"  Detailed results saved to: {detailed_csv}")
+            
+            # Print summary
+            print(f"  Summary:")
+            print(f"    Total problems: {summary['total_problems']}")
+            print(f"    Passed: {summary['passed_problems']} ({summary['accuracy_percent']:.1f}%)")
+            print(f"    Failed: {summary['failed_problems']}")
+            print(f"    No tests: {summary['no_test_problems']}")
+    
+    # Create combined results
+    if all_results:
+        combined_df = pd.DataFrame(all_results)
+        combined_csv = os.path.join(output_dir, "paircoder_combined_results.csv")
+        combined_df.to_csv(combined_csv, index=False)
+        print(f"\nCombined results saved to: {combined_csv}")
+        
+        # Create overall summary
+        print("\n" + "="*60)
+        print("OVERALL SUMMARY")
+        print("="*60)
+        
+        overall_total = 0
+        overall_passed = 0
+        
+        for dataset_name, summary in dataset_summaries.items():
+            print(f"\n{dataset_name.upper()}:")
+            print(f"  Total problems: {summary['total_problems']}")
+            print(f"  Passed: {summary['passed_problems']} ({summary['accuracy_percent']:.1f}%)")
+            print(f"  Failed: {summary['failed_problems']}")
+            print(f"  Total tests run: {summary['total_tests_run']}")
+            print(f"  Tests passed: {summary['total_tests_passed']}")
+            print(f"  Tests failed: {summary['total_tests_failed']}")
+            print(f"  Tests timeout: {summary['total_tests_timeout']}")
+            
+            overall_total += summary['total_problems']
+            overall_passed += summary['passed_problems']
+        
+        if overall_total > 0:
+            overall_accuracy = (overall_passed / overall_total * 100)
+            print(f"\nOVERALL ACCURACY: {overall_passed}/{overall_total} ({overall_accuracy:.1f}%)")
+        
+        # Create summary CSV
+        summary_df = pd.DataFrame([
+            {
+                'dataset': dataset_name,
+                'total_problems': summary['total_problems'],
+                'passed_problems': summary['passed_problems'],
+                'failed_problems': summary['failed_problems'],
+                'no_test_problems': summary['no_test_problems'],
+                'accuracy_percent': summary['accuracy_percent'],
+                'total_tests_run': summary['total_tests_run'],
+                'total_tests_passed': summary['total_tests_passed'],
+                'total_tests_failed': summary['total_tests_failed'],
+                'total_tests_timeout': summary['total_tests_timeout']
+            }
+            for dataset_name, summary in dataset_summaries.items()
+        ])
+        
+        summary_csv = os.path.join(output_dir, "paircoder_summary.csv")
+        summary_df.to_csv(summary_csv, index=False)
+        print(f"\nSummary statistics saved to: {summary_csv}")
+    
+    else:
+        print("\nNo results found to process!")
+
 
 if __name__ == "__main__":
-    base_path = r"\Examples\PairCoder-main"
-
-    results = evaluate_results(base_path, base_path)
-
-    all_result_files = find_result_files(base_path)
-    for dataset, files in all_result_files.items():
-        for file in files:
-            print_log_report(file, dataset.replace('results', ''))
-            print_logs(file)
+    main()

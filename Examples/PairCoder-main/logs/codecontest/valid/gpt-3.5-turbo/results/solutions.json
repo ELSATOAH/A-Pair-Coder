@@ -1,0 +1,186 @@
+{
+    "valid": {
+        "0": {
+            "iteration_0": {
+                "solution": "MOD = 10**9 + 7\n\ndef calculate_attack_plans(n, q, queries):\n    \n    def nCr(n, r):\n        res = 1\n        for i in range(r):\n            res = (res * (n - i)) % MOD\n            res = (res * pow(i + 1, MOD - 2, MOD)) % MOD\n        return res\n    \n    attack_plans = []\n    total_pigs = 3 * n\n    \n    for x in queries:\n        remaining_pigs = total_pigs - x\n        ways_to_choose_x_pigs = nCr(total_pigs, x)\n        total_plans = ways_to_choose_x_pigs\n        attack_plans.append(total_plans)\n    \n    return attack_plans\n\nif __name__ == \"__main__\":\n    n, q = map(int, input().split())\n    queries = [int(input()) for _ in range(q)]\n    \n    result = calculate_attack_plans(n, q, queries)\n    \n    for res in result:\n        print(res)",
+                "test_passed_public": 0,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 1,
+                "test_failed_private": 1,
+                "test_timeout_private": 0,
+                "test_passed_generate": 4,
+                "test_failed_generate": 196,
+                "test_timeout_generate": 0
+            }
+        },
+        "1": {
+            "iteration_0": {
+                "solution": "import math\n\ndef calculate_area(x1, y1, x2, y2, x3, y3):\n    return abs((x1*(y2-y3) + x2*(y3-y1) + x3*(y1-y2)) / 2)\n\ndef count_enclosed_cows(x1, y1, x2, y2, x3, y3):\n    min_x = min(x1, x2, x3)\n    max_x = max(x1, x2, x3)\n    min_y = min(y1, y2, y3)\n    max_y = max(y1, y2, y3)\n    \n    enclosed_cows = 0\n    for x in range(min_x+1, max_x):\n        for y in range(min_y+1, max_y):\n            if (x-x1)*(y2-y1) - (y-y1)*(x2-x1) > 0 and (x-x2)*(y3-y2) - (y-y2)*(x3-x2) > 0 and (x-x3)*(y1-y3) - (y-y3)*(x1-x3) > 0:\n                enclosed_cows += 1\n                \n    return enclosed_cows\n\ndef brute_force_solution(n, fence_posts):\n    interesting_fences = 0\n    \n    for i in range(n):\n        for j in range(i+1, n):\n            for k in range(j+1, n):\n                x1, y1 = fence_posts[i]\n                x2, y2 = fence_posts[j]\n                x3, y3 = fence_posts[k]\n                \n                area = calculate_area(x1, y1, x2, y2, x3, y3)\n                if area.is_integer():\n                    enclosed_cows = count_enclosed_cows(x1, y1, x2, y2, x3, y3)\n                    if enclosed_cows % 2 == 1:\n                        interesting_fences += 1\n                        \n    return interesting_fences\n\nif __name__ == \"__main__\":\n    n = int(input())\n    fence_posts = []\n    for _ in range(n):\n        x, y = map(int, input().split())\n        fence_posts.append((x, y))\n    \n    result = brute_force_solution(n, fence_posts)\n    print(result)",
+                "test_passed_public": 0,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 1,
+                "test_passed_generate": 0,
+                "test_failed_generate": 4,
+                "test_timeout_generate": 1
+            }
+        },
+        "2": {
+            "iteration_0": {
+                "solution": "from itertools import combinations\n\ndef area(p1, p2, p3):\n    return abs((p1[0]*(p2[1]-p3[1]) + p2[0]*(p3[1]-p1[1]) + p3[0]*(p1[1]-p2[1])) // 2)\n\ndef is_odd(num):\n    return num % 2 != 0\n\ndef count_enclosed_cows(p1, p2, p3, cows):\n    count = 0\n    for cow in cows:\n        if area(p1, p2, cow) + area(p2, p3, cow) + area(p3, p1, cow) == area(p1, p2, p3):\n            count += 1\n    return count\n\ndef interesting_fences(n, fence_posts):\n    count = 0\n    for combo in combinations(fence_posts, 3):\n        enclosed_count = count_enclosed_cows(combo[0], combo[1], combo[2], fence_posts)\n        if is_odd(enclosed_count) and area(combo[0], combo[1], combo[2]) % 2 == 0:\n            count += 1\n    return count\n\nif __name__ == \"__main__\":\n    n = int(input())\n    fence_posts = [tuple(map(int, input().split())) for _ in range(n)]\n    print(interesting_fences(n, fence_posts))",
+                "test_passed_public": 1,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 25,
+                "test_failed_generate": 175,
+                "test_timeout_generate": 0
+            }
+        },
+        "3": {
+            "iteration_0": {
+                "solution": "from collections import deque\n\ndef count_badly_painted_regions(n, m, x, a, b):\n    painted = [[False for _ in range(m)] for _ in range(n)]\n    regions = 0\n\n    for i in range(n):\n        for j in range(m):\n            if a[i] + b[j] <= x:\n                painted[i][j] = True\n\n    def dfs(i, j):\n        if i < 0 or i >= n or j < 0 or j >= m or not painted[i][j]:\n            return\n        painted[i][j] = False\n        dfs(i+1, j)\n        dfs(i-1, j)\n        dfs(i, j+1)\n        dfs(i, j-1)\n\n    for i in range(n):\n        for j in range(m):\n            if painted[i][j]:\n                regions += 1\n                dfs(i, j)\n\n    return regions\n\nif __name__ == \"__main__\":\n    n, m, x = map(int, input().split())\n    a = list(map(int, input().split()))\n    b = list(map(int, input().split()))\n\n    print(count_badly_painted_regions(n, m, x, a, b))",
+                "test_passed_public": 4,
+                "test_failed_public": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 5,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 91,
+                "test_failed_generate": 0,
+                "test_timeout_generate": 0
+            }
+        },
+        "4": {
+            "iteration_0": {
+                "solution": "def find_bases(t):\n    for _ in range(t):\n        P = int(input())\n        a = 2\n        b = P - 1\n        print(a, b)\n\nif __name__ == \"__main__\":\n    t = int(input())\n    find_bases(t)",
+                "test_passed_public": 1,
+                "test_failed_public": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 200,
+                "test_failed_generate": 0,
+                "test_timeout_generate": 0
+            }
+        },
+        "5": {
+            "iteration_0": {
+                "solution": "def max_pawns_reaching_end(t, test_cases):\n    def simulate_movement(n, enemies, gregor):\n        count = 0\n        for i in range(n):\n            if gregor[i] == '1':\n                if enemies[i] == '0':\n                    count += 1\n                elif i > 0 and enemies[i-1] == '1':\n                    count += 1\n                    enemies[i-1] = '0'\n                elif i < n - 1 and enemies[i+1] == '1':\n                    count += 1\n                    enemies[i+1] = '0'\n        return count\n\n    results = []\n    for _ in range(t):\n        n = test_cases[_][0]\n        enemies = list(test_cases[_][1])\n        gregor = list(test_cases[_][2])\n        results.append(simulate_movement(n, enemies, gregor))\n\n    return results\n\nif __name__ == \"__main__\":\n    t = int(input())\n    test_cases = []\n    for _ in range(t):\n        n = int(input())\n        enemies = input().strip()\n        gregor = input().strip()\n        test_cases.append((n, enemies, gregor))\n\n    results = max_pawns_reaching_end(t, test_cases)\n    for res in results:\n        print(res)",
+                "test_passed_public": 1,
+                "test_failed_public": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 1,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 200,
+                "test_failed_generate": 0,
+                "test_timeout_generate": 0
+            }
+        },
+        "6": {
+            "iteration_0": {
+                "solution": "class DSU:\n    def __init__(self, n):\n        self.parent = list(range(n))\n        self.rank = [0] * n\n\n    def find(self, u):\n        if self.parent[u] != u:\n            self.parent[u] = self.find(self.parent[u])\n        return self.parent[u]\n\n    def union(self, u, v):\n        pu, pv = self.find(u), self.find(v)\n        if pu == pv:\n            return False\n        if self.rank[pu] < self.rank[pv]:\n            pu, pv = pv, pu\n        self.parent[pv] = pu\n        if self.rank[pu] == self.rank[pv]:\n            self.rank[pu] += 1\n        return True\n\nn, m = map(int, input().split())\ndsu = DSU(n + 1)\npowers = [0] + [i for i in range(1, n + 1)]\nfriends = set()\n\nfor _ in range(m):\n    u, v = map(int, input().split())\n    friends.add((u, v))\n\nq = int(input())\nqueries = []\nfor _ in range(q):\n    queries.append(list(map(int, input().split())))\n\ndef process():\n    vulnerable = set()\n    for i in range(1, n + 1):\n        if i not in vulnerable and all(powers[j] > powers[i] for j in range(1, n + 1) if dsu.find(j) == dsu.find(i)):\n            vulnerable.add(i)\n\n    while vulnerable:\n        for v in vulnerable:\n            for j in range(1, n + 1):\n                if dsu.find(j) == dsu.find(v):\n                    powers[j] = 0\n                    friends.discard((j, v))\n                    friends.discard((v, j))\n                    dsu.union(j, j)  # Separate the noble from its friends\n\n        vulnerable.clear()\n        for i in range(1, n + 1):\n            if i not in vulnerable and all(powers[j] > powers[i] for j in range(1, n + 1) if dsu.find(j) == dsu.find(i)):\n                vulnerable.add(i)\n\ncount = n\nfor query in queries:\n    if query[0] == 1:\n        dsu.union(query[1], query[2])\n        friends.add((query[1], query[2]))\n    elif query[0] == 2:\n        dsu.union(query[1], query[1])  # Separate the noble from its friends\n        friends.discard((query[1], query[2]))\n        friends.discard((query[2], query[1]))\n    else:\n        process()\n        count = sum(1 for i in range(1, n + 1) if powers[i] > 0)\n        print(count)",
+                "test_passed_public": 0,
+                "test_failed_public": 2,
+                "test_timeout_public": 0,
+                "test_passed_private": 2,
+                "test_failed_private": 3,
+                "test_timeout_private": 0,
+                "test_passed_generate": 7,
+                "test_failed_generate": 193,
+                "test_timeout_generate": 0
+            }
+        },
+        "7": {
+            "iteration_0": {
+                "solution": "def largest_friend_group(t):\n    for _ in range(t):\n        n = int(input())\n        arr = list(map(int, input().split()))\n        arr.sort()\n        \n        remainders_dict = {}\n        maxGroupSize = 1\n        \n        for i in range(n):\n            for m in range(2, int(arr[i]**0.5) + 1):\n                if arr[i] % m == 0:\n                    while arr[i] % m == 0:\n                        arr[i] //= m\n                    if m in remainders_dict:\n                        remainders_dict[m].append(i)\n                    else:\n                        remainders_dict[m] = [i]\n            if arr[i] > 1:\n                if arr[i] in remainders_dict:\n                    remainders_dict[arr[i]].append(i)\n                else:\n                    remainders_dict[arr[i]] = [i]\n        \n        for key in remainders_dict:\n            maxGroupSize = max(maxGroupSize, len(remainders_dict[key]))\n        \n        print(maxGroupSize)\n\nif __name__ == \"__main__\":\n    t = int(input())\n    largest_friend_group(t)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 6,
+                "test_timeout_private": 1,
+                "test_passed_generate": 5,
+                "test_failed_generate": 61,
+                "test_timeout_generate": 1
+            }
+        },
+        "8": {
+            "iteration_0": {
+                "solution": "def optimal_coins_distribution(t):\n    for _ in range(t):\n        n = int(input())\n        if n < 3:\n            if n == 1:\n                print(1, 0)\n            else:\n                print(0, n // 2)\n        else:\n            c1 = n // 3\n            c2 = n // 3\n\n            if n % 3 == 1:\n                c1 += 1\n            elif n % 3 == 2:\n                c2 += 1\n\n            print(c1, c2)\n\nif __name__ == \"__main__\":\n    t = int(input())\n    optimal_coins_distribution(t)",
+                "test_passed_public": 1,
+                "test_failed_public": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 4,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 200,
+                "test_failed_generate": 0,
+                "test_timeout_generate": 0
+            }
+        },
+        "9": {
+            "iteration_0": {
+                "solution": "def count_frequency(s):\n    freq = {}\n    for char in s:\n        if char in freq:\n            freq[char] += 1\n        else:\n            freq[char] = 1\n    return freq\n\ndef simple_frequency_counting():\n    t = int(input())\n    for _ in range(t):\n        s = input().strip()\n        freq = count_frequency(s)\n        remaining_chars = len(s) - max(freq.values())\n        k = min(len(s) // 2, max(freq.values()) + min(remaining_chars, len(s) // 2))\n        print(k)\n\nif __name__ == \"__main__\":\n    simple_frequency_counting()",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 1,
+                "test_failed_private": 3,
+                "test_timeout_private": 0,
+                "test_passed_generate": 1,
+                "test_failed_generate": 199,
+                "test_timeout_generate": 0
+            }
+        },
+        "10": {
+            "iteration_0": {
+                "solution": "from collections import defaultdict\n\ndef wonderful_coloring(t, test_cases):\n    for _ in range(t):\n        n, k, sequence = test_cases[_]\n        count_dict = defaultdict(int)\n        for num in sequence:\n            count_dict[num] += 1\n\n        unique_values = sorted(count_dict.keys(), key=lambda x: count_dict[x], reverse=True)\n        color_count = 0\n        coloring = [0] * n\n        for val in unique_values:\n            color_count += 1\n            for i in range(n):\n                if sequence[i] == val and coloring[i] == 0:\n                    coloring[i] = color_count\n            if color_count == k:\n                break\n\n        print(*coloring)\n\nif __name__ == \"__main__\":\n    t = int(input())\n    test_cases = []\n    for _ in range(t):\n        n, k = map(int, input().split())\n        sequence = list(map(int, input().split()))\n        test_cases.append((n, k, sequence))\n\n    wonderful_coloring(t, test_cases)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 2,
+                "test_timeout_private": 0,
+                "test_passed_generate": 0,
+                "test_failed_generate": 200,
+                "test_timeout_generate": 0
+            }
+        },
+        "11": {
+            "iteration_0": {
+                "solution": "from itertools import combinations\n\ndef is_interesting_story(words):\n    letter_counts = {'a': 0, 'b': 0, 'c': 0, 'd': 0, 'e': 0}\n    for word in words:\n        for letter in word:\n            letter_counts[letter] += 1\n    \n    max_count = max(letter_counts.values())\n    total_count = sum(letter_counts.values()) - max_count\n    \n    return max_count > total_count\n\ndef max_interesting_story(words):\n    max_words = 0\n    for i in range(1, len(words) + 1):\n        for combination in combinations(words, i):\n            if is_interesting_story(combination):\n                max_words = max(max_words, len(combination))\n    \n    return max_words\n\nif __name__ == \"__main__\":\n    t = int(input())\n    for _ in range(t):\n        n = int(input())\n        words = [input().strip() for _ in range(n)]\n        result = max_interesting_story(words)\n        print(result)",
+                "test_passed_public": 1,
+                "test_failed_public": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 0,
+                "test_failed_private": 0,
+                "test_timeout_private": 0,
+                "test_passed_generate": 200,
+                "test_failed_generate": 0,
+                "test_timeout_generate": 0
+            }
+        },
+        "12": {
+            "iteration_0": {
+                "solution": "def check_dominoes_placement(t):\n    for _ in range(t):\n        n, m, k = map(int, input().split())\n        total_cells = n * m\n        vertical_dominoes_needed = total_cells // 2 - k\n\n        if k >= 0 and vertical_dominoes_needed >= 0:\n            print(\"YES\")\n        else:\n            print(\"NO\")\n\nif __name__ == \"__main__\":\n    t = int(input())\n    check_dominoes_placement(t)",
+                "test_passed_public": 0,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 22,
+                "test_failed_private": 69,
+                "test_timeout_private": 0,
+                "test_passed_generate": 16,
+                "test_failed_generate": 184,
+                "test_timeout_generate": 0
+            }
+        }
+    }
+}

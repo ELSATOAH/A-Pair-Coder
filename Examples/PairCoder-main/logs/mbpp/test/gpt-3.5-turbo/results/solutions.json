@@ -2,13 +2,13 @@
     "test": {
         "0": {
             "iteration_0": {
-                "solution": "def remove_Occ(s, c):\n    first_occ = s.find(c)\n    last_occ = s.rfind(c)\n    \n    if first_occ == -1 or last_occ == -1:\n        return s\n    \n    return s[:first_occ] + s[first_occ+1:last_occ] + s[last_occ+1:]\n\nif __name__ == \"__main__\":\n    print(remove_Occ(*eval(input()))",
-                "test_passed_public": 0,
+                "solution": "def remove_Occ(s, char):\n    if not s:\n        return \"\"\n    \n    first_occ = s.find(char)\n    if first_occ == -1:\n        return s\n    \n    last_occ = s.rfind(char)\n    \n    return s[:first_occ] + s[first_occ+1:last_occ] + s[last_occ+1:]\n\nif __name__ == \"__main__\":\n    print(remove_Occ(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -17,12 +17,12 @@
         "1": {
             "iteration_0": {
                 "solution": "def sort_matrix(matrix):\n    return sorted(matrix, key=lambda x: sum(x))\n\nif __name__ == \"__main__\":\n    print(sort_matrix(*eval(input())))",
-                "test_passed_public": 0,
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -30,13 +30,13 @@
         },
         "2": {
             "iteration_0": {
-                "solution": "def count_common(words):\n    word_count = {}\n    for word in words:\n        if word in word_count:\n            word_count[word] += 1\n        else:\n            word_count[word] = 1\n    sorted_word_count = sorted(word_count.items(), key=lambda x: x[1], reverse=True)\n    return sorted_word_count[:4]\n\nif __name__ == \"__main__\":\n    print(count_common(eval(input())))",
-                "test_passed_public": 0,
+                "solution": "from collections import Counter\n\ndef count_common(words):\n    word_counts = Counter(words)\n    return word_counts.most_common(4)\n\nif __name__ == \"__main__\":\n    print(count_common(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -44,13 +44,13 @@
         },
         "3": {
             "iteration_0": {
-                "solution": "def find_Volume(base, height, length):\n    return 0.5 * base * height * length\n\nif __name__ == \"__main__\":\n    print(find_Volume(*map(int, input().split(','))))",
-                "test_passed_public": 0,
+                "solution": "def find_Volume(base_length, base_width, height):\n    if base_length <= 0 or base_width <= 0 or height <= 0:\n        return \"Invalid input. Dimensions must be positive.\"\n    return 0.5 * base_length * base_width * height\n\nif __name__ == \"__main__\":\n    print(find_Volume(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -58,13 +58,13 @@
         },
         "4": {
             "iteration_0": {
-                "solution": "def split_lowerstring(s):\n    result = []\n    temp = ''\n    for char in s:\n        if char.islower():\n            result.append(temp)\n            temp = ''\n        else:\n            temp += char\n    result.append(temp)\n    return result\n\nif __name__ == \"__main__\":\n    print(split_lowerstring(*eval(input())))",
+                "solution": "def split_lowerstring(s):\n    return [s[i:j] for i, j in zip([0] + [i for i, c in enumerate(s) if c.islower()], [i for i, c in enumerate(s) if c.islower()] + [len(s)])]\n\nif __name__ == \"__main__\":\n    print(split_lowerstring(*eval(input())))",
                 "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
                 "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_failed_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -72,13 +72,13 @@
         },
         "5": {
             "iteration_0": {
-                "solution": "def text_lowercase_underscore(s):\n    if '_' in s:\n        words = s.split('_')\n        for word in words:\n            if not word.islower():\n                return ''\n        return 'Found a match!'\n    return ''\n\nif __name__ == \"__main__\":\n    print(text_lowercase_underscore(*eval(input())))",
-                "test_passed_public": 0,
+                "solution": "def text_lowercase_underscore(text):\n    for i in range(len(text)):\n        if text[i].islower():\n            if i+1 < len(text) and text[i+1] == '_':\n                j = i + 2\n                while j < len(text) and text[j].islower():\n                    j += 1\n                if j > i + 2:\n                    return 'Found a match!'\n    return 'No match found'\n\nif __name__ == \"__main__\":\n    print(text_lowercase_underscore(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_public": 0,
+                "test_passed_private": 1,
+                "test_failed_private": 2,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -86,13 +86,13 @@
         },
         "6": {
             "iteration_0": {
-                "solution": "def square_perimeter(side_length):\n    return 4 * side_length\n\nif __name__ == \"__main__\":\n    while True:\n        try:\n            side_length = int(input(\"Enter the side length of the square: \"))\n            break  # Exit the loop if input is successful\n        except ValueError:\n            print(\"Please enter a valid integer.\")\n\n    print(square_perimeter(side_length))",
-                "test_passed_public": 0,
+                "solution": "def square_perimeter(side_length):\n    if side_length <= 0:\n        return \"Invalid input\"\n    return side_length * 4\n\nif __name__ == \"__main__\":\n    print(square_perimeter(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -100,13 +100,13 @@
         },
         "7": {
             "iteration_0": {
-                "solution": "def remove_dirty_chars(s1, s2):\n    return ''.join([c for c in s1 if c not in s2])\n\nif __name__ == \"__main__\":\n    print(remove_dirty_chars(*eval(input(\"Enter two strings separated by a space: \")))",
-                "test_passed_public": 0,
+                "solution": "def remove_dirty_chars(s1, s2):\n    s2_set = set(s2)\n    result = ''\n    for char in s1:\n        if char not in s2_set:\n            result += char\n    return result\n\nif __name__ == \"__main__\":\n    print(remove_dirty_chars(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -114,13 +114,13 @@
         },
         "8": {
             "iteration_0": {
-                "solution": "def test_duplicate(arr):\n    return len(arr) != len(set(arr))\n\nif __name__ == \"__main__\":\n    user_input = input(\"Enter a list of elements separated by commas: \")\n    arr = [int(x) for x in user_input.split(',')]\n    print(test_duplicate(arr))",
-                "test_passed_public": 0,
+                "solution": "def test_duplicate(arr):\n    unique_set = set()\n    for num in arr:\n        if num in unique_set:\n            return True\n        unique_set.add(num)\n    return False\n\nif __name__ == \"__main__\":\n    print(test_duplicate(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -128,13 +128,13 @@
         },
         "9": {
             "iteration_0": {
-                "solution": "def is_woodall(n):\n    k = 1\n    while k * (k + 1) < n:\n        k += 1\n    return k * (k + 1) == n\n\nif __name__ == \"__main__\":\n    print(is_woodall(int(input())))",
-                "test_passed_public": 0,
+                "solution": "def is_woodall(num):\n    n = 1\n    while True:\n        woodall = n * 2**n - 1\n        if woodall == num:\n            return True\n        elif woodall > num:\n            return False\n        n += 1\n\nif __name__ == \"__main__\":\n    print(is_woodall(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -142,13 +142,13 @@
         },
         "10": {
             "iteration_0": {
-                "solution": "def multiples_of_num(m, n):\n    return [n*i for i in range(1, m+1)]\n\nif __name__ == \"__main__\":\n    print(*multiples_of_num(*map(int, input().split())))",
-                "test_passed_public": 0,
+                "solution": "def multiples_of_num(m, n):\n    if not isinstance(m, int) or not isinstance(n, int) or m <= 0 or n <= 0:\n        return \"Invalid inputs. Please provide positive integers for m and n.\"\n\n    multiples = []\n    for i in range(1, m + 1):\n        multiples.append(n * i)\n\n    return multiples\n\nif __name__ == \"__main__\":\n    print(multiples_of_num(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -156,13 +156,13 @@
         },
         "11": {
             "iteration_0": {
-                "solution": "def find_first_duplicate(arr):\n    seen = set()\n    for num in arr:\n        if num in seen:\n            return num\n        seen.add(num)\n    return None\n\nif __name__ == \"__main__\":\n    print(find_first_duplicate(eval(input())))",
-                "test_passed_public": 0,
+                "solution": "def find_first_duplicate(arr):\n    seen = set()\n    for num in arr:\n        if num in seen:\n            return num\n        seen.add(num)\n    return None\n\nif __name__ == \"__main__\":\n    print(find_first_duplicate(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_public": 0,
+                "test_passed_private": 2,
+                "test_failed_private": 1,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -170,13 +170,13 @@
         },
         "12": {
             "iteration_0": {
-                "solution": "def maximum_Sum(lists):\n    max_sum = 0\n    for lst in lists:\n        max_sum = max(max_sum, sum(lst))\n    return max_sum\n\nif __name__ == \"__main__\":\n    print(maximum_Sum(eval(input())))",
-                "test_passed_public": 0,
+                "solution": "def maximum_Sum(lists):\n    return max(sum(sublist) for sublist in lists)\n\nif __name__ == \"__main__\":\n    print(maximum_Sum(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -184,13 +184,13 @@
         },
         "13": {
             "iteration_0": {
-                "solution": "def binary_to_decimal(binary):\n    decimal = 0\n    for i in range(len(binary)):\n        if binary[i] not in ['0', '1']:\n            return \"Invalid binary\"\n        decimal += int(binary[len(binary) - i - 1]) * 2**i\n    return decimal\n\nif __name__ == \"__main__\":\n    print(binary_to_decimal(*eval(input())))",
-                "test_passed_public": 0,
+                "solution": "def binary_to_decimal(binary):\n    result = 0\n    power = 0\n    for bit in str(binary)[::-1]:\n        if bit == '1':\n            result += 2 ** power\n        power += 1\n    return result\n\nif __name__ == \"__main__\":\n    print(binary_to_decimal(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -198,13 +198,13 @@
         },
         "14": {
             "iteration_0": {
-                "solution": "def find_Product(arr, n):\n    product = 1\n    seen = set()\n    unique_nums = set(arr)\n    for num in unique_nums:\n        if num not in seen:\n            product *= num\n            seen.add(num)\n    return product\n\nif __name__ == \"__main__\":\n    arr = list(map(int, input().split()))\n    n = len(arr)\n    print(find_Product(arr, n))",
-                "test_passed_public": 0,
+                "solution": "def find_Product(arr, n):\n    element_count = {}\n    product = 1\n\n    for element in arr:\n        if element not in element_count:\n            element_count[element] = 1\n        else:\n            element_count[element] += 1\n\n    for key, value in element_count.items():\n        if value == 1:\n            product *= key\n\n    return product\n\nif __name__ == \"__main__\":\n    print(find_Product(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -212,13 +212,13 @@
         },
         "15": {
             "iteration_0": {
-                "solution": "import ast\n\ndef check_k_elements(tuple_list, k):\n    for tup in tuple_list:\n        if len(tup) != k:\n            return False\n    return True\n\nif __name__ == \"__main__\":\n    print(check_k_elements(*eval(input())))",
+                "solution": "def check_k_elements(tuple_list, k):\n    for tup in tuple_list:\n        if len(tup) != k:\n            return False\n    return True\n\nif __name__ == \"__main__\":\n    print(check_k_elements(*eval(input())))",
                 "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_failed_public": 1,
+                "test_timeout_public": 0,
+                "test_passed_private": 1,
+                "test_failed_private": 2,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -226,13 +226,13 @@
         },
         "16": {
             "iteration_0": {
-                "solution": "import string\n\ndef remove(lst):\n    return [\"\".join([char for char in s if not char.isdigit()]) for s in lst]\n\nif __name__ == \"__main__\":\n    print(remove(*eval(input())))",
-                "test_passed_public": 0,
+                "solution": "def remove(strings):\n    return [''.join([c for c in s if not c.isdigit()]) for s in strings]\n\nif __name__ == \"__main__\":\n    print(remove(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -240,13 +240,13 @@
         },
         "17": {
             "iteration_0": {
-                "solution": "def binomial_Coeff(n, k):\n    if k == 0 or k == n:\n        return 1\n    return binomial_Coeff(n-1, k-1) + binomial_Coeff(n-1, k)\n\nif __name__ == \"__main__\":\n    try:\n        print(binomial_Coeff(*eval(input())))\n    except (ValueError, TypeError):\n        print(\"Please enter two integers separated by a space.\")",
-                "test_passed_public": 0,
+                "solution": "def binomial_Coeff(n, k):\n    if n == 0 or k == 0:\n        return 1\n\n    triangle = [[1] * (i + 1) for i in range(n + 1)]\n\n    for i in range(2, n + 1):\n        for j in range(1, i):\n            triangle[i][j] = triangle[i - 1][j - 1] + triangle[i - 1][j]\n\n    return triangle[n][k]\n\nif __name__ == \"__main__\":\n    print(binomial_Coeff(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -254,13 +254,13 @@
         },
         "18": {
             "iteration_0": {
-                "solution": "import ast\n\ndef get_Odd_Occurrence(arr, n):\n    result = 0\n    for i in range(n):\n        result ^= arr[i]\n    return result\n\nif __name__ == \"__main__\":\n    print(get_Odd_Occurrence(*ast.literal_eval(input())))",
-                "test_passed_public": 0,
+                "solution": "from collections import Counter\n\ndef get_Odd_Occurrence(arr, n):\n    count = Counter(arr)\n    for key, value in count.items():\n        if value % 2 != 0:\n            return key\n\nif __name__ == \"__main__\":\n    print(get_Odd_Occurrence(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
+                "test_timeout_public": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
+                "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,
                 "test_timeout_generate": 0
@@ -268,1286 +268,12 @@
         },
         "19": {
             "iteration_0": {
-                "solution": "def count_Substring_With_Equal_Ends(s):\n    count = 0\n    for i in range(len(s)):\n        for j in range(i, len(s)):\n            if s[i] == s[j]:\n                count += 1\n    return count\n\nif __name__ == \"__main__\":\n    print(count_Substring_With_Equal_Ends(input()))",
-                "test_passed_public": 0,
+                "solution": "def count_Substring_With_Equal_Ends(s):\n    count = 0\n    for i in range(len(s)):\n        for j in range(i, len(s)):\n            if s[i] == s[j]:\n                count += 1\n    return count\n\nif __name__ == \"__main__\":\n    print(count_Substring_With_Equal_Ends(*eval(input())))",
+                "test_passed_public": 1,
                 "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "20": {
-            "iteration_0": {
-                "solution": "import heapq\n\ndef func(arrays, k):\n    freq_map = {}\n    for array in arrays:\n        for num in array:\n            freq_map[num] = freq_map.get(num, 0) + 1\n    \n    heap = [(-freq, num) for num, freq in freq_map.items()]\n    heapq.heapify(heap)\n    \n    top_k = []\n    while heap and len(top_k) < k:\n        top_k.append(heapq.heappop(heap)[1])\n    \n    return top_k\n\nif __name__ == \"__main__\":\n    print(func(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "21": {
-            "iteration_0": {
-                "solution": "def max_Prime_Factors(n):\n    i = 2\n    while i * i <= n:\n        if n % i == 0:\n            n //= i\n        else:\n            i += 1\n    return n\n\nif __name__ == \"__main__\":\n    print(max_Prime_Factors(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "22": {
-            "iteration_0": {
-                "solution": "def decimal_To_Binary(n):\n    return bin(n)[2:]\n\nif __name__ == \"__main__\":\n    print(decimal_To_Binary(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "23": {
-            "iteration_0": {
-                "solution": "def find_missing(arr, n):\n    for i in range(1, n+1):\n        if i not in arr:\n            return i\n\nif __name__ == \"__main__\":\n    print(find_missing(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "24": {
-            "iteration_0": {
-                "solution": "import math\n\ndef find_rect_num(n):\n    return n * (n + 1) * (2 * n + 1) // 6\n\nif __name__ == \"__main__\":\n    print(find_rect_num(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
                 "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
-                "test_timeout_private": 0,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "25": {
-            "iteration_0": {
-                "solution": "def find_Nth_Digit(n, numerator, denominator):\n    if denominator == 0:\n        return None\n    fraction = numerator / denominator\n    str_fraction = str(fraction).split('.')[1]\n    return int(str_fraction[n-1])\n\nif __name__ == \"__main__\":\n    print(find_Nth_Digit(*eval(input()))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
+                "test_passed_private": 3,
                 "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "26": {
-            "iteration_0": {
-                "solution": "def sort_mixed_list(lst):\n    integers = sorted([x for x in lst if isinstance(x, int)])\n    strings = sorted([x for x in lst if isinstance(x, str)])\n    return integers + strings\n\nif __name__ == \"__main__\":\n    print(sort_mixed_list(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
-                "test_timeout_private": 0,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "27": {
-            "iteration_0": {
-                "solution": "def div_even_odd(lst):\n    even = None\n    odd = None\n    for num in lst:\n        if num % 2 == 0 and even is None:\n            even = num\n        elif num % 2 != 0 and odd is None:\n            odd = num\n        if even is not None and odd is not None:\n            break\n    return even // odd\n\nif __name__ == \"__main__\":\n    print(div_even_odd(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
-                "test_timeout_private": 0,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "28": {
-            "iteration_0": {
-                "solution": "def rearrange_string(s):\n    from collections import Counter\n    counts = Counter(s)\n    max_count = max(counts.values())\n    if max_count > (len(s) + 1) // 2:\n        return \"\"\n    sorted_chars = sorted(s, key=lambda x: (-counts[x], x))\n    result = [None] * len(s)\n    result[::2], result[1::2] = sorted_chars[len(s)//2:], sorted_chars[:len(s)//2]\n    return \"\".join(result)\n\nif __name__ == \"__main__\":\n    print(rearrange_string(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "29": {
-            "iteration_0": {
-                "solution": "from collections import Counter\n\ndef freq_element(lists):\n    flat_list = [item for sublist in lists for item in sublist]\n    return dict(Counter(flat_list))\n\nif __name__ == \"__main__\":\n    print(freq_element(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
-                "test_timeout_private": 0,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "30": {
-            "iteration_0": {
-                "solution": "def filter_evennumbers(lst):\n    return list(filter(lambda x: x % 2 == 0, lst))\n\nif __name__ == \"__main__\":\n    print(filter_evennumbers(list(map(int, input().split()))))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
-                "test_timeout_private": 0,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "31": {
-            "iteration_0": {
-                "solution": "def find_Sum(arr, n):\n    sum_repeated = sum([item for item in set(arr) if arr.count(item) > 1])\n    return sum_repeated\n\nif __name__ == \"__main__\":\n    print(find_Sum(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
-                "test_timeout_private": 0,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "32": {
-            "iteration_0": {
-                "solution": "import re\n\ndef text_match(text):\n    pattern = r'[a-z]+_[a-z]+'\n    if re.search(pattern, text):\n        return 'Found a match!'\n    else:\n        return 'No match found!'\n\nif __name__ == \"__main__\":\n    print(text_match(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
-                "test_timeout_private": 0,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "33": {
-            "iteration_0": {
-                "solution": "def text_match_string(s):\n    if s.startswith('python'):\n        return s\n    else:\n        return 'Not matched!'\n\nif __name__ == \"__main__\":\n    print(text_match_string(input()))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
-                "test_timeout_private": 0,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "34": {
-            "iteration_0": {
-                "solution": "def get_gcd(arr):\n    def gcd(a, b):\n        while b:\n            a, b = b, a % b\n        return a\n\n    result = arr[0]\n    for i in range(1, len(arr)):\n        result = gcd(result, arr[i])\n    return result\n\nif __name__ == \"__main__\":\n    print(get_gcd(list(map(int, input().split())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "35": {
-            "iteration_0": {
-                "solution": "def test_distinct(lst):\n    return len(lst) == len(set(lst))\n\nif __name__ == \"__main__\":\n    lst = list(map(int, input().split()))\n    print(test_distinct(lst))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
-                "test_timeout_private": 0,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "36": {
-            "iteration_0": {
-                "solution": "def compute_Last_Digit(a, b):\n    def factorial(n):\n        if n == 0:\n            return 1\n        return n * factorial(n - 1)\n\n    def last_digit(n):\n        return n % 10\n\n    if b == 0:\n        return 0\n\n    return last_digit(factorial(a) // factorial(b))\n\nif __name__ == \"__main__\":\n    a, b = map(int, input().split())\n    print(compute_Last_Digit(a, b))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "37": {
-            "iteration_0": {
-                "solution": "def odd_bit_set_number(num):\n    return num | int('1010101010101010', 2)\n\nif __name__ == \"__main__\":\n    print(odd_bit_set_number(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "38": {
-            "iteration_0": {
-                "solution": "def specified_element(lst, index):\n    return [sublist[index] if len(sublist) > index else None for sublist in lst]\n\nif __name__ == \"__main__\":\n    print(specified_element(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "39": {
-            "iteration_0": {
-                "solution": "def min_length_list(lst):\n    return min(enumerate(lst), key=lambda x: len(x[1]))\n\nif __name__ == \"__main__\":\n    print(min_length_list(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "40": {
-            "iteration_0": {
-                "solution": "def check_equilateral(a, b, c):\n    return a == b == c\n\nif __name__ == \"__main__\":\n    print(check_equilateral(*map(int, input().split())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "41": {
-            "iteration_0": {
-                "solution": "def parallelogram_area(base, height):\n    return base * height\n\nif __name__ == \"__main__\":\n    print(parallelogram_area(*map(int, input(\"Enter base and height values in the format (base, height): \").split(',')))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "42": {
-            "iteration_0": {
-                "solution": "def check_Equality(s):\n    if s:\n        if s[0] == s[-1]:\n            return 'Equal'\n        else:\n            return 'Not Equal'\n    else:\n        return 'Empty String'\n\nif __name__ == \"__main__\":\n    print(check_Equality(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "43": {
-            "iteration_0": {
-                "solution": "def counting_sort(arr):\n    max_val = max(arr)\n    count = [0] * (max_val + 1)\n    output = [0] * len(arr)\n\n    for num in arr:\n        count[num] += 1\n\n    for i in range(1, len(count)):\n        count[i] += count[i - 1]\n\n    for num in arr:\n        output[count[num] - 1] = num\n        count[num] -= 1\n\n    return output\n\nif __name__ == \"__main__\":\n    print(counting_sort(eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "44": {
-            "iteration_0": {
-                "solution": "def tn_gp(a, r, n):\n    return a * (r ** (n - 1))\n\nif __name__ == \"__main__\":\n    print(tn_gp(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "45": {
-            "iteration_0": {
-                "solution": "def check(num):\n    return num == 2 * int(str(num)[::-1]) - 1\n\nif __name__ == \"__main__\":\n    print(check(*eval(input().strip())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "46": {
-            "iteration_0": {
-                "solution": "def find_Max_Num(digits, n):\n    digits.sort(reverse=True)\n    return int(''.join(map(str, digits)))\n\nif __name__ == \"__main__\":\n    print(find_Max_Num(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "47": {
-            "iteration_0": {
-                "solution": "def opposite_Signs(x, y):\n    return (x ^ y) < 0\n\nif __name__ == \"__main__\":\n    print(opposite_Signs(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "48": {
-            "iteration_0": {
-                "solution": "def is_octagonal(n):\n    return n * (3 * n - 2)\n\nif __name__ == \"__main__\":\n    print(is_octagonal(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "49": {
-            "iteration_0": {
-                "solution": "def max_len_sub(arr, n):\n    dp = [1] * n\n    for i in range(1, n):\n        for j in range(i):\n            if abs(arr[i] - arr[j]) == 1:\n                dp[i] = max(dp[i], dp[j] + 1)\n    return max(dp)\n\nif __name__ == \"__main__\":\n    print(max_len_sub(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "50": {
-            "iteration_0": {
-                "solution": "def count_Substrings(s, n):\n    count = 0\n    for i in range(n):\n        for j in range(i, n):\n            sub = s[i:j]\n            if sum(int(digit) for digit in sub) == len(sub):\n                count += 1\n    return count\n\nif __name__ == \"__main__\":\n    print(count_Substrings(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "51": {
-            "iteration_0": {
-                "solution": "def smallest_num(*args):\n    return min(args)\n\nif __name__ == \"__main__\":\n    print(smallest_num(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "52": {
-            "iteration_0": {
-                "solution": "def max_difference(lst):\n    max_diff = 0\n    for pair in lst:\n        diff = abs(pair[0] - pair[1])\n        if diff > max_diff:\n            max_diff = diff\n    return max_diff\n\nif __name__ == \"__main__\":\n    print(max_difference(eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "53": {
-            "iteration_0": {
-                "solution": "def subject_marks(*args):\n    return sorted(args, key=lambda x: x[1])\n\nif __name__ == \"__main__\":\n    print(subject_marks(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "54": {
-            "iteration_0": {
-                "solution": "def recursive_list_sum(lst):\n    total = 0\n    for element in lst:\n        if isinstance(element, list):\n            total += recursive_list_sum(element)\n        else:\n            total += element\n    return total\n\nif __name__ == \"__main__\":\n    print(recursive_list_sum([1, 2, [3, 4], 5, [6, [7, 8]]]))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "55": {
-            "iteration_0": {
-                "solution": "def pos_count(lst):\n    count = 0\n    for num in lst:\n        if num > 0:\n            count += 1\n    return count\n\nif __name__ == \"__main__\":\n    print(pos_count(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "56": {
-            "iteration_0": {
-                "solution": "import sys\n\ndef bell_number(n):\n    bell = [[0 for i in range(n+1)] for j in range(n+1)]\n    bell[0][0] = 1\n    for i in range(1, n+1):\n        bell[i][0] = bell[i-1][i-1]\n        for j in range(1, i+1):\n            bell[i][j] = bell[i-1][j-1] + bell[i][j-1]\n    return bell[n][0]\n\nif __name__ == \"__main__\":\n    try:\n        n = int(sys.argv[1])\n        print(bell_number(n))\n    except (IndexError, ValueError):\n        print(\"Please provide a valid integer as a command-line argument.\")",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "57": {
-            "iteration_0": {
-                "solution": "def is_Monotonic(arr):\n    return all(arr[i] <= arr[i + 1] for i in range(len(arr) - 1)) or all(arr[i] >= arr[i + 1] for i in range(len(arr) - 1))\n\nif __name__ == \"__main__\":\n    print(is_Monotonic(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "58": {
-            "iteration_0": {
-                "solution": "def is_sublist(lst, sub):\n    return all(x in lst for x in sub)\n\nif __name__ == \"__main__\":\n    print(is_sublist(*map(eval, input(\"Enter two lists separated by a comma: \").split(',')))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "59": {
-            "iteration_0": {
-                "solution": "import json\n\ndef get_equal(tuples, length):\n    if all(len(t) == length for t in tuples):\n        return 'All tuples have same length'\n    else:\n        return 'Not all tuples have same length'\n\nif __name__ == \"__main__\":\n    print(get_equal(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "60": {
-            "iteration_0": {
-                "solution": "def comb_sort(arr):\n    def get_next_gap(gap):\n        gap = (gap * 10) // 13\n        if gap < 1:\n            return 1\n        return gap\n\n    n = len(arr)\n    gap = n\n    swapped = True\n\n    while gap != 1 or swapped:\n        gap = get_next_gap(gap)\n        swapped = False\n\n        for i in range(0, n - gap):\n            if arr[i] > arr[i + gap]:\n                arr[i], arr[i + gap] = arr[i + gap], arr[i]\n                swapped = True\n\n    return arr\n\nif __name__ == \"__main__\":\n    print(comb_sort(eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "61": {
-            "iteration_0": {
-                "solution": "def dif_Square(n):\n    for i in range(int(n**0.5) + 1):\n        if n - i*i >= 0 and (n - i*i)**0.5 == int((n - i*i)**0.5):\n            return True\n    return False\n\nif __name__ == \"__main__\":\n    num = input(\"Enter a number: \")\n    if num.isdigit():\n        print(dif_Square(int(num)))\n    else:\n        print(\"Invalid input. Please enter a valid integer.\")",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "62": {
-            "iteration_0": {
-                "solution": "import re\n\ndef multiple_split(s, delimiters=r'[ \\n\\t]+'):\n    return re.split(delimiters, s)\n\nif __name__ == \"__main__\":\n    s = input()\n    print(multiple_split(s))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "63": {
-            "iteration_0": {
-                "solution": "def is_samepatterns(colors, patterns):\n    if len(set(colors)) != len(colors) or len(colors) != len(patterns):\n        return False\n    return [patterns[colors.index(color)] for color in colors] == patterns\n\nif __name__ == \"__main__\":\n    print(is_samepatterns(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "64": {
-            "iteration_0": {
-                "solution": "def find_tuples(tuples_list, k):\n    result = [t for t in tuples_list if all(elem % k == 0 for elem in t)]\n    return result\n\nif __name__ == \"__main__\":\n    print(find_tuples(*eval(input(\"Enter a tuple of tuples and a number separated by comma: \")))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "65": {
-            "iteration_0": {
-                "solution": "def count_Squares(m, n):\n    return m * (m + 1) * n * (n + 1) // 4\n\nif __name__ == \"__main__\":\n    print(count_Squares(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "66": {
-            "iteration_0": {
-                "solution": "def is_Diff(n):\n    even_sum = sum(int(digit) for digit in str(n) if int(digit) % 2 == 0)\n    odd_sum = sum(int(digit) for digit in str(n) if int(digit) % 2 != 0)\n    return abs(even_sum - odd_sum)\n\nif __name__ == \"__main__\":\n    print(is_Diff(int(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "67": {
-            "iteration_0": {
-                "solution": "def count_With_Odd_SetBits(n):\n    def countSetBits(num):\n        count = 0\n        if num == 0:\n            return 0\n        while num:\n            count += num & 1\n            num >>= 1\n        return count\n\n    result = 0\n    for i in range(n + 1):\n        if countSetBits(i) % 2 != 0:\n            result += 1\n    return result\n\nif __name__ == \"__main__\":\n    print(count_With_Odd_SetBits(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "68": {
-            "iteration_0": {
-                "solution": "def word_len(word):\n    if not isinstance(word, str):\n        return False\n    return len(word) % 2 != 0\n\nif __name__ == \"__main__\":\n    print(word_len(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "69": {
-            "iteration_0": {
-                "solution": "def tetrahedral_number(n):\n    return n * (n + 1) * (n + 2) // 6\n\nif __name__ == \"__main__\":\n    print(tetrahedral_number(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "70": {
-            "iteration_0": {
-                "solution": "def zip_tuples(tuple1, tuple2):\n    if len(tuple1) != len(tuple2):\n        raise ValueError(\"Tuples must have the same length for zipping.\")\n    \n    zipped = [(tuple1[i], tuple2[i]) for i in range(len(tuple1))]\n    return zipped\n\nif __name__ == \"__main__\":\n    print(zip_tuples(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "71": {
-            "iteration_0": {
-                "solution": "import math\n\ndef volume_sphere(radius):\n    return (4.0/3.0) * math.pi * radius**3\n\nif __name__ == \"__main__\":\n    print(volume_sphere(float(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "72": {
-            "iteration_0": {
-                "solution": "def get_Char(s):\n    if not s.isalpha():\n        return \"Invalid input. Please enter alphabetic characters only.\"\n    \n    total = sum(ord(char) for char in s)\n    return chr((total % 26) + ord('a'))\n\nif __name__ == \"__main__\":\n    print(get_Char(input().strip()))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "73": {
-            "iteration_0": {
-                "solution": "def sequence(n):\n    if n == 1:\n        return 1\n    elif n == 2:\n        return 1\n    else:\n        dp = [0] * (n + 1)\n        dp[1] = 1\n        dp[2] = 1\n        for i in range(3, n + 1):\n            dp[i] = dp[i - 1] + dp[i - 2]\n        return dp[n]\n\nif __name__ == \"__main__\":\n    print(sequence(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "74": {
-            "iteration_0": {
-                "solution": "import math\n\ndef surfacearea_sphere(radius):\n    return 4 * math.pi * radius**2\n\nif __name__ == \"__main__\":\n    print(surfacearea_sphere(float(input(\"Enter the radius of the sphere: \")))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "75": {
-            "iteration_0": {
-                "solution": "def centered_hexagonal_number(n):\n    return 3*n*n - 3*n + 1\n\nif __name__ == \"__main__\":\n    print(centered_hexagonal_number(int(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "76": {
-            "iteration_0": {
-                "solution": "import json\n\ndef merge_dictionaries_three(*dicts):\n    try:\n        parsed_dicts = [json.loads(d) for d in dicts]\n        return {k: v for d in parsed_dicts for k, v in d.items()}\n    except json.JSONDecodeError:\n        return {}\n\nif __name__ == \"__main__\":\n    print(merge_dictionaries_three(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "77": {
-            "iteration_0": {
-                "solution": "def freq_count(lst):\n    freq = {}\n    for item in lst:\n        if item in freq:\n            freq[item] += 1\n        else:\n            freq[item] = 1\n    return freq\n\nif __name__ == \"__main__\":\n    print(freq_count(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "78": {
-            "iteration_0": {
-                "solution": "import sys\n\ndef closest_num(n):\n    return n - 1\n\nif __name__ == \"__main__\":\n    sys.stdout.write(str(closest_num(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "79": {
-            "iteration_0": {
-                "solution": "def len_log(words):\n    return max(len(word) for word in words)\n\nif __name__ == \"__main__\":\n    print(len_log(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "80": {
-            "iteration_0": {
-                "solution": "def find_substring(string_list, substring):\n    for string in string_list:\n        if substring in string:\n            return True\n    return False\n\nif __name__ == \"__main__\":\n    print(find_substring(*eval(input(\"Enter a tuple containing a list of strings and a substring: \"))))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "81": {
-            "iteration_0": {
-                "solution": "def is_undulating(num):\n    num_str = str(num)\n    if len(num_str) < 3:\n        return False\n    for i in range(2, len(num_str)):\n        if num_str[i] == num_str[i-2]:\n            return True\n    return False\n\nif __name__ == \"__main__\":\n    print(is_undulating(int(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "82": {
-            "iteration_0": {
-                "solution": "def power(a, b):\n    return a ** b\n\nif __name__ == \"__main__\":\n    while True:\n        try:\n            a, b = map(int, input(\"Enter two space-separated numbers for a and b: \").split())\n            print(power(a, b))\n            break\n        except ValueError:\n            print(\"Please enter two space-separated integers.\")",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "83": {
-            "iteration_0": {
-                "solution": "def index_minimum(tuples):\n    min_index = min(range(len(tuples)), key=lambda i: tuples[i][1])\n    return tuples[min_index][0]\n\nif __name__ == \"__main__\":\n    print(index_minimum(eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "84": {
-            "iteration_0": {
-                "solution": "def Find_Min_Length(lst):\n    return min(len(sublist) for sublist in lst)\n\nif __name__ == \"__main__\":\n    print(Find_Min_Length(eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "85": {
-            "iteration_0": {
-                "solution": "def divisor(n):\n    count = 0\n    for i in range(1, n+1):\n        if n % i == 0:\n            count += 1\n    return count\n\nif __name__ == \"__main__\":\n    print(divisor(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "86": {
-            "iteration_0": {
-                "solution": "def frequency_lists(*lists):\n    freq = {}\n    for lst in lists:\n        for item in lst:\n            freq[item] = freq.get(item, 0) + 1\n    return freq\n\nif __name__ == \"__main__\":\n    data = input().strip()\n    try:\n        input_lists = eval(data)\n        print(frequency_lists(*input_lists))\n    except Exception as e:\n        print(\"Error: Invalid input format\")",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "87": {
-            "iteration_0": {
-                "solution": "def multiply_num(*nums):\n    if not nums:\n        return 0\n    result = 1\n    for num in nums:\n        result *= num\n    if len(nums) == 0:\n        return 0\n    return result / len(nums)\n\nif __name__ == \"__main__\":\n    print(multiply_num(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "88": {
-            "iteration_0": {
-                "solution": "def decimal_to_binary(n):\n    return bin(n)[2:]\n\nif __name__ == \"__main__\":\n    print(decimal_to_binary(int(input()))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "89": {
-            "iteration_0": {
-                "solution": "def next_smallest_palindrome(num):\n    num += 1\n    while str(num) != str(num)[::-1]:\n        num += 1\n    return num\n\nif __name__ == \"__main__\":\n    print(next_smallest_palindrome(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "90": {
-            "iteration_0": {
-                "solution": "def kth_element(arr, n, k):\n    if k <= n:\n        return arr[k-1]\n    else:\n        return None\n\nif __name__ == \"__main__\":\n    print(kth_element(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "91": {
-            "iteration_0": {
-                "solution": "def snake_to_camel(s):\n    if not s:\n        return \"\"\n    \n    parts = s.split('_')\n    return parts[0].capitalize() + ''.join(word.capitalize() for word in parts[1:])\n\nif __name__ == \"__main__\":\n    print(snake_to_camel(input()))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "92": {
-            "iteration_0": {
-                "solution": "def eulerian_num(n, m):\n    dp = [[0 for _ in range(m + 1)] for _ in range(n + 1)]\n    \n    for i in range(n + 1):\n        for j in range(m + 1):\n            if j == 0:\n                dp[i][j] = 1\n            elif i == 0:\n                dp[i][j] = 0\n            else:\n                dp[i][j] = (i - j) * dp[i - 1][j - 1] + (j + 1) * dp[i - 1][j]\n    \n    return dp[n][m]\n\nif __name__ == \"__main__\":\n    print(eulerian_num(*map(int, input().split())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "93": {
-            "iteration_0": {
-                "solution": "def sort_sublists(lst):\n    return [sorted(sublist, key=lambda x: x) for sublist in lst]\n\nif __name__ == \"__main__\":\n    print(sort_sublists(eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "94": {
-            "iteration_0": {
-                "solution": "def count(lst):\n    return lst.count(True)\n\nif __name__ == \"__main__\":\n    print(count(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "95": {
-            "iteration_0": {
-                "solution": "def add_lists(lst, tup):\n    return tup + tuple(lst)\n\nif __name__ == \"__main__\":\n    print(add_lists(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "96": {
-            "iteration_0": {
-                "solution": "def count_Hexadecimal(start, end):\n    count = 0\n    for i in range(start, end+1):\n        hex_str = hex(i)[2:]\n        if len(hex_str) > 1 and all(c in '0123456789ABCDEFabcdef' for c in hex_str):\n            count += 1\n    return count\n\nif __name__ == \"__main__\":\n    print(count_Hexadecimal(int(input()), int(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "97": {
-            "iteration_0": {
-                "solution": "import heapq\n\ndef merge_sorted_list(*lists):\n    heap = []\n    for i, lst in enumerate(lists):\n        if lst:\n            heap.append((lst[0], i, 0))\n    heapq.heapify(heap)\n    \n    result = []\n    while heap:\n        val, list_idx, idx = heapq.heappop(heap)\n        result.append(val)\n        if idx + 1 < len(lists[list_idx]):\n            next_val = lists[list_idx][idx + 1]\n            heapq.heappush(heap, (next_val, list_idx, idx + 1))\n    \n    return result\n\nif __name__ == \"__main__\":\n    print(merge_sorted_list([1, 3, 5], [2, 4, 6], [0, 7, 8]))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "98": {
-            "iteration_0": {
-                "solution": "def odd_Equivalent(s, n):\n    count = 0\n    for i in range(n):\n        if int(s, 2) % 2 != 0:\n            count += 1\n        s = s[-1] + s[:-1]\n    return count\n\nif __name__ == \"__main__\":\n    print(odd_Equivalent(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "99": {
-            "iteration_0": {
-                "solution": "from intervaltree import IntervalTree, Interval\n\ndef extract_missing(intervals, start_range, end_range):\n    tree = IntervalTree()\n    for interval in intervals:\n        tree.add(Interval(interval[0], interval[1]))\n\n    missing_intervals = []\n    for iv in tree[start_range:end_range + 1]:\n        missing_intervals.append((iv.begin, iv.end))\n\n    result = []\n    for i in range(len(missing_intervals) - 1):\n        result.append((missing_intervals[i][1], missing_intervals[i + 1][0]))\n\n    return result\n\nif __name__ == \"__main__\":\n    print(extract_missing(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "100": {
-            "iteration_0": {
-                "solution": "import signal\n\ndef common_in_nested_lists(*lists):\n    return list(set.intersection(*map(set, lists)))\n\nif __name__ == \"__main__\":\n    print(common_in_nested_lists(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
-                "test_timeout_private": 0,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "101": {
-            "iteration_0": {
-                "solution": "import math\n\ndef perimeter(radius, height):\n    return 2 * math.pi * radius + 2 * height\n\nif __name__ == \"__main__\":\n    user_input = input(\"Enter radius and height separated by space: \")\n    radius, height = map(float, user_input.split())\n    print(perimeter(radius, height))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
-                "test_timeout_private": 0,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "102": {
-            "iteration_0": {
-                "solution": "def check_integer(s):\n    try:\n        int(s)\n        return True\n    except ValueError:\n        return False\n\nif __name__ == \"__main__\":\n    print(check_integer(*eval(input().strip())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
-                "test_timeout_private": 0,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "103": {
-            "iteration_0": {
-                "solution": "def assign_freq(*tuples):\n    freq_dict = {}\n    for t in tuples:\n        freq_dict[t] = freq_dict.get(t, 0) + 1\n    return str([(k + (v,)) for k, v in freq_dict.items()])\n\nif __name__ == \"__main__\":\n    print(assign_freq(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
-                "test_timeout_private": 0,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "104": {
-            "iteration_0": {
-                "solution": "def empty_dit(lst):\n    return all(not d for d in lst)\n\nif __name__ == \"__main__\":\n    print(empty_dit(eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "105": {
-            "iteration_0": {
-                "solution": "import signal\n\ndef tuple_to_int(nums):\n    return int(''.join(map(str, nums)))\n\nif __name__ == \"__main__\":\n    print(tuple_to_int(eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "106": {
-            "iteration_0": {
-                "solution": "def list_to_float(lst):\n    return [(float(x), float(y)) for x, y in lst]\n\nif __name__ == \"__main__\":\n    print(list_to_float(eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "107": {
-            "iteration_0": {
-                "solution": "def string_to_list(s):\n    return s.split()\n\nif __name__ == \"__main__\":\n    print(string_to_list(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
-                "test_timeout_private": 0,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "108": {
-            "iteration_0": {
-                "solution": "def search(arr, n):\n    for i in range(0, n, 2):\n        if i == n - 1 or arr[i] != arr[i + 1]:\n            return arr[i]\n    return None\n\nif __name__ == \"__main__\":\n    data = input().strip().split()\n    arr = [int(x) for x in data[0].split(',')]\n    n = int(data[1])\n    print(search(arr, n))",
-                "test_passed_public": 0,
-                "test_failed_public": 0,
-                "test_timeout_public": 1,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "109": {
-            "iteration_0": {
-                "solution": "def max_product_tuple(tuples):\n    max_product = float('-inf')\n    for i in range(len(tuples)):\n        for j in range(i+1, len(tuples)):\n            product = tuples[i][0] * tuples[j][0]\n            if product > max_product:\n                max_product = product\n    return max_product\n\nif __name__ == \"__main__\":\n    data = input().strip()\n    tuples = eval(data)\n    print(max_product_tuple(tuples))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 0,
-                "test_timeout_private": 3,
-                "test_passed_generate": 0,
-                "test_failed_generate": 0,
-                "test_timeout_generate": 0
-            }
-        },
-        "110": {
-            "iteration_0": {
-                "solution": "def check_triplet(arr, target_sum, a, b):\n    for i in range(len(arr)):\n        for j in range(i+1, len(arr)):\n            for k in range(j+1, len(arr)):\n                if arr[i] + arr[j] + arr[k] == target_sum and (arr[i] == a or arr[i] == b) and (arr[j] == a or arr[j] == b) and (arr[k] == a or arr[k] == b):\n                    return True\n    return False\n\nif __name__ == \"__main__\":\n    print(check_triplet(*eval(input())))",
-                "test_passed_public": 0,
-                "test_failed_public": 1,
-                "test_timeout_public": 0,
-                "test_passed_private": 0,
-                "test_failed_private": 3,
                 "test_timeout_private": 0,
                 "test_passed_generate": 0,
                 "test_failed_generate": 0,

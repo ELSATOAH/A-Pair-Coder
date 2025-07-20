@@ -1,0 +1,642 @@
+2025-07-20 21:19:18.883 | INFO     | gen.dataset_solver:solve_dataset:59 - problem_number: 11
+2025-07-20 21:19:18.887 | INFO     | gen.dataset_solver:solve_dataset:61 - problem_name: 1551_C. Interesting Story
+2025-07-20 21:19:18.898 | INFO     | gen.coding_competitor:run:43 - Method pair_programming, model gpt-3.5-turbo, embedding model text-embedding-3-large
+2025-07-20 21:19:18.898 | INFO     | gen.navigator.generate_reflection:generate_reflection:14 - --[NAVIGATOR] reflection stage--
+2025-07-20 21:19:18.908 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:19:18.908 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:19:18.908 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You're an experienced programmer.
+2025-07-20 21:19:18.922 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+You are given a coding problem:
+Stephen Queen wants to write a story. He is a very unusual writer, he uses only letters 'a', 'b', 'c', 'd' and 'e'!
+
+To compose a story, Stephen wrote out n words consisting of the first 5 lowercase letters of the Latin alphabet. He wants to select the maximum number of words to make an interesting story.
+
+Let a story be a sequence of words that are not necessarily different. A story is called interesting if there exists a letter which occurs among all words of the story more times than all other letters together.
+
+For example, the story consisting of three words "bac", "aaada", "e" is interesting (the letter 'a' occurs 5 times, all other letters occur 4 times in total). But the story consisting of two words "aba", "abcde" is not (no such letter that it occurs more than all other letters in total).
+
+You are given a sequence of n words consisting of letters 'a', 'b', 'c', 'd' and 'e'. Your task is to choose the maximum number of them to make an interesting story. If there's no way to make a non-empty story, output 0.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 5000) — the number of test cases. Then t test cases follow.
+
+The first line of each test case contains one integer n (1 ≤ n ≤ 2 ⋅ 10^5) — the number of the words in the sequence. Then n lines follow, each of them contains a word — a non-empty string consisting of lowercase letters of the Latin alphabet. The words in the sequence may be non-distinct (i. e. duplicates are allowed). Only the letters 'a', 'b', 'c', 'd' and 'e' may occur in the words.
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5; the sum of the lengths of all words over all test cases doesn't exceed 4 ⋅ 10^5.
+
+Output
+
+For each test case, output the maximum number of words that compose an interesting story. Print 0 if there's no way to make a non-empty interesting story.
+
+Example
+
+Input
+
+
+6
+3
+bac
+aaada
+e
+3
+aba
+abcde
+aba
+2
+baba
+baba
+4
+ab
+ab
+c
+bc
+5
+cbdca
+d
+a
+d
+e
+3
+b
+c
+ca
+
+
+Output
+
+
+3
+2
+0
+2
+3
+2
+
+Note
+
+In the first test case of the example, all 3 words can be used to make an interesting story. The interesting story is "bac aaada e".
+
+In the second test case of the example, the 1-st and the 3-rd words can be used to make an interesting story. The interesting story is "aba aba". Stephen can't use all three words at the same time.
+
+In the third test case of the example, Stephen can't make a non-empty interesting story. So the answer is 0.
+
+In the fourth test case of the example, Stephen can use the 3-rd and the 4-th words to make an interesting story. The interesting story is "c bc".
+Given the coding problem, you have two tasks using natural language:
+1. reflect on the problem:
+   - For simple problems, briefly provide a concise explanation and note all possible valid inputs and edge cases. Avoid overthinking.
+   - For complex problems, provide a comprehensive analysis covering all aspects, details, nuances, and how to properly handle all possible valid inputs and edge cases per problem description.
+2. For 1 provided public test case(s) in description, briefly explain how the specified input yields the expected output based on the problem description.
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+self_reflection:
+- |
+  ...
+tests_explanations:
+- input: |
+    ...
+  output: |
+    ..
+  explanation: |
+    ...
+...
+```
+Answer:
+```yaml
+2025-07-20 21:19:20.798 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```yaml
+self_reflection:
+- |
+  The problem involves selecting a maximum number of words from a sequence to form an interesting story. An interesting story is defined as a sequence of words where there exists a letter that occurs more times than all other letters combined in the story. The task is to determine the maximum number of words that can be selected to form such an interesting story.
+
+tests_explanations:
+- input: |
+    6
+    3
+    bac
+    aaada
+    e
+  output: |
+    3
+  explanation: |
+    In this test case, all 3 words can be used to make an interesting story. The interesting story is "bac aaada e", where the letter 'a' occurs 5 times, while all other letters occur 4 times in total.
+```
+2025-07-20 21:19:20.798 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:19:20.801 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:19:20.801 | INFO     | gen.navigator.generate_possible_solutions:generate_possible_solutions:14 - --[NAVIGATOR] generate possible solutions stage--
+2025-07-20 21:19:20.807 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:19:20.807 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:19:20.807 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programmer.
+2025-07-20 21:19:20.807 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+You are given a coding problem:
+Stephen Queen wants to write a story. He is a very unusual writer, he uses only letters 'a', 'b', 'c', 'd' and 'e'!
+
+To compose a story, Stephen wrote out n words consisting of the first 5 lowercase letters of the Latin alphabet. He wants to select the maximum number of words to make an interesting story.
+
+Let a story be a sequence of words that are not necessarily different. A story is called interesting if there exists a letter which occurs among all words of the story more times than all other letters together.
+
+For example, the story consisting of three words "bac", "aaada", "e" is interesting (the letter 'a' occurs 5 times, all other letters occur 4 times in total). But the story consisting of two words "aba", "abcde" is not (no such letter that it occurs more than all other letters in total).
+
+You are given a sequence of n words consisting of letters 'a', 'b', 'c', 'd' and 'e'. Your task is to choose the maximum number of them to make an interesting story. If there's no way to make a non-empty story, output 0.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 5000) — the number of test cases. Then t test cases follow.
+
+The first line of each test case contains one integer n (1 ≤ n ≤ 2 ⋅ 10^5) — the number of the words in the sequence. Then n lines follow, each of them contains a word — a non-empty string consisting of lowercase letters of the Latin alphabet. The words in the sequence may be non-distinct (i. e. duplicates are allowed). Only the letters 'a', 'b', 'c', 'd' and 'e' may occur in the words.
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5; the sum of the lengths of all words over all test cases doesn't exceed 4 ⋅ 10^5.
+
+Output
+
+For each test case, output the maximum number of words that compose an interesting story. Print 0 if there's no way to make a non-empty interesting story.
+
+Example
+
+Input
+
+
+6
+3
+bac
+aaada
+e
+3
+aba
+abcde
+aba
+2
+baba
+baba
+4
+ab
+ab
+c
+bc
+5
+cbdca
+d
+a
+d
+e
+3
+b
+c
+ca
+
+
+Output
+
+
+3
+2
+0
+2
+3
+2
+
+Note
+
+In the first test case of the example, all 3 words can be used to make an interesting story. The interesting story is "bac aaada e".
+
+In the second test case of the example, the 1-st and the 3-rd words can be used to make an interesting story. The interesting story is "aba aba". Stephen can't use all three words at the same time.
+
+In the third test case of the example, Stephen can't make a non-empty interesting story. So the answer is 0.
+
+In the fourth test case of the example, Stephen can use the 3-rd and the 4-th words to make an interesting story. The interesting story is "c bc".
+Self-reflection on the problem:
+- The problem involves selecting a maximum number of words from a sequence to form an interesting story. An interesting story is defined as a sequence of words where there exists a letter that occurs more times than all other letters combined in the story. The task is to determine the maximum number of words that can be selected to form such an interesting story.
+Here are also explanations for public test cases:
+- input: |
+    6
+    3
+    bac
+    aaada
+    e
+  output: |
+    3
+  explanation: |
+    In this test case, all 3 words can be used to make an interesting story. The interesting story is "bac aaada e", where the letter 'a' occurs 5 times, while all other letters occur 4 times in total.
+
+Provide up to 3 possible solution plans to the problem.
+Each solution plan should:
+1.Have a descriptive name.
+2.Outline the solution approach:
+   - For simple problems (e.g., reversing a list), provide a concise solution (e.g., we can directly use list1[::-1] to do it.).
+   - For complex problems (e.g., finding the shortest path in a graph), provide a problem-solving plan with high-level steps (e.g., we can use BFS to solve it. First, Initialize a queue with... Second, ...).
+  If necessary, select an appropriate algorithm through problem analysis such as brute force, simulation, greedy, hash map, two pointers, DFS/BFS, stack/queue, DP, etc.
+3.Ensure functional correctness by addressing all possible valid inputs and edge cases per problem description.
+
+Your answer should be directly parsable as YAML. DO NOT output anything else.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+possible_solutions:
+  - name: |
+      ...
+    content: |
+      ...
+  - name: |
+      ...
+    content: |
+      ...
+  ...
+```
+Answer:
+```yaml
+2025-07-20 21:19:25.976 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+["```yaml\npossible_solutions:\n  - name: Using Hash Map\n    content: |\n      - Create a hash map to count the occurrences of each letter in the input words.\n      - Iterate through all words and update the counts of each letter in the hash map.\n      - For each test case, find the maximum count of a letter and calculate the sum of counts of all other letters.\n      - If the maximum count is greater than the sum of counts of all other letters, output the total number of words in that test case. Otherwise, output 0.\n\n  - name: Greedy Approach\n    content: |\n      - Sort the input words based on the frequency of each letter.\n      - Start with an empty story and a counter to keep track of the total number of words added to the story.\n      - Iterate through the sorted words in descending order of frequency.\n      - For each word, add it to the story if adding it doesn't violate the interesting story condition.\n      - Keep track of the counts of each letter in the story and update the counter accordingly.\n      - Output the final counter as the maximum number of words that can form an interesting story.\n\n  - name: Two Pointers\n    content: |\n      - Initialize two pointers, one at the beginning and one at the end of the sorted words array.\n      - While the two pointers are not at the same position, check if the current pair of words can form an interesting story.\n      - If they can, increment the counter and move both pointers towards each other.\n      - If they cannot, move the pointer with the lower frequency towards the other pointer.\n      - Repeat this process until the two pointers meet.\n      - Output the counter as the maximum number of words that can form an interesting story.\n```  ", '```yaml\npossible_solutions:\n  - name: "Greedy Approach"\n    content: |\n      - Sort the words in descending order based on the frequency of each letter (\'a\', \'b\', \'c\', \'d\', \'e\') in the word.\n      - Initialize a counter for each letter.\n      - Iterate through the sorted words and for each word, update the counters with the frequency of each letter in the word.\n      - Keep track of the maximum count of any letter and the total count of all other letters combined.\n      - If there exists a letter that occurs more times than all other letters combined, include that word in the story and update the counts accordingly.\n      - Continue this process until no more words can be added to the story or all words have been considered.\n      - Return the count of words included in the story as the maximum number of words to form an interesting story.\n\n  - name: "Hash Map + Greedy Approach"\n    content: |\n      - Create a hash map to store the count of each letter (\'a\', \'b\', \'c\', \'d\', \'e\') across all words.\n      - Iterate through the words and update the counts in the hash map for each letter encountered.\n      - Sort the words based on the total count of each letter in descending order.\n      - Initialize a set to keep track of selected words.\n      - Iterate through the sorted words and for each word, check if selecting it would make an interesting story based on the counts in the hash map.\n      - If selecting the word would make an interesting story, add it to the set of selected words and update the counts in the hash map.\n      - Continue this process until no more words can be added to the story or all words have been considered.\n      - Return the size of the set of selected words as the maximum number of words to form an interesting story.\n\n  - name: "Frequency Counting + Brute Force"\n    content: |\n      - For each possible combination of words from the sequence, calculate the total count of each letter (\'a\', \'b\', \'c\', \'d\', \'e\') that would occur in the combined story.\n      - Check if there exists a letter that occurs more times than all other letters combined in the combined story.\n      - Keep track of the maximum number of words found so far that can form an interesting story.\n      - Return this maximum number as the result.\n```', '```yaml\npossible_solutions:\n  - name: "Greedy Approach"\n    content: |\n      - Sort the words based on the count of each letter in non-increasing order.\n      - Iterate through the sorted words and keep track of the total count of each letter.\n      - For each word, check if there exists a letter that occurs more times than all other letters combined in the story so far.\n      - If such a letter exists, increment the count of words that can form an interesting story. Otherwise, ignore the word.\n      - Output the count of words that can form an interesting story.\n\n  - name: "Hash Map and Counting Approach"\n    content: |\n      - Create a hash map to store the count of each letter across all words.\n      - Iterate through all words and update the count of each letter in the hash map.\n      - After counting, check for each word if there exists a letter that occurs more times than all other letters combined in the story.\n      - If such a letter exists, increment the count of words that can form an interesting story. Otherwise, ignore the word.\n      - Output the count of words that can form an interesting story.\n\n  - name: "Optimized Hash Map Approach"\n    content: |\n      - Create a hash map to store the count of each letter in the current story being formed.\n      - Iterate through all words and update the count of each letter in the hash map.\n      - Maintain a variable to keep track of the maximum count of a single letter in the current story.\n      - For each word, update the maximum count of a single letter and check if it exceeds the count of all other letters combined in the story.\n      - If it does, increment the count of words that can form an interesting story. Otherwise, ignore the word.\n      - Output the count of words that can form an interesting story.\n```  ', '```yaml\npossible_solutions:\n  - name: "Greedy Approach"\n    content: |\n      - Sort the words based on the count of each letter \'a\', \'b\', \'c\', \'d\', \'e\' in them.\n      - Start with an empty story and iterate through the sorted words.\n      - For each word, check if adding it to the story would make it interesting based on the count of the most frequent letter.\n      - If adding the word makes the story interesting, add it to the story and update the counts.\n      - Keep track of the maximum number of words that can form an interesting story.\n      - Output the maximum number of words.\n\n  - name: "Hash Map and Frequency Count"\n    content: |\n      - Create a hash map to store the frequency count of each letter \'a\', \'b\', \'c\', \'d\', \'e\' across all words.\n      - Iterate through all words and update the frequency count in the hash map.\n      - For each word, calculate the total count of all letters except the most frequent letter.\n      - If the total count is less than or equal to the count of the most frequent letter, the word can be part of an interesting story.\n      - Keep track of the maximum number of words that can form an interesting story.\n      - Output the maximum number of words.\n\n  - name: "Brute Force with Bitmasking"\n    content: |\n      - Generate all possible subsets of words using bitmasking.\n      - For each subset, check if it forms an interesting story by calculating the frequency counts of letters.\n      - Keep track of the maximum number of words that can form an interesting story.\n      - Output the maximum number of words.\n```', '```yaml\npossible_solutions:\n  - name: Brute Force Solution\n    content: |\n      - Iterate through all possible combinations of words.\n      - For each combination, check if there exists a letter that occurs more times than all other letters combined.\n      - Keep track of the maximum number of words that can form an interesting story.\n      - Return the maximum number of words found.\n  - name: Frequency Count Solution\n    content: |\n      - Count the frequency of each letter in all words.\n      - Iterate through all words and check if there exists a letter whose frequency is greater than the sum of frequencies of all other letters.\n      - Keep track of the maximum number of words that can form an interesting story.\n      - Return the maximum number of words found.\n  - name: Greedy Solution\n    content: |\n      - Sort the words based on the frequency of each letter in descending order.\n      - For each word, check if adding it to the story maintains the condition of having a letter with higher frequency than all others combined.\n      - If yes, add the word to the story; otherwise, skip it.\n      - Return the count of words in the final story.\n```']
+2025-07-20 21:19:25.976 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:19:25.978 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:19:25.998 | INFO     | llm.ai_handler:text_embedding:137 - -----------------
+2025-07-20 21:19:25.999 | INFO     | llm.ai_handler:text_embedding:138 - Generating embeddings with text-embedding-3-large
+2025-07-20 21:19:27.017 | INFO     | llm.ai_handler:text_embedding:155 - done
+2025-07-20 21:19:27.019 | INFO     | llm.ai_handler:text_embedding:156 - -----------------
+2025-07-20 21:19:27.023 | INFO     | gen.navigator.generate_possible_solutions:cluster:81 - [NAVIGATOR] Using kmeans method to cluster 15 strings into 3 clusters
+2025-07-20 21:19:27.035 | INFO     | gen.pair_programming:run_iterative_code_finder:29 - ======= Solution Finding Process Started =======
+2025-07-20 21:19:27.035 | INFO     | gen.pair_programming:run_iterative_code_finder:31 - --Attempting plan:0, there are 3 plans--
+2025-07-20 21:19:27.035 | INFO     | gen.navigator.choose_best_solution:choose_best_solution_by_LLM:10 - --[NAVIGATOR] choose best solution stage--
+2025-07-20 21:19:27.039 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:19:27.039 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:19:27.040 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programmer.
+2025-07-20 21:19:27.040 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+You are given a coding problem:
+Stephen Queen wants to write a story. He is a very unusual writer, he uses only letters 'a', 'b', 'c', 'd' and 'e'!
+
+To compose a story, Stephen wrote out n words consisting of the first 5 lowercase letters of the Latin alphabet. He wants to select the maximum number of words to make an interesting story.
+
+Let a story be a sequence of words that are not necessarily different. A story is called interesting if there exists a letter which occurs among all words of the story more times than all other letters together.
+
+For example, the story consisting of three words "bac", "aaada", "e" is interesting (the letter 'a' occurs 5 times, all other letters occur 4 times in total). But the story consisting of two words "aba", "abcde" is not (no such letter that it occurs more than all other letters in total).
+
+You are given a sequence of n words consisting of letters 'a', 'b', 'c', 'd' and 'e'. Your task is to choose the maximum number of them to make an interesting story. If there's no way to make a non-empty story, output 0.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 5000) — the number of test cases. Then t test cases follow.
+
+The first line of each test case contains one integer n (1 ≤ n ≤ 2 ⋅ 10^5) — the number of the words in the sequence. Then n lines follow, each of them contains a word — a non-empty string consisting of lowercase letters of the Latin alphabet. The words in the sequence may be non-distinct (i. e. duplicates are allowed). Only the letters 'a', 'b', 'c', 'd' and 'e' may occur in the words.
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5; the sum of the lengths of all words over all test cases doesn't exceed 4 ⋅ 10^5.
+
+Output
+
+For each test case, output the maximum number of words that compose an interesting story. Print 0 if there's no way to make a non-empty interesting story.
+
+Example
+
+Input
+
+
+6
+3
+bac
+aaada
+e
+3
+aba
+abcde
+aba
+2
+baba
+baba
+4
+ab
+ab
+c
+bc
+5
+cbdca
+d
+a
+d
+e
+3
+b
+c
+ca
+
+
+Output
+
+
+3
+2
+0
+2
+3
+2
+
+Note
+
+In the first test case of the example, all 3 words can be used to make an interesting story. The interesting story is "bac aaada e".
+
+In the second test case of the example, the 1-st and the 3-rd words can be used to make an interesting story. The interesting story is "aba aba". Stephen can't use all three words at the same time.
+
+In the third test case of the example, Stephen can't make a non-empty interesting story. So the answer is 0.
+
+In the fourth test case of the example, Stephen can use the 3-rd and the 4-th words to make an interesting story. The interesting story is "c bc".
+Self-reflection on the problem:
+- The problem involves selecting a maximum number of words from a sequence to form an interesting story. An interesting story is defined as a sequence of words where there exists a letter that occurs more times than all other letters combined in the story. The task is to determine the maximum number of words that can be selected to form such an interesting story.
+Here is a list of 3 possible solutions to the problem, each preceded by its corresponding INDEX NUMBER.
+=======
+INDEX_NUMBER: 0
+ - name: 
+Frequency Counting + Brute Force
+- content: 
+- For each possible combination of words from the sequence, calculate the total count of each letter ('a', 'b', 'c', 'd', 'e') that would occur in the combined story.
+- Check if there exists a letter that occurs more times than all other letters combined in the combined story.
+- Keep track of the maximum number of words found so far that can form an interesting story.
+- Return this maximum number as the result.
+
+INDEX_NUMBER: 1
+ - name: 
+Greedy Approach
+- content: 
+- Sort the input words based on the frequency of each letter.
+- Start with an empty story and a counter to keep track of the total number of words added to the story.
+- Iterate through the sorted words in descending order of frequency.
+- For each word, add it to the story if adding it doesn't violate the interesting story condition.
+- Keep track of the counts of each letter in the story and update the counter accordingly.
+- Output the final counter as the maximum number of words that can form an interesting story.
+
+
+INDEX_NUMBER: 2
+ - name: 
+Hash Map and Counting Approach
+- content: 
+- Create a hash map to store the count of each letter across all words.
+- Iterate through all words and update the count of each letter in the hash map.
+- After counting, check for each word if there exists a letter that occurs more times than all other letters combined in the story.
+- If such a letter exists, increment the count of words that can form an interesting story. Otherwise, ignore the word.
+- Output the count of words that can form an interesting story.
+=======
+Choose the most robust and correct solution and provide a brief explanation for your choice.
+The selected solution should:
+1. Prioritize functional correctness over efficiency. If there is a simulation method or a direct brute force method available, prefer it.
+2. Fully solve the problem and correctly handle all possible valid inputs and edge cases as per the problem description.
+3. Consider more efficient methods only if they do not compromise correctness.
+
+Give the selected solutions their corresponding index numbers without altering them.
+The output must be a YAML object like this:
+Example YAML output:
+```yaml
+INDEX_NUMBER: |
+  ...
+name: |
+  ...
+why: |
+  ...
+```
+Answer:
+```yaml
+2025-07-20 21:19:28.482 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```yaml
+INDEX_NUMBER: |
+  0
+name: |
+  Frequency Counting + Brute Force
+why: |
+  This solution involves a straightforward approach of calculating the frequency of each letter in all possible combinations of words to determine the maximum number of words that can form an interesting story. It ensures functional correctness by exhaustively checking all combinations and is less prone to errors compared to other methods. Additionally, it handles all possible valid inputs and edge cases as per the problem description.
+```
+2025-07-20 21:19:28.482 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:19:28.484 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:19:28.484 | INFO     | gen.driver.generate_initial_code:generate_initial_solve:12 - --[DRIVER] initial solve stage--
+2025-07-20 21:19:28.492 | INFO     | llm.ai_handler:chat_completion:79 - -----------------
+2025-07-20 21:19:28.520 | INFO     | llm.ai_handler:chat_completion:80 - Running inference ...
+2025-07-20 21:19:28.520 | DEBUG    | llm.ai_handler:chat_completion:81 - system:
+You are an experienced programmer.
+2025-07-20 21:19:28.520 | DEBUG    | llm.ai_handler:chat_completion:83 - user:
+You are given a coding problem:
+Stephen Queen wants to write a story. He is a very unusual writer, he uses only letters 'a', 'b', 'c', 'd' and 'e'!
+
+To compose a story, Stephen wrote out n words consisting of the first 5 lowercase letters of the Latin alphabet. He wants to select the maximum number of words to make an interesting story.
+
+Let a story be a sequence of words that are not necessarily different. A story is called interesting if there exists a letter which occurs among all words of the story more times than all other letters together.
+
+For example, the story consisting of three words "bac", "aaada", "e" is interesting (the letter 'a' occurs 5 times, all other letters occur 4 times in total). But the story consisting of two words "aba", "abcde" is not (no such letter that it occurs more than all other letters in total).
+
+You are given a sequence of n words consisting of letters 'a', 'b', 'c', 'd' and 'e'. Your task is to choose the maximum number of them to make an interesting story. If there's no way to make a non-empty story, output 0.
+
+Input
+
+The first line contains one integer t (1 ≤ t ≤ 5000) — the number of test cases. Then t test cases follow.
+
+The first line of each test case contains one integer n (1 ≤ n ≤ 2 ⋅ 10^5) — the number of the words in the sequence. Then n lines follow, each of them contains a word — a non-empty string consisting of lowercase letters of the Latin alphabet. The words in the sequence may be non-distinct (i. e. duplicates are allowed). Only the letters 'a', 'b', 'c', 'd' and 'e' may occur in the words.
+
+It is guaranteed that the sum of n over all test cases doesn't exceed 2 ⋅ 10^5; the sum of the lengths of all words over all test cases doesn't exceed 4 ⋅ 10^5.
+
+Output
+
+For each test case, output the maximum number of words that compose an interesting story. Print 0 if there's no way to make a non-empty interesting story.
+
+Example
+
+Input
+
+
+6
+3
+bac
+aaada
+e
+3
+aba
+abcde
+aba
+2
+baba
+baba
+4
+ab
+ab
+c
+bc
+5
+cbdca
+d
+a
+d
+e
+3
+b
+c
+ca
+
+
+Output
+
+
+3
+2
+0
+2
+3
+2
+
+Note
+
+In the first test case of the example, all 3 words can be used to make an interesting story. The interesting story is "bac aaada e".
+
+In the second test case of the example, the 1-st and the 3-rd words can be used to make an interesting story. The interesting story is "aba aba". Stephen can't use all three words at the same time.
+
+In the third test case of the example, Stephen can't make a non-empty interesting story. So the answer is 0.
+
+In the fourth test case of the example, Stephen can use the 3-rd and the 4-th words to make an interesting story. The interesting story is "c bc".
+Please generate a Python code to fully solve the problem using the following solution plan:
+- name: 
+Frequency Counting + Brute Force
+- content: 
+- For each possible combination of words from the sequence, calculate the total count of each letter ('a', 'b', 'c', 'd', 'e') that would occur in the combined story.
+- Check if there exists a letter that occurs more times than all other letters combined in the combined story.
+- Keep track of the maximum number of words found so far that can form an interesting story.
+- Return this maximum number as the result.
+Ensure the code includes all necessary module imports and has no Python syntax errors.
+Guidelines:
+- The code should read the input using the 'input()' method and properly parse it according to the problem description.
+- The output should be printed without additional words using the 'print()' method.
+The code must follow the following structure within a markdown block:
+```python
+def f1(...):
+    ...
+    return ...
+
+def f2(...):
+    ...
+    return ...
+...
+if __name__ == "__main__":
+    ...
+```
+Answer:
+```python
+2025-07-20 21:19:31.145 | DEBUG    | llm.ai_handler:chat_completion:124 - response:
+```python
+from itertools import combinations
+
+def is_interesting_story(words):
+    letter_counts = {'a': 0, 'b': 0, 'c': 0, 'd': 0, 'e': 0}
+    for word in words:
+        for letter in word:
+            letter_counts[letter] += 1
+    
+    max_count = max(letter_counts.values())
+    total_count = sum(letter_counts.values()) - max_count
+    
+    return max_count > total_count
+
+def max_interesting_story(words):
+    max_words = 0
+    for i in range(1, len(words) + 1):
+        for combination in combinations(words, i):
+            if is_interesting_story(combination):
+                max_words = max(max_words, len(combination))
+    
+    return max_words
+
+if __name__ == "__main__":
+    t = int(input())
+    for _ in range(t):
+        n = int(input())
+        words = [input().strip() for _ in range(n)]
+        result = max_interesting_story(words)
+        print(result)
+```
+```
+2025-07-20 21:19:31.145 | INFO     | llm.ai_handler:chat_completion:129 - done
+2025-07-20 21:19:31.145 | INFO     | llm.ai_handler:chat_completion:130 - -----------------
+2025-07-20 21:19:31.278 | INFO     | gen.pair_programming:run_iterative_code_finder:46 - [DRIVER] static analyze the code, success: True
+2025-07-20 21:19:31.286 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:82 - compilation results:ProgramStatus.kSuccess
+2025-07-20 21:19:31.286 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:84 - 
+2025-07-20 21:19:31.286 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:85 - 
+2025-07-20 21:19:31.286 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:96 - input:
+6
+3
+bac
+aaada
+e
+3
+aba
+abcde
+aba
+2
+baba
+baba
+4
+ab
+ab
+c
+bc
+5
+cbdca
+d
+a
+d
+e
+3
+b
+c
+ca
+
+2025-07-20 21:19:31.286 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:97 - expected vs code output:
+3
+2
+0
+2
+3
+2
+---
+3
+2
+0
+2
+3
+2
+2025-07-20 21:19:31.286 | INFO     | code_contests.eval.code_test_runners:print_test_results:113 - test-0 :: status=ProgramStatus.kSuccess, passed=True
+2025-07-20 21:19:31.286 | DEBUG    | code_contests.eval.code_test_runners:print_test_results:115 - passed=True
+2025-07-20 21:19:31.288 | INFO     | code_contests.eval.code_test_runners:print_test_results:118 - =====================================================================
+2025-07-20 21:19:31.288 | INFO     | gen.pair_programming:run_iterative_code_finder:69 - Passed tests in plan:0 after 0 attempts
+2025-07-20 21:19:31.289 | INFO     | gen.dataset_solver:solve_dataset:99 - solution code:
+from itertools import combinations
+
+def is_interesting_story(words):
+    letter_counts = {'a': 0, 'b': 0, 'c': 0, 'd': 0, 'e': 0}
+    for word in words:
+        for letter in word:
+            letter_counts[letter] += 1
+    
+    max_count = max(letter_counts.values())
+    total_count = sum(letter_counts.values()) - max_count
+    
+    return max_count > total_count
+
+def max_interesting_story(words):
+    max_words = 0
+    for i in range(1, len(words) + 1):
+        for combination in combinations(words, i):
+            if is_interesting_story(combination):
+                max_words = max(max_words, len(combination))
+    
+    return max_words
+
+if __name__ == "__main__":
+    t = int(input())
+    for _ in range(t):
+        n = int(input())
+        words = [input().strip() for _ in range(n)]
+        result = max_interesting_story(words)
+        print(result)
+2025-07-20 21:19:31.289 | INFO     | gen.dataset_solver:solve_dataset:103 - Evaluating solution on public tests...
+2025-07-20 21:19:31.294 | INFO     | gen.dataset_solver:solve_dataset:123 - evaluating solution on private tests...
+2025-07-20 21:19:31.294 | INFO     | gen.dataset_solver:solve_dataset:127 - evaluating solution on generated tests...
+2025-07-20 21:19:31.649 | INFO     | gen.dataset_solver:solve_dataset:131 - 
+test_passed_public: 1, test_failed_public: 0, test_timeout_public: 0
+test_passed_private: 0, test_failed_private: 0, test_timeout_private: 0
+test_passed_generate: 200, test_failed_generate: 0, test_timeout_generate: 0
+
+2025-07-20 21:19:31.650 | INFO     | gen.dataset_solver:solve_dataset:147 - PairCoder solved problem 11 in iteration 0
