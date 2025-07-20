@@ -22,8 +22,14 @@ PairCoder is a pair programming approach that uses large language models (LLMs) 
 ├──eval/
 │   ├── paircoder_combined_results.csv    
 │   ├── paircoder_detailed_codecontest.csv
+│   ├── paircoder_detailed_codecontest_test.csv
+│   ├── paircoder_detailed_codecontest_valid.csv
 │   ├── paircoder_detailed_humaneval.csv 
+│   ├── paircoder_detailed_humaneval_plus.csv
+│   ├── paircoder_detailed_humaneval_raw.csv
 │   ├── paircoder_detailed_mbpp.csv 
+│   ├── paircoder_detailed_mbpp_plus.csv
+│   ├── paircoder_detailed_mbpp_test.csv
 │   └── paircoder_summary.csv    
 │              
 ├── README.md                           
@@ -50,9 +56,16 @@ PairCoder is a pair programming approach that uses large language models (LLMs) 
 
 The evaluation analyzes the performance of PairCoder using GPT-3.5-turbo across all three benchmark datasets. Detailed results are available in the CSV files:
 
-- `paircoder_summary.csv`: High-level statistics for each dataset
-- `paircoder_combined_results.csv`: All results in a single file
-- `paircoder_detailed_*.csv`: Problem-by-problem breakdown for each dataset
+- `paircoder_summary.csv`: High-level statistics for each dataset and subtype
+- `paircoder_combined_results.csv`: All results in a single file with subtype information
+- `paircoder_detailed_*.csv`: Problem-by-problem breakdown for each dataset (combined)
+- `paircoder_detailed_*_subtype.csv`: Problem-by-problem breakdown for each dataset subtype
+  - `paircoder_detailed_codecontest_test.csv`: CodeContest test set results
+  - `paircoder_detailed_codecontest_valid.csv`: CodeContest validation set results
+  - `paircoder_detailed_humaneval_plus.csv`: HumanEval+ results
+  - `paircoder_detailed_humaneval_raw.csv`: HumanEval raw results
+  - `paircoder_detailed_mbpp_plus.csv`: MBPP+ results
+  - `paircoder_detailed_mbpp_test.csv`: MBPP test set results
 
 ## Running the Evaluation
 

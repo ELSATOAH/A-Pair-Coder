@@ -6,8 +6,10 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 
 
-def find_log_directories(base_path: str) -> Dict[str, List[str]]:
-    """Find all log directories in the specified path structure."""
+def find_log_directories(base_path: str) -> Dict[str, List[Tuple[str, str]]]:
+    """Find all log directories in the specified path structure.
+    Returns a dict where each key is a dataset type and each value is a list of tuples (results_path, subtype).
+    """
     log_dirs = {
         'codecontest': [],
         'humaneval': [],
@@ -24,11 +26,14 @@ def find_log_directories(base_path: str) -> Dict[str, List[str]]:
     for dataset in ['codecontest', 'humaneval', 'mbpp']:
         dataset_path = logs_base / dataset
         if dataset_path.exists():
-            # Recursively find results directories
+            # Recursively find results directories and track their subtype
             for root, dirs, files in os.walk(dataset_path):
                 if 'results' in dirs:
                     results_path = os.path.join(root, 'results')
-                    log_dirs[dataset].append(results_path)
+                    # Extract the subtype from the path (e.g., 'test', 'plus', 'valid', 'raw')
+                    rel_path = os.path.relpath(root, dataset_path)
+                    subtype = rel_path.split(os.sep)[0] if os.sep in rel_path else rel_path
+                    log_dirs[dataset].append((results_path, subtype))
     
     return log_dirs
 
@@ -152,7 +157,7 @@ def analyze_log_file(log_file: str) -> Dict:
     return log_info
 
 
-def process_results_directory(results_dir: str, dataset_name: str) -> Tuple[List[Dict], Dict]:
+def process_results_directory(results_dir: str, dataset_name: str, subtype: str) -> Tuple[List[Dict], Dict]:
     """Process a single results directory."""
     solutions_file = os.path.join(results_dir, 'solutions.json')
     
@@ -163,9 +168,10 @@ def process_results_directory(results_dir: str, dataset_name: str) -> Tuple[List
     
     results = parse_solutions_json(solutions_file)
     
-    # Add dataset name and directory info to results
+    # Add dataset name, subtype, and directory info to results
     for result in results:
         result['dataset_name'] = dataset_name
+        result['subtype'] = subtype
         result['results_directory'] = results_dir
     
     # Analyze log files
@@ -204,8 +210,11 @@ def calculate_summary_stats(df: pd.DataFrame) -> Dict:
 
 def main():
     # Configuration
-    base_path = r"/path/to/your/logs"  # Change this to your logs base path
-    output_dir = r"/path/to/your/output"  # Change this to your output directory
+    base_path = r"c:\Users\Taylan\Desktop\ML\seeee\A-Pair-Coder\Examples\PairCoder-main"  # Change this to your logs base path
+    output_dir = r"c:\Users\Taylan\Desktop\ML\seeee\A-Pair-Coder\eval"  # Change this to your output directory
+
+    # Ensure output directory exists
+    os.makedirs(output_dir, exist_ok=True)
 
     # Find all log directories
     log_dirs = find_log_directories(base_path)
@@ -213,11 +222,12 @@ def main():
     print("Found log directories:")
     for dataset, dirs in log_dirs.items():
         print(f"  {dataset}: {len(dirs)} directories")
-        for dir_path in dirs:
-            print(f"    - {dir_path}")
+        for dir_path, subtype in dirs:
+            print(f"    - {subtype}: {dir_path}")
     
     all_results = []
     dataset_summaries = {}
+    subtype_results = {}  # To store results by dataset_subtype combination
     
     # Process each dataset
     for dataset_name, results_directories in log_dirs.items():
@@ -229,24 +239,25 @@ def main():
         
         dataset_results = []
         
-        for results_dir in results_directories:
-            print(f"  Processing: {results_dir}")
-            results, log_analysis = process_results_directory(results_dir, dataset_name)
+        for results_dir, subtype in results_directories:
+            print(f"  Processing: {subtype} - {results_dir}")
+            results, log_analysis = process_results_directory(results_dir, dataset_name, subtype)
             dataset_results.extend(results)
             all_results.extend(results)
+            
+            # Store results by subtype for separate CSV files
+            dataset_subtype_key = f"{dataset_name}_{subtype}"
+            if dataset_subtype_key not in subtype_results:
+                subtype_results[dataset_subtype_key] = []
+            subtype_results[dataset_subtype_key].extend(results)
         
         if dataset_results:
-            # Create DataFrame for this dataset
+            # Create DataFrame for this dataset (all subtypes combined)
             df = pd.DataFrame(dataset_results)
             
             # Calculate summary statistics
             summary = calculate_summary_stats(df)
             dataset_summaries[dataset_name] = summary
-            
-            # Save detailed CSV for this dataset
-            detailed_csv = os.path.join(output_dir, f"paircoder_detailed_{dataset_name}.csv")
-            df.to_csv(detailed_csv, index=False)
-            print(f"  Detailed results saved to: {detailed_csv}")
             
             # Print summary
             print(f"  Summary:")
@@ -254,6 +265,19 @@ def main():
             print(f"    Passed: {summary['passed_problems']} ({summary['accuracy_percent']:.1f}%)")
             print(f"    Failed: {summary['failed_problems']}")
             print(f"    No tests: {summary['no_test_problems']}")
+    
+    # Save separate CSV files for each dataset_subtype combination
+    print(f"\nSaving separate detailed files for each subtype...")
+    for dataset_subtype_key, results in subtype_results.items():
+        if results:
+            df = pd.DataFrame(results)
+            detailed_csv = os.path.join(output_dir, f"paircoder_detailed_{dataset_subtype_key}.csv")
+            df.to_csv(detailed_csv, index=False)
+            print(f"  Detailed results saved to: {detailed_csv}")
+            
+            # Calculate and print subtype summary
+            summary = calculate_summary_stats(df)
+            print(f"    {dataset_subtype_key} Summary: {summary['passed_problems']}/{summary['total_problems']} ({summary['accuracy_percent']:.1f}%)")
     
     # Create combined results
     if all_results:
@@ -283,14 +307,26 @@ def main():
             overall_total += summary['total_problems']
             overall_passed += summary['passed_problems']
         
+        # Show breakdown by subtype
+        print(f"\nBREAKDOWN BY SUBTYPE:")
+        for dataset_subtype_key, results in subtype_results.items():
+            if results:
+                df = pd.DataFrame(results)
+                summary = calculate_summary_stats(df)
+                print(f"  {dataset_subtype_key}: {summary['passed_problems']}/{summary['total_problems']} ({summary['accuracy_percent']:.1f}%)")
+        
         if overall_total > 0:
             overall_accuracy = (overall_passed / overall_total * 100)
             print(f"\nOVERALL ACCURACY: {overall_passed}/{overall_total} ({overall_accuracy:.1f}%)")
         
-        # Create summary CSV
-        summary_df = pd.DataFrame([
-            {
+        # Create summary CSV (including subtype breakdown)
+        summary_rows = []
+        
+        # Add dataset-level summaries
+        for dataset_name, summary in dataset_summaries.items():
+            summary_rows.append({
                 'dataset': dataset_name,
+                'subtype': 'all',
                 'total_problems': summary['total_problems'],
                 'passed_problems': summary['passed_problems'],
                 'failed_problems': summary['failed_problems'],
@@ -300,10 +336,29 @@ def main():
                 'total_tests_passed': summary['total_tests_passed'],
                 'total_tests_failed': summary['total_tests_failed'],
                 'total_tests_timeout': summary['total_tests_timeout']
-            }
-            for dataset_name, summary in dataset_summaries.items()
-        ])
+            })
         
+        # Add subtype-level summaries
+        for dataset_subtype_key, results in subtype_results.items():
+            if results:
+                df = pd.DataFrame(results)
+                summary = calculate_summary_stats(df)
+                dataset_name, subtype = dataset_subtype_key.split('_', 1)
+                summary_rows.append({
+                    'dataset': dataset_name,
+                    'subtype': subtype,
+                    'total_problems': summary['total_problems'],
+                    'passed_problems': summary['passed_problems'],
+                    'failed_problems': summary['failed_problems'],
+                    'no_test_problems': summary['no_test_problems'],
+                    'accuracy_percent': summary['accuracy_percent'],
+                    'total_tests_run': summary['total_tests_run'],
+                    'total_tests_passed': summary['total_tests_passed'],
+                    'total_tests_failed': summary['total_tests_failed'],
+                    'total_tests_timeout': summary['total_tests_timeout']
+                })
+        
+        summary_df = pd.DataFrame(summary_rows)
         summary_csv = os.path.join(output_dir, "paircoder_summary.csv")
         summary_df.to_csv(summary_csv, index=False)
         print(f"\nSummary statistics saved to: {summary_csv}")
