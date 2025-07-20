@@ -20,16 +20,12 @@ PairCoder is a pair programming approach that uses large language models (LLMs) 
 │       ├── humaneval/
 │       └── mbpp/
 ├──eval/
-│   ├── paircoder_combined_results.csv  
-│   ├── paircoder_combined_results.pdf    
+│   ├── paircoder_combined_results.csv    
 │   ├── paircoder_detailed_codecontest.csv
-│   ├── paircoder_detailed_codecontest.pdf
 │   ├── paircoder_detailed_humaneval.csv 
-│   ├── paircoder_detailed_humaneval.pdf   
 │   ├── paircoder_detailed_mbpp.csv 
-│   ├── paircoder_detailed_mbpp.pdf
-│   ├── paircoder_summary.csv    
-│   └── paircoder_summary.pdf             
+│   └── paircoder_summary.csv    
+│              
 ├── README.md                           
 ├── evaluate.py                         
 └── seminar.pdf                         
