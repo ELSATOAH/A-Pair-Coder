@@ -70,11 +70,6 @@ The evaluation analyzes the performance of PairCoder using GPT-3.5-turbo across 
 ## Running the Evaluation
 
 
-change paths:
-```bash
-base_path = r"/path/to/your/logs"  # Change this to your logs base path
-output_dir = r"/path/to/your/output"  # Change this to your output directory
-```
 To reproduce the evaluation results:
 ```bash
 python evaluate.py
