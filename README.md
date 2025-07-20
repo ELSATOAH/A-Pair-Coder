@@ -9,9 +9,6 @@ PairCoder is a pair programming approach that uses large language models (LLMs) 
 ## Repository Structure
 
 ```
-├── README.md                           
-├── evaluate.py                         
-├── seminar.pdf                         
 ├── presentation/                       
 │   ├── paircoder_Beamer_presentation.pdf
 │   ├── paircoder-architecture.png
@@ -22,11 +19,21 @@ PairCoder is a pair programming approach that uses large language models (LLMs) 
 │       ├── codecontest/
 │       ├── humaneval/
 │       └── mbpp/
-├── paircoder_combined_results.csv      
-├── paircoder_detailed_codecontest.csv  
-├── paircoder_detailed_humaneval.csv    
-├── paircoder_detailed_mbpp.csv         
-└── paircoder_summary.csv              
+├──eval/
+│   ├── paircoder_combined_results.csv  
+│   ├── paircoder_combined_results.pdf    
+│   ├── paircoder_detailed_codecontest.csv
+│   ├── paircoder_detailed_codecontest.pdf
+│   ├── paircoder_detailed_humaneval.csv 
+│   ├── paircoder_detailed_humaneval.pdf   
+│   ├── paircoder_detailed_mbpp.csv 
+│   ├── paircoder_detailed_mbpp.pdf
+│   ├── paircoder_summary.csv    
+│   └── paircoder_summary.pdf             
+├── README.md                           
+├── evaluate.py                         
+└── seminar.pdf                         
+
 ```
 
 ## Evaluation Results
