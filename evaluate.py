@@ -204,9 +204,9 @@ def calculate_summary_stats(df: pd.DataFrame) -> Dict:
 
 def main():
     # Configuration
-    base_path = r"C:\Users\tayla\OneDrive\Dokumente\Paircoder\A-Pair-Coder\Examples\PairCoder-main"
-    output_dir = r"C:\Users\tayla\OneDrive\Dokumente\Paircoder\A-Pair-Coder"
-    
+    base_path = r"/path/to/your/logs"  # Change this to your logs base path
+    output_dir = r"/path/to/your/output"  # Change this to your output directory
+
     # Find all log directories
     log_dirs = find_log_directories(base_path)
     
