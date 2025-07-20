@@ -210,8 +210,8 @@ def calculate_summary_stats(df: pd.DataFrame) -> Dict:
 
 def main():
     # Configuration
-    base_path = r"c:\Users\Taylan\Desktop\ML\seeee\A-Pair-Coder\Examples\PairCoder-main"  # Change this to your logs base path
-    output_dir = r"c:\Users\Taylan\Desktop\ML\seeee\A-Pair-Coder\eval"  # Change this to your output directory
+    base_path = r"\Examples\PairCoder-main"  
+    output_dir = r"\A-Pair-Coder\eval" 
 
     # Ensure output directory exists
     os.makedirs(output_dir, exist_ok=True)
