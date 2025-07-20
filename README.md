@@ -31,7 +31,8 @@ PairCoder is a pair programming approach that uses large language models (LLMs) 
 │   ├── paircoder_detailed_mbpp_plus.csv
 │   ├── paircoder_detailed_mbpp_test.csv
 │   └── paircoder_summary.csv    
-│              
+│
+├── PairCoderNotebook.ipynb             
 ├── README.md                           
 ├── evaluate.py                         
 └── seminar.pdf                         
@@ -104,6 +105,9 @@ This script will:
 ### Source Data
 - `Examples/PairCoder-main/logs/`: Raw experimental logs and results
 - Each subdirectory contains solutions.json and detailed log files
+
+### Practical Example
+- `PairCoderNotebook.ipynb`: A small example of how Navigator and Driver work
 
 ## Methodology
 
