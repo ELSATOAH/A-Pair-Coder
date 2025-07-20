@@ -56,8 +56,13 @@ The evaluation analyzes the performance of PairCoder using GPT-3.5-turbo across 
 
 ## Running the Evaluation
 
-To reproduce the evaluation results:
 
+change paths:
+```bash
+base_path = r"/path/to/your/logs"  # Change this to your logs base path
+output_dir = r"/path/to/your/output"  # Change this to your output directory
+```
+To reproduce the evaluation results:
 ```bash
 python evaluate.py
 ```
@@ -112,7 +117,7 @@ This work is part of a seminar on **Machine Learning in Software Engineering**, 
 
 ## Citation
 
-If you use these evaluation results or methodology in your research, please cite the original PairCoder work and this evaluation.
+If you use these evaluation results or methodology in your research, please cite all included paper works and this evaluation.
 
 PairCoder:
 ```bibtex
@@ -169,8 +174,6 @@ MapCoder:
       url={https://arxiv.org/abs/2405.11403}
 }
 ```
-
-
 
 ## Contact
 
