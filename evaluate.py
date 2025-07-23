@@ -172,8 +172,7 @@ def process_results_directory(results_dir: str, dataset_name: str, subtype: str)
     for result in results:
         result['dataset_name'] = dataset_name
         result['subtype'] = subtype
-        result['results_directory'] = results_dir
-    
+
     # Analyze log files
     log_files = [f for f in os.listdir(results_dir) if f.endswith('.log')]
     log_analysis = {}
@@ -210,8 +209,9 @@ def calculate_summary_stats(df: pd.DataFrame) -> Dict:
 
 def main():
     # Configuration
-    base_path = r"\Examples\PairCoder-main"  
-    output_dir = r"\A-Pair-Coder\eval" 
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    base_path = os.path.join(script_dir, "Examples", "PairCoder-main")
+    output_dir = os.path.join(script_dir, "eval")
 
     # Ensure output directory exists
     os.makedirs(output_dir, exist_ok=True)
