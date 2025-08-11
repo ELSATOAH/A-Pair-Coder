@@ -3,6 +3,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
+\documentclass{article}
+\usepackage{booktabs}
+\usepackage{multirow}
 \usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage{hyperref}
@@ -142,6 +145,7 @@ The core metric used in evaluation is \textit{pass@1}, which measures the rate a
 
 Compared to prompting strategies (e.g., CoT, Self-planning) and refinement-based baselines (e.g., Self-debugging, INTERVENOR), PairCoder consistently delivered higher accuracy. The advantage was especially pronounced in difficult tasks with logical traps and limited public test coverage.
 
+<<<<<<< HEAD
 \subsection{What did we get?}
 
 To verífy the Evaluation, we did our own attempts.
@@ -152,6 +156,40 @@ To verífy the Evaluation, we did our own attempts.
 When looking at the results, that we managed to get similar results as stated in the paper.
 Although looking closer, it is visible that CodeContest not necessarly representable, the reason for this is, that through trouble with the tooling code, it got stuck several times
 
+=======
+\shbsection{What did we get?}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l l r r}
+  \toprule
+  \textbf{Benchmark} & \textbf{Split} & \textbf{Score (\%)} & \textbf{Overall (\%)} \\
+  \midrule
+  mbpp        & test  & 76.74 & \multirow{2}{*}{79.37} \\
+  mbpp        & plus  & 85.00 & \\
+  \midrule
+  humaneval   & raw   & 90.00 & \multirow{2}{*}{67.50} \\
+  humaneval   & plus  & 45.00 & \\
+  \midrule
+  codecontest & test  &  0.00 & \multirow{2}{*}{27.78} \\
+  codecontest & valid & 38.46 & \\
+  \bottomrule
+\end{tabular}
+\caption{Benchmark results for different datasets and splits.}
+\label{tab:benchmark_results}
+\end{table}
+
+\begin{itemize}
+  \item \textbf{MBPP:} 63 tests in total, combining “test” and “plus” subsets.
+  \item \textbf{HumanEval:} 40 tests, with “raw” representing original tasks and “plus” including augmented cases.
+  \item \textbf{CodeContest:} 18 tests, split into “test” and “valid” sets.
+\end{itemize}
+
+\noindent
+Overall, the model demonstrates strong performance on MBPP and HumanEval’s raw set, but 
+struggles with HumanEval-Plus and CodeContest, indicating weaker generalization to 
+competitive programming-style problems
+>>>>>>> 689d19eb02481c8a2deddc9cbf0b23acc7cdafd2
 
 
 \subsection{Ablation Studies}
