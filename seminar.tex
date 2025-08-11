@@ -142,6 +142,18 @@ The core metric used in evaluation is \textit{pass@1}, which measures the rate a
 
 Compared to prompting strategies (e.g., CoT, Self-planning) and refinement-based baselines (e.g., Self-debugging, INTERVENOR), PairCoder consistently delivered higher accuracy. The advantage was especially pronounced in difficult tasks with logical traps and limited public test coverage.
 
+\subsection{What did we get?}
+
+To verífy the Evaluation, we did our own attempts.
+
+
+
+
+When looking at the results, that we managed to get similar results as stated in the paper.
+Although looking closer, it is visible that CodeContest not necessarly representable, the reason for this is, that through trouble with the tooling code, it got stuck several times
+
+
+
 \subsection{Ablation Studies}
 Ablation experiments were conducted to assess the contribution of each component:
 \begin{itemize}
@@ -267,7 +279,7 @@ Experiments with different values of $k$ (number of plans) on HumanEval and Code
 Thus, increasing $k$ or the iteration cap may yield modest improvements at higher cost.
 
 \subsection{Few-Shot Prompting}
-Potential improvements may be realized through few-shot prompting techniques, which could surpass zero-shot accuracy. However, the selection of demonstrations for in-context learning poses a significant challenge, which can greatly influence the behavior of LLMs~\cite{ref3}.
+Potential improvements may be realized through few-shot prompting techniques, which could surpass zero-shot accuracy. However, the selection of demonstrations for in-context learning poses a significant challenge, which can greatly influence the behavior of LLMs~\cite{islam2024mapcodermultiagentcodegeneration}.
 
 \section{Threats to Validity}
 
@@ -295,7 +307,7 @@ Guided Code Generation was evaluated using LLaMA 3.1 8B in int4 quantized form d
 PairCoder, Guided Code Generation, and MapCoder all rely on iteration caps (e.g., 10 repair loops or $k$ plans). The choice of these hyperparameters can dramatically alter performance. The reported results often reflect optimally chosen values found through internal tuning, which may not generalize across users or unseen problem types \cite{zhang2024paircoder, islam2024mapcodermultiagentcodegeneration}.
 
 \subsection*{8. Autonomy vs. Oracle Feedback}
-In frameworks like MapCoder, all corrections are derived from internal feedback using only sample I/O. In contrast, Self-Debugging assumes access to test execution environments or simulation traces. These differences introduce variance in the robustness of model behavior under noisy or incomplete feedback conditions \cite{almorsi2025guided, islam2024mapcoder}.
+In frameworks like MapCoder, all corrections are derived from internal feedback using only sample I/O. In contrast, Self-Debugging assumes access to test execution environments or simulation traces. These differences introduce variance in the robustness of model behavior under noisy or incomplete feedback conditions \cite{almorsi2025guided, islam2024mapcodermultiagentcodegeneration}.
 
 Overall, while PairCoder and its peers advance the field significantly, careful consideration must be given to how benchmarks, model scale, evaluation settings, and feedback assumptions shape outcomes. Future work should adopt stricter experimental protocols, larger and more diverse datasets, and ideally include human evaluation for holistic assessment.
 
@@ -324,7 +336,7 @@ Finally, Self-Debugging~\cite{chen2024selfdebugging} presents a more lightweight
 
 In summary, this comparison shows that different approaches are suited to different types of code generation challenges. PairCoder’s strength lies in dynamic iteration and plan refinement; Guided Code is better at structural decomposition; MapCoder is somewhere in between with modular design; and Self-Debugging emphasizes introspection and clarity. Combining these ideas could lead to even better systems in the future.
 
-Despite the impressive results reported in the original paper, it is worth mentioning that our own attempt to test or replicate the PairCoder implementation (from the official GitHub repository) did not succeed. The system either failed to produce correct results for some test problems or encountered runtime issues during execution. This suggests that while the conceptual framework is sound, the practical implementation may require further refinement, better documentation, or additional tuning to work reliably out of the box. It also highlights a common issue in machine learning research: reproducibility remains a challenge, especially for complex multi-agent systems.
+The impressive results reported in the original paper, have been verified by our own attempts of recreating those test. Even thought the test were not as large as those from the paper, because of runtime issues, but this suggests that while the conceptual framework is sound, the practical implementation may require further refinement, better documentation, or additional tuning to work reliably out of the box. It also highlights a common issue in machine learning research: reproducibility remains a challenge, especially for complex multi-agent systems.
 
 
 \section{Conclusion and Future Work}
